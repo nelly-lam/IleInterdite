@@ -1,6 +1,5 @@
 package Model;
 
-import javafx.scene.control.Cell;
 import java.util.HashMap;
 
 public class Island {

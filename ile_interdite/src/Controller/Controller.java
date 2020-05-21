@@ -1,13 +1,15 @@
 package Controller;
 
+import Model.Island;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener {
-    private final Model model;
+    private final Island island;
 
-    public Controller(Model model) {
-        this.model = model;
+    public Controller(Island island) {
+        this.island = island;
     }
 
     @Override

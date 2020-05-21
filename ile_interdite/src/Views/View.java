@@ -1,16 +1,18 @@
 package Views;
 
+import Model.Island;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class View {
-    private final Model model;
+    private final Island model;
     private JFrame frame;
     private ViewGrid grid;
     private ViewCommand command;
 
-    public View(Model model) {
-        this.model = model;
+    public View(Island island) {
+        this.model = island;
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
         this.frame.setLayout(new FlowLayout());

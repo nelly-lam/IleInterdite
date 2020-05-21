@@ -18,4 +18,5 @@ public class Player {
     public int getIdJ() {
         return this.idPlayer;
     }
+
 }

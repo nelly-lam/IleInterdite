@@ -5,7 +5,8 @@ import java.util.Observable;
 import java.util.Random;
 
 public class Island extends Observable {
-    public HashMap<Coord, Cell> board;
+    //public HashMap<Coord, Cell> board;
+    public Cell[][] board;
     public int width;
     public int height;
     Random random = new Random();
@@ -13,8 +14,9 @@ public class Island extends Observable {
     public Island(int w, int h){
         this.width = w;
         this.height = h;
-        this.board = new HashMap<Coord, Cell>();
 
+        //this.board = new HashMap<Coord, Cell>();
+        this.board = new Cell[this.width][this.height];
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4
         //artifact on va en avoir 4
@@ -24,7 +26,8 @@ public class Island extends Observable {
             for(int j = 0; j < this.height; j++){
                 Coord l = new Coord(i,j);
                 Cell c = new Cell(false, Cell.Element.None, Cell.Element.None);
-                board.put(l, c);
+                //board.put(l, c);
+                this.board[i][j] = new Cell(this,i, j);
             }
             //creer une cell pour chaque i
             //donner une Model.Location qui augmente en x et y en fonction de width et height
@@ -33,10 +36,15 @@ public class Island extends Observable {
         }
     }
 
+    public Cell getCellule(int x, int y) {
+        return board[x][y];
+    }
+
     public void risingWater() {
         int nbcell = 0;
         while (nbcell < 3) {
-            Cell cell = this.board.get(new Coord(random.nextInt(this.width), random.nextInt(this.width)));
+            //Cell cell = this.board.get(new Coord(random.nextInt(this.width), random.nextInt(this.height)));
+            Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
             if(!cell.isSubmerged()) {
                 // TODO : Un test lorsqu'il reste moins de 2 cases
                 cell.flood();

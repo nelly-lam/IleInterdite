@@ -95,7 +95,6 @@ public class Player {
         }
      }
 
-
     //dryZone(Cellule c) (position + droite gauche haut bas)
 
 }

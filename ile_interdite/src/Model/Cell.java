@@ -58,16 +58,6 @@ public class Cell extends JPanel{
      * Permet d'inonder puis submerger la cellule
      */
     public void flood(){
-        if(this.state == State.Normal){
-            this.state = State.Flooded;
-        } else if (this.state == State.Flooded){
-            this.state = State.Submerged;
-        }
-    }
-
-    public boolean isSubmerged() { return this.state == State.Submerged; }
-
-    public void changeState() {
         switch(this.state) {
             case Normal:
                 this.state = State.Flooded;
@@ -77,4 +67,10 @@ public class Cell extends JPanel{
                 break;
         }
     }
+
+    /**
+     * Teste si une cellule est submergee
+     */
+    public boolean isSubmerged() { return this.state == State.Submerged; }
+
 }

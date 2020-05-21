@@ -2,11 +2,13 @@ package Model;
 
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Random;
 
 public class Island extends Observable {
     public HashMap<Coord, Cell> board;
     public int width;
     public int height;
+    Random random = new Random();
 
     public Island(int w, int h){
         this.width = w;
@@ -14,15 +16,15 @@ public class Island extends Observable {
         this.board = new HashMap<Coord, Cell>();
 
         //helicoptere 1chance sur width*height
-//      //keys on va en avoir 4
+        //keys on va en avoir 4
         //artifact on va en avoir 4
 
         //nous remplissons la hashmap avec toutes les cellules du plateau
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++){
                 Coord l = new Coord(i,j);
-                Cell c =
-                board.put(l, Cell);
+                Cell c = new Cell(false, Cell.Element.None, Cell.Element.None);
+                board.put(l, c);
             }
             //creer une cell pour chaque i
             //donner une Model.Location qui augmente en x et y en fonction de width et height
@@ -31,11 +33,18 @@ public class Island extends Observable {
         }
     }
 
-
-
-
-
-
+    public void risingWater() {
+        int nbcell = 0;
+        while (nbcell < 3) {
+            Cell cell = this.board.get(new Coord(random.nextInt(this.width), random.nextInt(this.width)));
+            if(!cell.isSubmerged()) {
+                // TODO : Un test lorsqu'il reste moins de 2 cases
+                cell.flood();
+                nbcell++;
+            }
+        }
+        notifyObservers();
+    }
 }
 
 /**

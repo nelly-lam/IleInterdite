@@ -1,11 +1,13 @@
 package Views;
 
+import Model.Island;
+
 import javax.swing.*;
 
 public class ViewGrid extends JPanel {
-    private final Model model;
+    private final Island model;
 
-    public ViewGrid(Model model) {
+    public ViewGrid(Island model) {
         this.model = model;
     }
 }

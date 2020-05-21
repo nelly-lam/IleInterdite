@@ -26,7 +26,7 @@ public class Location {
     /**
      * Change les attributs x et y
      */
-    public void set(int x, int y){
+    public void setXY(int x, int y){
         this.x = x;
         this.y = y;
     }

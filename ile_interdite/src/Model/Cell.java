@@ -64,4 +64,17 @@ public class Cell extends JPanel{
             this.state = State.Submerged;
         }
     }
+
+    public boolean isSubmergee() { return this.state == State.Submerged; }
+
+    public void changeState() {
+        switch(this.state) {
+            case Normal:
+                this.state = State.Flooded;
+                break;
+            case Flooded:
+                this.state = State.Submerged;
+                break;
+        }
+    }
 }

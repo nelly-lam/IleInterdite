@@ -65,7 +65,7 @@ public class Cell extends JPanel{
         }
     }
 
-    public boolean isSubmergee() { return this.state == State.Submerged; }
+    public boolean isSubmerged() { return this.state == State.Submerged; }
 
     public void changeState() {
         switch(this.state) {

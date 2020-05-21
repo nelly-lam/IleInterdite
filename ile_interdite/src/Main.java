@@ -1,6 +1,7 @@
 public class Main {
-    public void main (String[] args) {
+
+    public static void main (String[] args) {
         Model model = new Model();
-        Vue vue = new Vue(model);
+        View vue = new View(model);
     }
 }

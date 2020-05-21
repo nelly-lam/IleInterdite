@@ -1,8 +1,9 @@
 package Model;
 
 import java.util.HashMap;
+import java.util.Observable;
 
-public class Island implements Observable {
+public class Island extends Observable {
     public HashMap<Location, Cell> board;
     public int width;
     public int height;

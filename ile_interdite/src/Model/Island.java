@@ -2,7 +2,7 @@ package Model;
 
 import java.util.HashMap;
 
-public class Island {
+public class Island implements Observable {
     public HashMap<Location, Cell> board;
     public int width;
     public int height;
@@ -12,13 +12,28 @@ public class Island {
         this.height = h;
         this.board = new HashMap<Location, Cell>();
 
-        for(int i = 0; i < this.width * this.height; i++){
+        //helicoptere 1chance sur width*height
+//      //keys on va en avoir 4
+        //artifact on va en avoir 4
+
+        //nous remplissons la hashmap avec toutes les cellules du plateau
+        for(int i = 0; i < this.width; i++){
+            for(int j = 0; j < this.height; j++){
+                Location l = new Location(i,j);
+                Cell c =
+                board.put(l, Cell);
+            }
             //creer une cell pour chaque i
             //donner une Model.Location qui augmente en x et y en fonction de width et height
             //random les keys et artifacts
             //Pas key et artifact du meme element sur la meme case
         }
     }
+
+
+
+
+
 
 }
 

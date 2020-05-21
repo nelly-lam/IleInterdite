@@ -12,11 +12,21 @@ public class Cell extends JPanel{
     public Element artifact;
     public State state;
 
+    public Island model;
+    public int x;
+    public int y;
+
     public Cell(boolean h, Element k, Element a){
         this.helicopter = h;
         this.key = k;
         this.artifact = a;
         this.state = State.Normal;
+    }
+
+    public Cell(Island model, int x, int y) {
+        this.model = model;
+        this.x = x;
+        this.y = y;
     }
 
     /**

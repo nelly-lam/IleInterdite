@@ -24,7 +24,8 @@ public class ViewGrid extends JPanel implements Observer {
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
-                paint(g, this.model.board.get(new Coord(i,j)), (i)*this.taille, (j)*this.taille);
+                //paint(g, this.model.board.get(new Coord(i,j)), i*this.taille, j*this.taille);
+                paint(g, model.getCellule(i, j), i*this.taille, j*this.taille);
             }
         }
     }
@@ -32,7 +33,7 @@ public class ViewGrid extends JPanel implements Observer {
     private void paint(Graphics g, Cell c, int x, int y) {
         switch(c.state) {
             case Normal:
-                g.setColor(Color.WHITE);
+                g.setColor(Color.RED);
                 break;
             case Flooded:
                 g.setColor(Color.BLUE);
@@ -42,6 +43,7 @@ public class ViewGrid extends JPanel implements Observer {
         }
         g.fillRect(x, y, this.taille, this.taille);
     }
+
 
     @Override
     public void update(Observable o, Object arg) {

@@ -5,5 +5,6 @@ public enum Elements {
     Feu,
     Terre,
     Vent,
-    None
+    None,
+    salut,
 }

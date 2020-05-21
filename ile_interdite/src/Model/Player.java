@@ -2,12 +2,12 @@ package Model;
 
 public class Player {
     protected static int idPlayer = 0;
-    private Location location;
+    private Coord location;
     private Cell.Element key[];
     private Cell.Element artifact[];
     private boolean isDead;
 
-    public Player(Location l){
+    public Player(Coord l){
         this.location = l;
         this.isDead = false;
     }

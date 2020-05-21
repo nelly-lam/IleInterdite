@@ -1,10 +1,10 @@
 package Model;
 
-public class Location {
+public class Coord {
     private int x;
     private int y;
 
-    public Location(int x, int y){
+    public Coord(int x, int y){
         this.x = x;
         this.y = y;
     }

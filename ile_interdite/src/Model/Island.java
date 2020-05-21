@@ -24,8 +24,8 @@ public class Island extends Observable {
         //nous remplissons la hashmap avec toutes les cellules du plateau
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++){
-                Coord l = new Coord(i,j);
-                Cell c = new Cell(false, Cell.Element.None, Cell.Element.None);
+                //Coord l = new Coord(i,j);
+                //Cell c = new Cell(false, Cell.Element.None, Cell.Element.None);
                 //board.put(l, c);
                 this.board[i][j] = new Cell(this,i, j);
             }

@@ -2,6 +2,7 @@ package Views;
 
 import Model.Cell;
 import Model.Island;
+import Model.Location;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,7 @@ public class ViewGrid extends JPanel implements Observer {
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
-                paint(g, this.model.getCellule(i, j), (i)*this.taille, (j)*this.taille);
+                paint(g, this.model.board.get(new Location(i,j)), (i)*this.taille, (j)*this.taille);
             }
         }
     }

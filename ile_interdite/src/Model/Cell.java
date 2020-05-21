@@ -2,14 +2,15 @@ package Model;
 
 import javax.swing.*;
 
-enum State{Normal, Flooded, Submerged};
-enum Element{Air, Water, Fire, None};
-
 public class Cell extends JPanel{
-    boolean helicopter;
-    Element key;
-    Element artifact;
-    State state;
+
+    public enum State{Normal, Flooded, Submerged}
+    public enum Element{Air, Water, Fire, None}
+
+    public boolean helicopter;
+    public Element key;
+    public Element artifact;
+    public State state;
 
     public Cell(boolean h, Element k, Element a){
         this.helicopter = h;

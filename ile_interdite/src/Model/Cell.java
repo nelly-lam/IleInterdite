@@ -53,4 +53,15 @@ public class Cell extends JPanel{
     public void updateArtifact(){
         this.artifact = Element.None;
     }
+
+    /**
+     * Permet d'inonder puis submerger la cellule
+     */
+    public void flood(){
+        if(this.state == State.Normal){
+            this.state = State.Flooded;
+        } else if (this.state == State.Flooded){
+            this.state = State.Submerged;
+        }
+    }
 }

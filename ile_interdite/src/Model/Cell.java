@@ -1,8 +1,6 @@
 package Model;
 
-import javax.swing.*;
-
-public class Cell extends JPanel{
+public class Cell {
 
     public enum State{Normal, Flooded, Submerged}
     public enum Element{Air, Water, Fire, None}
@@ -27,6 +25,7 @@ public class Cell extends JPanel{
         this.model = model;
         this.x = x;
         this.y = y;
+        this.state = State.Normal;
     }
 
     /**

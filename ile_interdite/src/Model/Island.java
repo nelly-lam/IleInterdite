@@ -1,11 +1,8 @@
 package Model;
 
-import java.util.HashMap;
-import java.util.Observable;
 import java.util.Random;
 
 public class Island extends Observable {
-    //public HashMap<Coord, Cell> board;
     public Cell[][] board;
     public int width;
     public int height;
@@ -24,9 +21,6 @@ public class Island extends Observable {
         //nous remplissons la hashmap avec toutes les cellules du plateau
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++){
-                //Coord l = new Coord(i,j);
-                //Cell c = new Cell(false, Cell.Element.None, Cell.Element.None);
-                //board.put(l, c);
                 this.board[i][j] = new Cell(this,i, j);
             }
             //creer une cell pour chaque i
@@ -36,7 +30,7 @@ public class Island extends Observable {
         }
     }
 
-    public Cell getCellule(int x, int y) {
+    public Cell getCell(int x, int y) {
         return board[x][y];
     }
 

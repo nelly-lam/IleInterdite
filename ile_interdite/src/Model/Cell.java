@@ -36,18 +36,9 @@ public class Cell {
     }
 
     /**
-     * Teste si la cell possede un artifact
+     * Donne la cle associee a la cellule
      */
-    public boolean hasArtifact(){
-        return this.key != Element.None;
-    }
-
-    /**
-     * Teste si la cell est une case helicoptere
-     */
-    public boolean isHelicopter(){
-        return this.helicopter;
-    }
+    public Element getKey() { return this.key; }
 
     /**
      * Enleve la cle d'une case apres qu'elle soit prise
@@ -57,11 +48,35 @@ public class Cell {
     }
 
     /**
+     * Teste si la cell possede un artifact
+     */
+    public boolean hasArtifact(){
+        return this.artifact != Element.None;
+    }
+
+    /**
      * Enleve l'artefact d'une case apres qu'il soit pris
      */
     public void updateArtifact(){
         this.artifact = Element.None;
     }
+
+    /**
+     * Donne l'artifact associee a la cellule
+     */
+    public Element getArtifact() { return this.artifact; }
+
+    /**
+     * Teste si la cell est une case helicoptere
+     */
+    public boolean isHelicopter(){
+        return this.helicopter;
+    }
+
+    /**
+     * Teste si une cellule est submergee
+     */
+    public boolean isSubmerged() { return this.state == State.Submerged; }
 
     /**
      * Permet d'inonder puis submerger la cellule
@@ -76,10 +91,4 @@ public class Cell {
                 break;
         }
     }
-
-    /**
-     * Teste si une cellule est submergee
-     */
-    public boolean isSubmerged() { return this.state == State.Submerged; }
-
 }

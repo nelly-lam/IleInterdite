@@ -1,3 +1,7 @@
+package Model;
+
+import Views.Observer;
+
 import java.util.ArrayList;
 
 public abstract class Observable {

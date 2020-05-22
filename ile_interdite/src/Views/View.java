@@ -15,7 +15,7 @@ public class View {
         this.model = island;
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
-        this.frame.setLayout(new FlowLayout());
+        this.frame.setLayout(new GridLayout());
         this.grid = new ViewGrid(this.model);
         this.frame.add(this.grid);
         this.command = new ViewCommand(this.model);

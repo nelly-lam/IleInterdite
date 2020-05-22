@@ -11,7 +11,7 @@ public class View {
     //private JLayeredPane layer;
     private ViewIsland island;
     private ViewCommand command;
-    //private  ViewPlayer player;
+    private ViewPlayer player;
 
     public View(Island island) {
         this.model = island;
@@ -27,6 +27,8 @@ public class View {
         this.frame.add(this.island);
         this.command = new ViewCommand(this.model);
         this.frame.add(this.command);
+        this.player = new ViewPlayer(this.model);
+        this.frame.addKeyListener(this.player);
         this.frame.pack();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setVisible(true);

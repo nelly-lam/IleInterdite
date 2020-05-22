@@ -14,10 +14,8 @@ public class ViewIsland extends JPanel implements Observer {
     public ViewIsland(Island model) {
         this.model = model;
         this.model.addObserver(this);
-        this.player = new ViewPlayer(this.model);
         Dimension dim = new Dimension(this.size*this.model.width, this.size*this.model.height);
         this.setPreferredSize(dim);
-        this.addKeyListener(new Controller.ControllerPlayer(this.model));
     }
 
     public void paintComponent(Graphics g) {

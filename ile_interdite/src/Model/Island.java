@@ -17,7 +17,7 @@ public class Island extends Observable {
         this.board = new Cell[this.width][this.height];
         //this.players = new ArrayList<Player>();
         //this.players.add(new Player(this, "toto", 10, 10));
-        this.players = new Player(this, "toto", 10, 10);
+        this.players = new Player(this, "toto", 18, 10);
 
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4
@@ -60,7 +60,7 @@ public class Island extends Observable {
                 player.move(key);
             }
         }*/
-        player.move(key);
+        this.players.move(key);
         notifyObservers();
     }
 }

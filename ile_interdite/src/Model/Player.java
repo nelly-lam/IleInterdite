@@ -117,16 +117,16 @@ public class Player {
         ArrayList<Cell> cap = new ArrayList<Cell>();
         int playerX = this.getAbs();
         int playerY = this.getOrd();
-        if (playerX != 0) {
+        if (playerY != 0) {
             cap.add(this.model.board[playerX][playerY-1]);
         }
-        if (playerX != this.model.height) {
+        if (playerY != this.model.height) {
             cap.add(this.model.board[playerX][playerY+1]);
         }
-        if (playerY != this.model.width) {
+        if (playerX != this.model.width) {
             cap.add(this.model.board[playerX+1][playerY]);
         }
-        if (playerY != 0) {
+        if (playerX != 0) {
             cap.add(this.model.board[playerX-1][playerY]);
         }
         return cap;

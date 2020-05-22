@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     protected static int idPlayer = 0;
-    private Island island;
+    private Island model;
     //private Coord location;
     private int abs;
     private int ord;
@@ -13,7 +13,8 @@ public class Player {
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
-    public Player(String name, int x, int y){
+    public Player(Island model, String name, int x, int y){
+        this.model = model;
         this.name = name;
         this.idPlayer++;
         this.abs = x;
@@ -26,8 +27,8 @@ public class Player {
      * méthode initPlayer() : initialise le player sur un island, sur la cell du milieu
      */
     public void initPlayer(){
-        this.abs = this.island.width/2;
-        this.ord = this.island.height/2;
+        this.abs = this.model.width/2;
+        this.ord = this.model.height/2;
         //this.location = new Coord(this.island.width/2, this.island.height/2);
     }
 
@@ -95,16 +96,16 @@ public class Player {
         int playerX = this.getAbs();
         int playerY = this.getOrd();
         if (playerX != 0) {
-            cap.add(this.island.board[playerX][playerY-1]);
+            cap.add(this.model.board[playerX][playerY-1]);
         }
-        if (playerX != this.island.height) {
-            cap.add(this.island.board[playerX][playerY+1]);
+        if (playerX != this.model.height) {
+            cap.add(this.model.board[playerX][playerY+1]);
         }
-        if (playerY != this.island.width) {
-            cap.add(this.island.board[playerX+1][playerY]);
+        if (playerY != this.model.width) {
+            cap.add(this.model.board[playerX+1][playerY]);
         }
         if (playerY != 0) {
-            cap.add(this.island.board[playerX-1][playerY]);
+            cap.add(this.model.board[playerX-1][playerY]);
         }
         return cap;
     }
@@ -139,7 +140,7 @@ public class Player {
     public void die(){
         ArrayList<Cell> cap = cellAroundPlayer();
         int compteur = 0;
-        if (island.board[this.getAbs()][this.getOrd()].state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
+        if (model.board[this.getAbs()][this.getOrd()].state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
             System.out.println("Mskn you are dead");
             this.isDead = true;
         } else {

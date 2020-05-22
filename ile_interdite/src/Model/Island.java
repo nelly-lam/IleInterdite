@@ -1,19 +1,22 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Island extends Observable {
     public Cell[][] board;
     public int width;
     public int height;
+    public ArrayList<Player> players;
     Random random = new Random();
 
     public Island(int w, int h){
         this.width = w;
         this.height = h;
-
-        //this.board = new HashMap<Coord, Cell>();
         this.board = new Cell[this.width][this.height];
+        this.players = new ArrayList<Player>();
+        this.players.add(new Player(this, "toto", 10, 10));
+
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4
         //artifact on va en avoir 4
@@ -28,6 +31,7 @@ public class Island extends Observable {
             //random les keys et artifacts
             //Pas key et artifact du meme element sur la meme case
         }
+
     }
 
     public Cell getCell(int x, int y) {
@@ -37,7 +41,6 @@ public class Island extends Observable {
     public void risingWater() {
         int nbcell = 0;
         while (nbcell < 3) {
-            //Cell cell = this.board.get(new Coord(random.nextInt(this.width), random.nextInt(this.height)));
             Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
             if(!cell.isSubmerged()) {
                 // TODO : Un test lorsqu'il reste moins de 2 cases

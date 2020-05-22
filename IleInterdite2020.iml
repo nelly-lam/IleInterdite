@@ -7,5 +7,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="JUnit5.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-jupiter-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-jupiter-api-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/apiguardian-api-1.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/opentest4j-1.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-platform-commons-1.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-jupiter-params-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-jupiter-engine-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../../Programming/Junit/junit-platform-engine-1.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -6,17 +6,15 @@ import Model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
 
 public class ViewGrid extends JPanel implements Observer {
     private final Island model;
-    private static final int taille = 25;
+    private static final int size = 25;
 
     public ViewGrid(Island model) {
         this.model = model;
         this.model.addObserver(this);
-        Dimension dim = new Dimension(this.taille*this.model.width, this.taille*this.model.height);
+        Dimension dim = new Dimension(this.size*this.model.width, this.size*this.model.height);
         this.setPreferredSize(dim);
     }
 
@@ -25,7 +23,7 @@ public class ViewGrid extends JPanel implements Observer {
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
                 //paint(g, this.model.board.get(new Coord(i,j)), i*this.taille, j*this.taille);
-                paint(g, model.getCellule(i, j), i*this.taille, j*this.taille);
+                paint(g, model.getCell(i, j), i*this.size, j*this.size);
             }
         }
     }
@@ -33,20 +31,19 @@ public class ViewGrid extends JPanel implements Observer {
     private void paint(Graphics g, Cell c, int x, int y) {
         switch(c.state) {
             case Normal:
-                g.setColor(Color.WHITE);
+                g.setColor(new Color(255, 186, 10));
                 break;
             case Flooded:
-                g.setColor(Color.BLUE);
+                g.setColor(new Color(130, 159, 217));
                 break;
             case Submerged:
-                g.setColor(Color.BLACK);
+                g.setColor(new Color(35, 10, 89));
         }
-        g.fillRect(x, y, this.taille, this.taille);
+        g.fillRect(x, y, this.size-2, this.size-2);
     }
 
-
     @Override
-    public void update(Observable o, Object arg) {
+    public void update() {
         repaint();
     }
 }

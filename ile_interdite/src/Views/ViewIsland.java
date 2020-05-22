@@ -1,31 +1,33 @@
 package Views;
 
 import Model.Cell;
-import Model.Coord;
 import Model.Island;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewGrid extends JPanel implements Observer {
-    private final Island model;
-    private static final int size = 25;
+public class ViewIsland extends JPanel implements Observer {
+    public final Island model;
+    public ViewPlayer player;
+    public static final int size = 25;
 
-    public ViewGrid(Island model) {
+    public ViewIsland(Island model) {
         this.model = model;
         this.model.addObserver(this);
+        this.player = new ViewPlayer(this.model);
         Dimension dim = new Dimension(this.size*this.model.width, this.size*this.model.height);
         this.setPreferredSize(dim);
+        this.addKeyListener(new Controller.ControllerPlayer(this.model));
     }
 
     public void paintComponent(Graphics g) {
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
-                //paint(g, this.model.board.get(new Coord(i,j)), i*this.taille, j*this.taille);
                 paint(g, model.getCell(i, j), i*this.size, j*this.size);
             }
         }
+        player.paintComponent(g);
     }
 
     private void paint(Graphics g, Cell c, int x, int y) {

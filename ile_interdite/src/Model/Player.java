@@ -13,6 +13,8 @@ public class Player {
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
+    public enum Direction {up, down, right, left}
+
     public Player(Island model, String name, int x, int y){
         this.model = model;
         this.name = name;
@@ -40,6 +42,23 @@ public class Player {
     public String getName(){ return this.name; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
+
+    public void move(Direction key) {
+        switch(key) {
+            case up:
+                this.ord++;
+                break;
+            case down:
+                this.ord--;
+                break;
+            case right:
+                this.abs++;
+                break;
+            case left:
+                this.abs--;
+                break;
+        }
+    }
 
     /*
     //EN CHANTIER
@@ -91,7 +110,7 @@ public class Player {
      * , bas, droite, gauche) situées autour du player
      * @return une ArrayList<Cell> cap
      */
-    public ArrayList<Cell> cellAroundPlayer(){
+    public ArrayList<Cell> nearbyCells(){
         ArrayList<Cell> cap = new ArrayList<Cell>();
         int playerX = this.getAbs();
         int playerY = this.getOrd();
@@ -138,7 +157,7 @@ public class Player {
     */
 
     public void die(){
-        ArrayList<Cell> cap = cellAroundPlayer();
+        ArrayList<Cell> cap = nearbyCells();
         int compteur = 0;
         if (model.board[this.getAbs()][this.getOrd()].state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
             System.out.println("Mskn you are dead");

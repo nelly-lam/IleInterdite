@@ -91,4 +91,8 @@ public class Cell {
                 break;
         }
     }
+
+    public String toString(){
+        return x + ", " + y;
+    }
 }

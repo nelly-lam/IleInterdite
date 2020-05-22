@@ -22,16 +22,8 @@ public class Player {
         this.abs = x;
         this.ord = y;
         this.isDead = false;
-    }
-
-
-    /**
-     * méthode initPlayer() : initialise le player sur un island, sur la cell du milieu
-     */
-    public void initPlayer(){
-        this.abs = this.model.width/2;
-        this.ord = this.model.height/2;
-        //this.location = new Coord(this.island.width/2, this.island.height/2);
+        key = new ArrayList<Cell.Element>();
+        artifact = new ArrayList<Cell.Element>();
     }
 
     /**

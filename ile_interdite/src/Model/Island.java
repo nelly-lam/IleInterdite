@@ -27,6 +27,7 @@ public class Island extends Observable {
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++){
                 this.board[i][j] = new Cell(this,i, j);
+                //TODO ajouter les random pour les keys et artifacts
             }
             //creer une cell pour chaque i
             //donner une Model.Location qui augmente en x et y en fonction de width et height
@@ -63,21 +64,3 @@ public class Island extends Observable {
         notifyObservers();
     }
 }
-
-/**
-board{
-        JPanel board
-        Hashmap<location, cellule> //permet de garder les cellules
-    int width
-            int height
-
-            constructor board
-            creer une cellule pour chaque location (en comptant width height)
-            random des keys et artifacts en faisant attention a ce que
-            les keys et les artefacts du meme type ne soient pas sur la meme cellule
-            dimensions
-
-            getCellule(Model.Location) //return une cellule a partir d'une position
-            void render() // appeller toutes les methodes render des cellules
-            }
- **/

@@ -33,7 +33,6 @@ public class TestPlayer {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
         p.addKey(Cell.Element.Fire);
-        //TODO add getKey
         for(int i = 0; i < p. )
     }
 
@@ -42,7 +41,6 @@ public class TestPlayer {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
         p.addArtifact(Cell.Element.Fire);
-        //TODO add getArtifact
         for(int i = 0; i < p.)
     }
 
@@ -56,7 +54,6 @@ public class TestPlayer {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
         p.die();
-        //TODO add getIsDead
         assert (p.isDead);
 
     }

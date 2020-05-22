@@ -76,6 +76,7 @@ public class Player {
         this.key.add(e);
     }
 
+    public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
     /**
      * méthode addArtifact() : ajoute un artefact à la liste des artifact du player
      * @param : un Element e
@@ -83,6 +84,8 @@ public class Player {
     public void addArtifact(Cell.Element e){
         this.artifact.add(e);
     }
+
+    public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
     /**  USING HASHMAP
      * méthode cellAroundPlayer() : donne une liste des cell (haut
@@ -174,6 +177,8 @@ public class Player {
             }
         }
     }
+
+    public boolean getIsDead(){ return this.isDead; }
 
     //dryZone(Cellule c) (position + droite gauche haut bas)
 

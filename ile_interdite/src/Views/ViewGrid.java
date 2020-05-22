@@ -33,7 +33,7 @@ public class ViewGrid extends JPanel implements Observer {
     private void paint(Graphics g, Cell c, int x, int y) {
         switch(c.state) {
             case Normal:
-                g.setColor(Color.RED);
+                g.setColor(Color.WHITE);
                 break;
             case Flooded:
                 g.setColor(Color.BLUE);

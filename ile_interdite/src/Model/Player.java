@@ -38,16 +38,24 @@ public class Player {
     public void move(Direction key) {
         switch(key) {
             case up:
-                this.ord++;
+                if(!(this.ord == 0)) {
+                    this.ord--;
+                }
                 break;
             case down:
-                this.ord--;
+                if(!(this.ord == this.model.height-1)) {
+                    this.ord++;
+                }
                 break;
             case right:
-                this.abs++;
+                if(!(this.abs == this.model.width-1)) {
+                    this.abs++;
+                }
                 break;
             case left:
-                this.abs--;
+                if(!(this.abs == 0)) {
+                    this.abs--;
+                }
                 break;
         }
     }

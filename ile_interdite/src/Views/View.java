@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.ControllerMovement;
 import Model.Island;
 
 import javax.swing.*;
@@ -7,28 +8,25 @@ import java.awt.*;
 
 public class View {
     private final Island model;
-    public JFrame frame;
+    public static JFrame frame;
     //private JLayeredPane layer;
     private ViewIsland island;
     private ViewCommand command;
-    private ViewPlayer player;
 
     public View(Island island) {
         this.model = island;
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
         this.frame.setLayout(new GridLayout());
-        //this.player = new ViewPlayer(this.model);
         this.island = new ViewIsland(this.model);
+        this.frame.add(this.island);
         //this.layer = new JLayeredPane();
         //this.layer.add(this.island);
         //this.layer.add(this.player);
-        //this.frame.add(this.layer);
-        this.frame.add(this.island);
         this.command = new ViewCommand(this.model);
         this.frame.add(this.command);
-        this.player = new ViewPlayer(this.model);
-        this.frame.addKeyListener(this.player);
+        this.frame.addKeyListener(new ControllerMovement(this.model));
+        this.frame.setFocusable(true);
         this.frame.pack();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setVisible(true);

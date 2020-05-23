@@ -7,17 +7,17 @@ public class Island extends Observable {
     public Cell[][] board;
     public int width;
     public int height;
-    //public ArrayList<Player> players;
-    public Player players;
+    public ArrayList<Player> players;
+    public static Player playerCourant;
     Random random = new Random();
 
     public Island(int w, int h){
         this.width = w;
         this.height = h;
         this.board = new Cell[this.width][this.height];
-        //this.players = new ArrayList<Player>();
-        //this.players.add(new Player(this, "toto", 10, 10));
-        this.players = new Player(this, "toto", 18, 10);
+        this.players = new ArrayList<Player>();
+        this.players.add(new Player(this, "toto", 18, 10));
+        this.players.add(new Player(this, "titi", 10, 10));
 
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4
@@ -34,7 +34,6 @@ public class Island extends Observable {
             //random les keys et artifacts
             //Pas key et artifact du meme element sur la meme case
         }
-
     }
 
     public Cell getCell(int x, int y) {
@@ -54,13 +53,18 @@ public class Island extends Observable {
         notifyObservers();
     }
 
+    public void play() {
+        for(Player player : this.players) {
+            player.move(key);
+        }
+    }
+
     public void movePlayer(Player player, Player.Direction key) {
-        /*for(Player p : this.players) {
+        for(Player p : this.players) {
             if(p == player) {
                 player.move(key);
             }
-        }*/
-        this.players.move(key);
+        }
         notifyObservers();
     }
 }

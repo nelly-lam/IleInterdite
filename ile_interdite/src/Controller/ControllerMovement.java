@@ -23,16 +23,16 @@ public class ControllerMovement implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                this.model.movePlayer(model.players, Player.Direction.up);
+                this.model.movePlayer(Player.Direction.up);
                 break;
             case KeyEvent.VK_DOWN:
-                this.model.movePlayer(model.players, Player.Direction.down);
+                this.model.movePlayer(Player.Direction.down);
                 break;
             case KeyEvent.VK_LEFT:
-                this.model.movePlayer(model.players, Player.Direction.left);
+                this.model.movePlayer(Player.Direction.left);
                 break;
             case KeyEvent.VK_RIGHT:
-                this.model.movePlayer(model.players, Player.Direction.right);
+                this.model.movePlayer(Player.Direction.right);
         }
     }
 }

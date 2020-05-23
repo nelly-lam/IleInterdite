@@ -2,11 +2,10 @@ package Views;
 
 import Controller.ControllerMovement;
 import Model.Island;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class View {
+public class View implements Observer {
     private final Island model;
     public static JFrame frame;
     //private JLayeredPane layer;
@@ -15,6 +14,7 @@ public class View {
 
     public View(Island island) {
         this.model = island;
+        this.model.addObserver(this);
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
         this.frame.setLayout(new GridLayout());
@@ -30,5 +30,10 @@ public class View {
         this.frame.pack();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setVisible(true);
+    }
+
+    @Override
+    public void update() {
+        this.frame.setFocusable(true);
     }
 }

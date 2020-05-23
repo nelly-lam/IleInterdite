@@ -1,13 +1,14 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Island extends Observable {
     public Cell[][] board;
     public int width;
     public int height;
-    public ArrayList<Player> players;
+    public List<Player> players;
     public static Player playerCourant;
     Random random = new Random();
 
@@ -16,8 +17,7 @@ public class Island extends Observable {
         this.height = h;
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<Player>();
-        this.players.add(new Player(this, "toto", 18, 10));
-        this.players.add(new Player(this, "titi", 10, 10));
+        this.addPlayer("toto");
 
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4
@@ -40,6 +40,20 @@ public class Island extends Observable {
         return board[x][y];
     }
 
+    public void addPlayer(String name) {
+        if(players.size() == 0) {
+            Player p = new Player(this, name, 18, 10);
+            this.players.add(p);
+            this.playerCourant = p;
+        }
+        else {
+            Player p = new Player(this, name, this.players.get(0), 18, 10);
+            this.players.get(this.players.size()-1).setNext(p);
+            this.players.add(p);
+        }
+
+    }
+
     public void risingWater() {
         int nbcell = 0;
         while (nbcell < 3) {
@@ -51,20 +65,15 @@ public class Island extends Observable {
             }
         }
         notifyObservers();
+        //this.playerCourant = this.playerCourant.getNext();
     }
 
     public void play() {
-        for(Player player : this.players) {
-            player.move(key);
-        }
+
     }
 
-    public void movePlayer(Player player, Player.Direction key) {
-        for(Player p : this.players) {
-            if(p == player) {
-                player.move(key);
-            }
-        }
+    public void movePlayer(Player.Direction key) {
+        this.playerCourant.move(key);
         notifyObservers();
     }
 }

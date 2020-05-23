@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     protected static int idPlayer = 0;
+    private Player next;
     private Island model;
-    //private Coord location;
     private int abs;
     private int ord;
     private ArrayList<Cell.Element> key;
@@ -18,12 +18,18 @@ public class Player {
     public Player(Island model, String name, int x, int y){
         this.model = model;
         this.name = name;
+        this.next = this;
         this.idPlayer++;
         this.abs = x;
         this.ord = y;
         this.isDead = false;
         key = new ArrayList<Cell.Element>();
         artifact = new ArrayList<Cell.Element>();
+    }
+
+    public Player(Island model, String name, Player next, int x, int y) {
+        this(model, name, x, y);
+        this.next = next;
     }
 
     /**
@@ -34,6 +40,8 @@ public class Player {
     public String getName(){ return this.name; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
+    public Player getNext() { return this.next; }
+    public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {
         switch(key) {

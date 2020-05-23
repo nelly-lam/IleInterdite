@@ -23,8 +23,8 @@ public class Player {
         this.abs = x;
         this.ord = y;
         this.isDead = false;
-        key = new ArrayList<Cell.Element>();
-        artifact = new ArrayList<Cell.Element>();
+        key = new ArrayList<>();
+        artifact = new ArrayList<>();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -122,7 +122,7 @@ public class Player {
      * @return une ArrayList<Cell> cap
      */
     public ArrayList<Cell> nearbyCells(){
-        ArrayList<Cell> cap = new ArrayList<Cell>();
+        ArrayList<Cell> cap = new ArrayList<>();
         int playerX = this.getAbs();
         int playerY = this.getOrd();
         if (playerY != 0) {
@@ -171,16 +171,16 @@ public class Player {
         ArrayList<Cell> cap = nearbyCells();
         int compteur = 0;
         if (model.board[this.getAbs()][this.getOrd()].state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
-            System.out.println("Mskn you are dead");
+            System.out.println("La cellule du joueur est submerge");
             this.isDead = true;
         } else {
-            for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
-                if (cap.get(i).state == Cell.State.Submerged){
+            for (int i = 0; i < cap.size(); i++) { //pour toutes les cell de cap
+                if (cap.get(i).state == Cell.State.Submerged) {
                     compteur++; //incrémenter le compteur si la cell est submergée
                 }
             }
-            if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
-                System.out.println("Mskn you are dead");
+            if (compteur == cap.size()) { //si toutes les cells de cap sont submergées
+                System.out.println("Toutes les cellules sont submergees");
                 this.isDead = true;
             }
         }

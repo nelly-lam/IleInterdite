@@ -8,7 +8,7 @@ public class Cell {
     private boolean helicopter;
     private Element key;
     private Element artifact;
-    private State state;
+    public State state;
 
     private Island model;
     private int x;

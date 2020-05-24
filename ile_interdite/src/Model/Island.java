@@ -12,7 +12,7 @@ public class Island extends Observable {
     public static Player playerCourant;
     Random random = new Random();
 
-    public Island(int w, int h){
+    public Island(int w, int h) {
         this.width = w;
         this.height = h;
         this.board = new Cell[this.width][this.height];
@@ -58,8 +58,8 @@ public class Island extends Observable {
         int nbcell = 0;
         while (nbcell < 3) {
             Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-            if(!cell.isSubmerged()) {
-                // TODO : Un test lorsqu'il reste moins de 2 cases
+            if (!cell.isSubmerged()) {
+                // TODO : Un test lorsqu'il reste moins de 2 cases avec une exception
                 cell.flood();
                 nbcell++;
             }
@@ -67,7 +67,6 @@ public class Island extends Observable {
         notifyObservers();
         this.playerCourant.restoreNbHits();
         this.playerCourant = this.playerCourant.getNext();
-
     }
 
     public void dewatering(int x, int y) {

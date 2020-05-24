@@ -13,7 +13,7 @@ public class TestPlayer {
     void getNameTest() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 10, 10);
-        assert (p.getName() == "Joueur");
+        assert (p.getName().equals("Joueur"));
     }
 
     @Test

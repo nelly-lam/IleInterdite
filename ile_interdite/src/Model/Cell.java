@@ -91,6 +91,9 @@ public class Cell {
             case Flooded:
                 this.state = State.Submerged;
                 break;
+            default:
+                System.out.println("Erreur dans flood");
+                break;
         }
     }
 

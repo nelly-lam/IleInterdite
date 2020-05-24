@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.ExceptionNbHits;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -9,6 +11,7 @@ public class Player {
     private Island model;
     private int abs;
     private int ord;
+    private int nbHits;
     private ArrayList<Cell.Element> key;
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
@@ -19,12 +22,13 @@ public class Player {
         this.model = model;
         this.name = name;
         this.next = this;
+        this.nbHits = 0;
         this.idPlayer++;
         this.abs = x;
         this.ord = y;
         this.isDead = false;
-        key = new ArrayList<Cell.Element>();
-        artifact = new ArrayList<Cell.Element>();
+        this.key = new ArrayList<Cell.Element>();
+        this.artifact = new ArrayList<Cell.Element>();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -40,6 +44,7 @@ public class Player {
     public String getName(){ return this.name; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
+
     public Player getNext() { return this.next; }
     public void setNext(Player p) { this.next = p; }
 
@@ -66,6 +71,18 @@ public class Player {
                 }
                 break;
         }
+    }
+
+    public void addHits() throws ExceptionNbHits {
+        if(this.nbHits == 6) {
+            throw new ExceptionNbHits();
+        }
+        else {
+            this.nbHits++;
+        }
+    }
+    public void restoreNbHits() {
+        this.nbHits = 0;
     }
 
     /*

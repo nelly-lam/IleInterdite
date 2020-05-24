@@ -5,14 +5,14 @@ public class Cell {
     public enum State{Normal, Flooded, Submerged}
     public enum Element{Air, Water, Fire, None}
 
-    public boolean helicopter;
-    public Element key;
-    public Element artifact;
-    public State state;
+    private boolean helicopter;
+    private Element key;
+    private Element artifact;
+    private State state;
 
-    public Island model;
-    public int x;
-    public int y;
+    private Island model;
+    private int x;
+    private int y;
 
     public Cell(boolean h, Element k, Element a){
         this.helicopter = h;
@@ -78,6 +78,8 @@ public class Cell {
      */
     public boolean isSubmerged() { return this.state == State.Submerged; }
 
+    public boolean isFlooded() { return this.state == State.Flooded; }
+
     /**
      * Permet d'inonder puis submerger la cellule
      */
@@ -90,6 +92,10 @@ public class Cell {
                 this.state = State.Submerged;
                 break;
         }
+    }
+
+    public void dewateringCell() {
+        this.state = State.Normal;
     }
 
     public String toString(){

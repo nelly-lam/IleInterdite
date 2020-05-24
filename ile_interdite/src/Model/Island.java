@@ -65,7 +65,20 @@ public class Island extends Observable {
             }
         }
         notifyObservers();
-        //this.playerCourant = this.playerCourant.getNext();
+        this.playerCourant.restoreNbHits();
+        this.playerCourant = this.playerCourant.getNext();
+
+    }
+
+    public void dewatering(int x, int y) {
+        Cell cell = this.board[x][y];
+        if (cell.isFlooded()) {
+            cell.dewateringCell();
+        }
+        else if (cell.isSubmerged()) {
+            // TODO : exceptions pour l'impossibilité d'assécher
+        }
+        notifyObservers();
     }
 
     public void play() {

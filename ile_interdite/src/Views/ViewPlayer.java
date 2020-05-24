@@ -16,7 +16,7 @@ public class ViewPlayer extends JPanel {
     public void paintComponent(Graphics g) {
         super.repaint();
         for (Player player : this.model.players) {
-            paint(g, model.playerCourant, model.playerCourant.getAbs()*ViewIsland.size, model.playerCourant.getOrd()*ViewIsland.size);
+            paint(g, player, player.getAbs()*ViewIsland.size, player.getOrd()*ViewIsland.size);
         }
     }
 

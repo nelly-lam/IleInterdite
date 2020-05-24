@@ -1,9 +1,9 @@
 package Views;
 
 import Model.Island;
-import Controller.Controller;
-import Controller.ControllerPlayer;
-import Controller.ControllerPlay;
+import Controllers.Controller;
+import Controllers.ControllerPlayer;
+import Controllers.ControllerPlay;
 
 import javax.swing.*;
 
@@ -12,6 +12,7 @@ public class ViewCommand extends JPanel {
 
     public ViewCommand(Island model) {
         this.model = model;
+
         JButton button = new JButton("fin de tour");
         this.add(button);
         Controller ctrl = new Controller(this.model);
@@ -25,6 +26,6 @@ public class ViewCommand extends JPanel {
         JButton buttonPlay = new JButton("Jouer");
         this.add(buttonPlay);
         ControllerPlay ctrlPlay = new ControllerPlay(this.model);
-        buttonPlay.addActionListener(ctrl);
+        buttonPlay.addActionListener(ctrlPlay);
     }
 }

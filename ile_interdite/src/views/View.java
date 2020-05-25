@@ -16,11 +16,11 @@ public class View {
 
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
-        this.frame.setLayout(new GridLayout());
+        this.frame.setLayout(new BorderLayout());
         this.island = new ViewIsland(this.model);
-        this.frame.add(this.island);
+        this.frame.add(this.island, BorderLayout.CENTER);
         this.command = new ViewCommand(this.model);
-        this.frame.add(this.command);
+        this.frame.add(this.command, BorderLayout.SOUTH);
         this.frame.addKeyListener(new ControllerMovement(this.model));
         this.frame.setFocusable(true);
         this.frame.requestFocusInWindow();

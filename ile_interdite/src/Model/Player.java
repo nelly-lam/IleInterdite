@@ -16,7 +16,7 @@ public class Player {
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
-    public enum Direction {up, down, right, left}
+    public enum Direction {Up, Down, Right, Left} //majuscules!
 
     public Player(Island model, String name, int x, int y){
         this.model = model;
@@ -36,36 +36,39 @@ public class Player {
         this.next = next;
     }
 
-    /**
-     * méthode getIdJ() : donne l'indice du joueur
-     * @return l'indice int idPlayer du joueur
-     */
-    public int getIdJ() { return this.idPlayer; }
+
     public String getName(){ return this.name; }
+    public Player getNext() { return this.next; }
+    public int getIdPlayer() { return this.idPlayer; }
+    public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
+    public boolean getIsDead(){ return this.isDead; }
+    public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
+    public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
-    public Player getNext() { return this.next; }
+
+
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {
         switch(key) {
-            case up:
+            case Up:
                 if(!(this.ord == 0)) {
                     this.ord--;
                 }
                 break;
-            case down:
+            case Down:
                 if(!(this.ord == this.model.height-1)) {
                     this.ord++;
                 }
                 break;
-            case right:
+            case Right:
                 if(!(this.abs == this.model.width-1)) {
                     this.abs++;
                 }
                 break;
-            case left:
+            case Left:
                 if(!(this.abs == 0)) {
                     this.abs--;
                 }
@@ -101,7 +104,6 @@ public class Player {
         this.key.add(e);
     }
 
-    public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
     /**
      * méthode addArtifact() : ajoute un artefact à la liste des artifact du player
      * @param : un Element e
@@ -110,7 +112,6 @@ public class Player {
         this.artifact.add(e);
     }
 
-    public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
     /**  USING HASHMAP
      * méthode cellAroundPlayer() : donne une liste des cell (haut
@@ -145,10 +146,10 @@ public class Player {
         if (playerY != 0) {
             cap.add(this.model.board[playerX][playerY-1]);
         }
-        if (playerY != this.model.height) {
+        if (playerY != this.model.height-1) {
             cap.add(this.model.board[playerX][playerY+1]);
         }
-        if (playerX != this.model.width) {
+        if (playerX != this.model.width-1) {
             cap.add(this.model.board[playerX+1][playerY]);
         }
         if (playerX != 0) {
@@ -184,6 +185,12 @@ public class Player {
     }
     */
 
+    /** USING ARRAY
+     * méthode die() : update le statut du player isDead en true si :
+     * - le player se situe sur une cell submergée
+     * - le player est entouré de cells submergées
+     * @param : un Island island (board)
+     */
     public void die(){
         ArrayList<Cell> cap = nearbyCells();
         int compteur = 0;
@@ -202,9 +209,5 @@ public class Player {
             }
         }
     }
-
-    public boolean getIsDead(){ return this.isDead; }
-
-    //dryZone(Cellule c) (position + droite gauche haut bas)
 
 }

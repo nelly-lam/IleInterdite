@@ -18,6 +18,7 @@ public class TestPlayer {
 
     @Test
     void getNextTest(){
+
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 4, 3);
         Player p2 = new Player(island, "tutu", p, 4, 3);

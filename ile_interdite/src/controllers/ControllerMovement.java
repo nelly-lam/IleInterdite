@@ -1,24 +1,28 @@
-package Controllers;
+package controllers;
 
-import Exceptions.ExceptionNbHits;
-import Model.Island;
-import Model.Player;
+import exceptions.ExceptionNbHits;
+import model.Island;
+import model.Player;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ControllerMovement implements KeyListener {
-    public Island model;
+    private Island model;
 
     public ControllerMovement(Island model) {
         this.model = model;
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+        // Nous n'avons pas besoin de cette méthode
+    }
 
     @Override
-    public void keyPressed(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {
+        // Nous n'avons pas besoin de cette méthode
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -26,16 +30,16 @@ public class ControllerMovement implements KeyListener {
             this.model.playerCourant.addHits();
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                    this.model.movePlayer(Player.Direction.Up);
+                    this.model.movePlayer(Player.Direction.UP);
                     break;
                 case KeyEvent.VK_DOWN:
-                    this.model.movePlayer(Player.Direction.Down);
+                    this.model.movePlayer(Player.Direction.DOWN);
                     break;
                 case KeyEvent.VK_LEFT:
-                    this.model.movePlayer(Player.Direction.Left);
+                    this.model.movePlayer(Player.Direction.LEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    this.model.movePlayer(Player.Direction.Right);
+                    this.model.movePlayer(Player.Direction.RIGHT);
                     break;
                 case KeyEvent.VK_SPACE:
                     this.model.risingWater();

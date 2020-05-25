@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Views.Observer;
+import views.Observer;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public abstract class Observable {
     private ArrayList<Observer> observateurs;
 
     public Observable() {
-        this.observateurs = new ArrayList<Observer>();
+        this.observateurs = new ArrayList<>();
     }
 
     public void addObserver(Observer o) {

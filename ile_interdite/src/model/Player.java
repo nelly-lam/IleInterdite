@@ -1,12 +1,13 @@
-package Model;
+package model;
 
-import Exceptions.ExceptionNbHits;
+import exceptions.ExceptionNbHits;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Player {
     private String name;
-    protected static int idPlayer = 0;
+    private Color color;
     private Player next;
     private Island model;
     private int abs;
@@ -16,19 +17,19 @@ public class Player {
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
-    public enum Direction {Up, Down, Right, Left} //majuscules!
+    public enum Direction {UP, DOWN, RIGHT, LEFT} //majuscules!
 
     public Player(Island model, String name, int x, int y){
         this.model = model;
         this.name = name;
         this.next = this;
         this.nbHits = 0;
-        this.idPlayer++;
+        this.color = Color.RED;
         this.abs = x;
         this.ord = y;
         this.isDead = false;
-        this.key = new ArrayList<Cell.Element>();
-        this.artifact = new ArrayList<Cell.Element>();
+        this.key = new ArrayList<>();
+        this.artifact = new ArrayList<>();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -39,7 +40,7 @@ public class Player {
 
     public String getName(){ return this.name; }
     public Player getNext() { return this.next; }
-    public int getIdPlayer() { return this.idPlayer; }
+    public Color getColor() { return this.color; }
     public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
@@ -53,23 +54,23 @@ public class Player {
 
     public void move(Direction key) {
         switch(key) {
-            case Up:
-                if(!(this.ord == 0)) {
+            case UP:
+                if(this.ord != 0) {
                     this.ord--;
                 }
                 break;
-            case Down:
-                if(!(this.ord == this.model.height-1)) {
+            case DOWN:
+                if(this.ord != this.model.height-1) {
                     this.ord++;
                 }
                 break;
-            case Right:
-                if(!(this.abs == this.model.width-1)) {
+            case RIGHT:
+                if(this.abs != this.model.width-1) {
                     this.abs++;
                 }
                 break;
-            case Left:
-                if(!(this.abs == 0)) {
+            case LEFT:
+                if(this.abs != 0) {
                     this.abs--;
                 }
                 break;
@@ -194,12 +195,12 @@ public class Player {
     public void die(){
         ArrayList<Cell> cap = nearbyCells();
         int compteur = 0;
-        if (model.board[this.getAbs()][this.getOrd()].state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
+        if (model.board[this.getAbs()][this.getOrd()].getState() == Cell.State.SUBMERGED){ //si la cell où se trouve le player est submergée
             System.out.println("Mskn you are dead");
             this.isDead = true;
         } else {
             for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
-                if (cap.get(i).state == Cell.State.Submerged){
+                if (cap.get(i).getState() == Cell.State.SUBMERGED){
                     compteur++; //incrémenter le compteur si la cell est submergée
                 }
             }

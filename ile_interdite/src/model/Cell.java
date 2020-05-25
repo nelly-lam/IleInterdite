@@ -1,50 +1,34 @@
-package Model;
+package model;
 
 public class Cell {
 
-    public enum State{Normal, Flooded, Submerged}
-    public enum Element{Air, Water, Fire, Earth, None} //ajout de Earth
+    public enum State{ NORMAL, FLOODED, SUBMERGED }
+    public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
 
     private boolean helicopter;
     private Element key;
     private Element artifact;
-    public State state;
-
+    private State state;
     private Island model;
     private int x;
     private int y;
 
-    /*public Cell(boolean h, Element k, Element a){
-        this.helicopter = h;
-        this.key = k;
-        this.artifact = a;
-        this.state = State.Normal;
-    }
-
-    public Cell(Island model, int x, int y) {
-        this.model = model;
-        this.x = x;
-        this.y = y;
-        this.state = State.Normal;
-    }
-    */
-
     public Cell(Island model, int x, int y) {
         this.helicopter = false;
-        this.key = Cell.Element.None;
-        this.artifact = Cell.Element.None;
-        this.state = State.Normal;
+        this.key = Cell.Element.NONE;
+        this.artifact = Cell.Element.NONE;
+        this.state = State.NORMAL;
         this.model = model;
         this.x = x;
         this.y = y;
     }
 
-    public Cell(Island model, boolean h, Element k, Element a){
-        this(model, 0, 0);
+    public Cell(Island model, int x, int y, boolean h, Element k, Element a){
+        this(model, x, y);
         this.helicopter = h;
         this.key = k;
         this.artifact = a;
-        this.state = State.Normal;
+        this.state = State.NORMAL;
     }
 
     /**
@@ -57,34 +41,35 @@ public class Cell {
     public Element getArtifact() { return this.artifact; }
     public int getAbs() { return this.x; }
     public int getOrd() { return this.y; }
+    public State getState() { return this.state; }
 
 
     /**
      * Teste si la cell possede une cle
      */
     public boolean hasKey(){
-        return this.key != Element.None;
+        return this.key != Element.NONE;
     }
 
     /**
      * Enleve la cle d'une case apres qu'elle soit prise
      */
     public void updateKey(){
-        this.key = Element.None;
+        this.key = Element.NONE;
     }
 
     /**
      * Teste si la cell possede un artifact
      */
     public boolean hasArtifact(){
-        return this.artifact != Element.None;
+        return this.artifact != Element.NONE;
     }
 
     /**
      * Enleve l'artefact d'une case apres qu'il soit pris
      */
     public void updateArtifact(){
-        this.artifact = Element.None;
+        this.artifact = Element.NONE;
     }
 
     /**
@@ -97,20 +82,20 @@ public class Cell {
     /**
      * Teste si une cellule est submergee
      */
-    public boolean isSubmerged() { return this.state == State.Submerged; }
+    public boolean isSubmerged() { return this.state == State.SUBMERGED; }
 
-    public boolean isFlooded() { return this.state == State.Flooded; }
+    public boolean isFlooded() { return this.state == State.FLOODED; }
 
     /**
      * Permet d'inonder puis submerger la cellule
      */
     public void flood(){
         switch(this.state) {
-            case Normal:
-                this.state = State.Flooded;
+            case NORMAL:
+                this.state = State.FLOODED;
                 break;
-            case Flooded:
-                this.state = State.Submerged;
+            case FLOODED:
+                this.state = State.SUBMERGED;
                 break;
             default:
                 System.out.println("Erreur dans flood");
@@ -119,7 +104,7 @@ public class Cell {
     }
 
     public void dewateringCell() {
-        this.state = State.Normal;
+        this.state = State.NORMAL;
     }
 
     /**
@@ -130,7 +115,6 @@ public class Cell {
      */
     @Override
     public boolean equals(Object obj){
-        Cell c = (Cell) obj;
         boolean status = false;
         if (this.helicopter == ((Cell) obj).helicopter
                 && this.key == ((Cell) obj).key

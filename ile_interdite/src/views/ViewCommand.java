@@ -1,9 +1,9 @@
-package Views;
+package views;
 
-import Model.Island;
-import Controllers.Controller;
-import Controllers.ControllerPlayer;
-import Controllers.ControllerPlay;
+import model.Island;
+import controllers.Controller;
+import controllers.ControllerPlayer;
+import controllers.ControllerPlay;
 
 import javax.swing.*;
 

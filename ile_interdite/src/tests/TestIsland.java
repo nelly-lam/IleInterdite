@@ -1,7 +1,7 @@
-package Tests;
+package tests;
 
-import Model.Cell;
-import Model.Island;
+import model.Cell;
+import model.Island;
 import org.junit.jupiter.api.Test;
 
 public class TestIsland {
@@ -9,7 +9,7 @@ public class TestIsland {
     @Test
     void getCellTest() {
         Island island = new Island(20, 20);
-        Cell c = new Cell(island,false, Cell.Element.Air, Cell.Element.None);
+        Cell c = new Cell(island, 4, 4, false, Cell.Element.AIR, Cell.Element.NONE);
         island.board[0][0] = c;
         assert (island.getCell(0, 0) == c);
     }
@@ -37,7 +37,7 @@ public class TestIsland {
         int compteur = 0;
         for (int i = 0; i < board.width; i++) {
             for (int j = 0; j < board.height; j++) {
-                if (board.getCell(i, j).state == Cell.State.Flooded) {
+                if (board.getCell(i, j).getState() == Cell.State.FLOODED) {
                     compteur++;
                 }
             }
@@ -48,9 +48,9 @@ public class TestIsland {
     @Test
     void dewateringTest(){
         Island island = new Island(5,5);
-        island.getCell(1,2).state = Cell.State.Flooded;
+        island.getCell(1,2).flood();;
         island.dewatering(1, 2);
-        assert(island.getCell(1,2).state == Cell.State.Normal);
+        assert(island.getCell(1,2).getState() == Cell.State.NORMAL);
         //island.getCell(2,2).state = Cell.State.Submerged;
         //island.dewatering(2, 2);
         //assert(island.getCell(2,2).state != Cell.State.Normal);

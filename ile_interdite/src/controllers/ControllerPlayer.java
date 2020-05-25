@@ -1,6 +1,6 @@
-package Controllers;
+package controllers;
 
-import Model.Island;
+import model.Island;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,22 +1,18 @@
-package Views;
+package views;
 
-import Controllers.ControllerMovement;
-import Model.Island;
+import controllers.ControllerMovement;
+import model.Island;
 import javax.swing.*;
 import java.awt.*;
 
-public class View implements Observer {
+public class View {
     private final Island model;
-    public JFrame frame;
-    //public JMenuItem menu;
+    private final JFrame frame;
     private ViewIsland island;
     private ViewCommand command;
 
     public View(Island island) {
         this.model = island;
-        this.model.addObserver(this);
-
-        //this.menu = new JMenuItem("Menu");
 
         this.frame = new JFrame();
         this.frame.setTitle("L'île interdite");
@@ -31,10 +27,5 @@ public class View implements Observer {
         this.frame.pack();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setVisible(true);
-    }
-
-    @Override
-    public void update() {
-        //this.frame.setFocusable(true);
     }
 }

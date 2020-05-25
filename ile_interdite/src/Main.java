@@ -1,5 +1,5 @@
-import Model.Island;
-import Views.View;
+import model.Island;
+import views.View;
 
 public class Main {
     public static void main (String[] args) {

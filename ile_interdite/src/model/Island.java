@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ public class Island extends Observable {
     public int width;
     public int height;
     public List<Player> players;
-    public static Player playerCourant;
+    public Player playerCourant;
     Random random = new Random();
 
     public Island(int w, int h) {
         this.width = w;
         this.height = h;
         this.board = new Cell[this.width][this.height];
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         this.addPlayer("toto");
 
         //helicoptere 1chance sur width*height
@@ -80,7 +80,7 @@ public class Island extends Observable {
     }
 
     public void play() {
-
+        //TODO
     }
 
     public void movePlayer(Player.Direction key) {

@@ -1,8 +1,8 @@
-package Tests;
+package tests;
 
-import Model.Cell;
-import Model.Island;
-import Model.Player;
+import model.Cell;
+import model.Island;
+import model.Player;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -57,24 +57,24 @@ public class TestPlayer {
     void getKeyArrayTest(){
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 4, 3);
-        p.addKey(Cell.Element.Earth);
-        p.addKey(Cell.Element.Water);
+        p.addKey(Cell.Element.EARTH);
+        p.addKey(Cell.Element.WATER);
         assert(p.getKeyArray().size() == 2);
-        assert(p.getKeyArray().get(0) == Cell.Element.Earth);
-        assert(p.getKeyArray().get(1) == Cell.Element.Water);
+        assert(p.getKeyArray().get(0) == Cell.Element.EARTH);
+        assert(p.getKeyArray().get(1) == Cell.Element.WATER);
     }
 
     @Test
     void getArtifactArray(){
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 4, 3);
-        p.addArtifact(Cell.Element.Water);
-        p.addArtifact(Cell.Element.Fire);
-        p.addArtifact(Cell.Element.Fire);
+        p.addArtifact(Cell.Element.WATER);
+        p.addArtifact(Cell.Element.FIRE);
+        p.addArtifact(Cell.Element.FIRE);
         assert(p.getArtifactArray().size() == 3);
-        assert(p.getArtifactArray().get(0) == Cell.Element.Water);
-        assert(p.getArtifactArray().get(1) == Cell.Element.Fire);
-        assert(p.getArtifactArray().get(2) == Cell.Element.Fire);
+        assert(p.getArtifactArray().get(0) == Cell.Element.WATER);
+        assert(p.getArtifactArray().get(1) == Cell.Element.FIRE);
+        assert(p.getArtifactArray().get(2) == Cell.Element.FIRE);
     }
 
     @Test
@@ -103,11 +103,11 @@ public class TestPlayer {
     void addKeyTest() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
-        p.addKey(Cell.Element.Fire);
+        p.addKey(Cell.Element.FIRE);
         ArrayList<Cell.Element> e = p.getKeyArray();
         boolean hasFireElement = false;
         for(int i = 0; i < e.size() ; i++){
-            if(e.get(i) == Cell.Element.Fire) {
+            if(e.get(i) == Cell.Element.FIRE) {
                 hasFireElement = true;
             }
         }
@@ -118,11 +118,11 @@ public class TestPlayer {
     void addArtifactTest() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
-        p.addArtifact(Cell.Element.Fire);
+        p.addArtifact(Cell.Element.FIRE);
         ArrayList<Cell.Element> e = p.getArtifactArray();
         boolean hasFireElement = false;
         for(int i = 0; i < e.size() ; i++){
-            if(e.get(i) == Cell.Element.Fire) {
+            if(e.get(i) == Cell.Element.FIRE) {
                 hasFireElement = true;
             }
         }
@@ -195,7 +195,8 @@ public class TestPlayer {
         //Cell du player submergée
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 1, 2);
-        island.board[p.getAbs()][p.getOrd()].state = Cell.State.Submerged;
+        island.board[p.getAbs()][p.getOrd()].flood();
+        island.board[p.getAbs()][p.getOrd()].flood();
         p.die();
         assert (p.getIsDead());
 
@@ -205,11 +206,11 @@ public class TestPlayer {
         for (int i = 0; i < cap.size(); i++){
             cap.get(i).flood();
             cap.get(i).flood();
-            if(cap.get(i).state == Cell.State.Submerged){
+            if(cap.get(i).getState() == Cell.State.SUBMERGED){
                 compteur++;
             }
         }
-        System.out.println(cap.get(0).state);
+        System.out.println(cap.get(0).getState());
         System.out.println(cap.size());
         System.out.println(compteur);
         assert(compteur == 4);
@@ -221,12 +222,12 @@ public class TestPlayer {
             for (int j = 0; j < 5; j++){
                 island2.getCell(i,j).flood();
                 island2.getCell(i,j).flood();
-                if (island2.board[i][j].state == Cell.State.Submerged){
+                if (island2.board[i][j].getState() == Cell.State.SUBMERGED){
                     compteur2++;
                 }
             }
         }
-        System.out.println(island2.getCell(0,4).state);
+        System.out.println(island2.getCell(0,4).getState());
         System.out.println(compteur2);
         assert(compteur2 == island2.width * island2.height);
     }

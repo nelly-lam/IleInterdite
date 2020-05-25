@@ -26,16 +26,16 @@ public class ControllerMovement implements KeyListener {
             this.model.playerCourant.addHits();
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                    this.model.movePlayer(Player.Direction.up);
+                    this.model.movePlayer(Player.Direction.Up);
                     break;
                 case KeyEvent.VK_DOWN:
-                    this.model.movePlayer(Player.Direction.down);
+                    this.model.movePlayer(Player.Direction.Down);
                     break;
                 case KeyEvent.VK_LEFT:
-                    this.model.movePlayer(Player.Direction.left);
+                    this.model.movePlayer(Player.Direction.Left);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    this.model.movePlayer(Player.Direction.right);
+                    this.model.movePlayer(Player.Direction.Right);
                     break;
                 case KeyEvent.VK_SPACE:
                     this.model.risingWater();

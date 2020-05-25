@@ -3,7 +3,7 @@ package Model;
 public class Cell {
 
     public enum State{Normal, Flooded, Submerged}
-    public enum Element{Air, Water, Fire, None}
+    public enum Element{Air, Water, Fire, Earth, None} //ajout de Earth
 
     private boolean helicopter;
     private Element key;
@@ -14,7 +14,7 @@ public class Cell {
     private int x;
     private int y;
 
-    public Cell(boolean h, Element k, Element a){
+    /*public Cell(boolean h, Element k, Element a){
         this.helicopter = h;
         this.key = k;
         this.artifact = a;
@@ -27,6 +27,37 @@ public class Cell {
         this.y = y;
         this.state = State.Normal;
     }
+    */
+
+    public Cell(Island model, int x, int y) {
+        this.helicopter = false;
+        this.key = Cell.Element.None;
+        this.artifact = Cell.Element.None;
+        this.state = State.Normal;
+        this.model = model;
+        this.x = x;
+        this.y = y;
+    }
+
+    public Cell(Island model, boolean h, Element k, Element a){
+        this(model, 0, 0);
+        this.helicopter = h;
+        this.key = k;
+        this.artifact = a;
+        this.state = State.Normal;
+    }
+
+    /**
+     * Donne la cle associee a la cellule
+     */
+    public Element getKey() { return this.key; }
+    /**
+     * Donne l'artifact associee a la cellule
+     */
+    public Element getArtifact() { return this.artifact; }
+    public int getAbs() { return this.x; }
+    public int getOrd() { return this.y; }
+
 
     /**
      * Teste si la cell possede une cle
@@ -34,11 +65,6 @@ public class Cell {
     public boolean hasKey(){
         return this.key != Element.None;
     }
-
-    /**
-     * Donne la cle associee a la cellule
-     */
-    public Element getKey() { return this.key; }
 
     /**
      * Enleve la cle d'une case apres qu'elle soit prise
@@ -60,11 +86,6 @@ public class Cell {
     public void updateArtifact(){
         this.artifact = Element.None;
     }
-
-    /**
-     * Donne l'artifact associee a la cellule
-     */
-    public Element getArtifact() { return this.artifact; }
 
     /**
      * Teste si la cell est une case helicoptere
@@ -99,6 +120,27 @@ public class Cell {
 
     public void dewateringCell() {
         this.state = State.Normal;
+    }
+
+    /**
+     * méthode equals() : de la classe junit.Assert
+     * ICI réécriture : compare deux objets Cell, vrai si les attributs sont identiques et faux sinon
+     * @param : Object obj
+     * @return un boolean
+     */
+    @Override
+    public boolean equals(Object obj){
+        Cell c = (Cell) obj;
+        boolean status = false;
+        if (this.helicopter == ((Cell) obj).helicopter
+                && this.key == ((Cell) obj).key
+                && this.artifact == ((Cell) obj).artifact
+                && this.state == ((Cell) obj).state
+                && this.x == ((Cell) obj).x
+                && this.y == ((Cell) obj).y) {
+            status = true;
+        }
+        return status;
     }
 
     public String toString(){

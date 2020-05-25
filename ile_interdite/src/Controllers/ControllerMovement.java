@@ -63,6 +63,5 @@ public class ControllerMovement implements KeyListener {
             // TODO afficher un message au joueur
             exceptionNbHits.printStackTrace();
         }
-
     }
 }

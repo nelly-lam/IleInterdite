@@ -51,7 +51,6 @@ public class Island extends Observable {
             this.players.get(this.players.size()-1).setNext(p);
             this.players.add(p);
         }
-
     }
 
     public void risingWater() {

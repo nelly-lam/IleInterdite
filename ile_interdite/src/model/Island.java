@@ -128,4 +128,11 @@ public class Island extends Observable {
         this.playerCourant.move(key);
         notifyObservers();
     }
+
+    public void searchKey() {
+        if(this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()].hasKey()) {
+            this.playerCourant.addKey(this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()].getKey());
+        }
+        // TODO rajouter montée des eaux sinon
+    }
 }

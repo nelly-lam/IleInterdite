@@ -15,7 +15,7 @@ public class ViewIsland extends JPanel implements Observer {
         this.model = model;
         this.model.addObserver(this);
         this.player = new ViewPlayer(this.model);
-        Dimension dim = new Dimension(this.SIZE *this.model.width, this.SIZE *this.model.height);
+        Dimension dim = new Dimension(SIZE *this.model.width, SIZE *this.model.height);
         this.setPreferredSize(dim);
     }
 
@@ -24,7 +24,7 @@ public class ViewIsland extends JPanel implements Observer {
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
-                paint(g, model.getCell(i, j), i*this.SIZE, j*this.SIZE);
+                paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
             }
         }
         player.paintComponent(g);
@@ -41,7 +41,24 @@ public class ViewIsland extends JPanel implements Observer {
             case SUBMERGED:
                 g.setColor(new Color(35, 10, 89));
         }
-        g.fillRect(x, y, this.SIZE -2, this.SIZE -2);
+        switch(c.getArtifact()) {
+            case FIRE:
+                g.setColor(Color.RED);
+                break;
+            case WATER:
+                g.setColor(Color.CYAN);
+                break;
+            case EARTH:
+                g.setColor(Color.GREEN);
+                break;
+            case AIR:
+                g.setColor(Color.LIGHT_GRAY);
+                break;
+        }
+        if(c.isHeliport()) {
+            g.setColor(Color.BLACK);
+        }
+        g.fillRect(x, y, SIZE -2, SIZE -2);
     }
 
     @Override

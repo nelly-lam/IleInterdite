@@ -5,7 +5,7 @@ public class Cell {
     public enum State{ NORMAL, FLOODED, SUBMERGED }
     public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
 
-    private boolean helicopter;
+    private boolean heliport;
     private Element key;
     private Element artifact;
     private State state;
@@ -13,9 +13,9 @@ public class Cell {
     private int x;
     private int y;
 
-    public Cell(Island model, int x, int y, boolean h, Element a) {
-        this.helicopter = h;
-        this.artifact = a;
+    public Cell(Island model, int x, int y, boolean h) {
+        this.heliport = h;
+        this.artifact = Cell.Element.NONE;
         this.key = Element.NONE;
         this.state = State.NORMAL;
         this.model = model;
@@ -70,8 +70,8 @@ public class Cell {
     /**
      * Teste si la cell est une case helicoptere
      */
-    public boolean isHelicopter(){
-        return this.helicopter;
+    public boolean isHeliport(){
+        return this.heliport;
     }
 
     /**
@@ -98,7 +98,7 @@ public class Cell {
         }
     }
 
-    public void dewateringCell() {
+    public void dryCell() {
         this.state = State.NORMAL;
     }
 
@@ -111,7 +111,7 @@ public class Cell {
     @Override
     public boolean equals(Object obj){
         boolean status = false;
-        if (this.helicopter == ((Cell) obj).helicopter
+        if (this.heliport == ((Cell) obj).heliport
                 && this.key == ((Cell) obj).key
                 && this.artifact == ((Cell) obj).artifact
                 && this.state == ((Cell) obj).state

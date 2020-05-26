@@ -13,32 +13,27 @@ public class Cell {
     private int x;
     private int y;
 
-    public Cell(Island model, int x, int y) {
-        this.helicopter = false;
-        this.key = Cell.Element.NONE;
-        this.artifact = Cell.Element.NONE;
+    public Cell(Island model, int x, int y, boolean h, Element a) {
+        this.helicopter = h;
+        this.artifact = a;
+        this.key = Element.NONE;
         this.state = State.NORMAL;
         this.model = model;
         this.x = x;
         this.y = y;
     }
 
-    public Cell(Island model, int x, int y, boolean h, Element k, Element a){
-        this(model, x, y);
-        this.helicopter = h;
-        this.key = k;
-        this.artifact = a;
-        this.state = State.NORMAL;
-    }
-
     /**
      * Donne la cle associee a la cellule
      */
     public Element getKey() { return this.key; }
+
+    public void setKey(Element key) { this.key = key; }
     /**
      * Donne l'artifact associee a la cellule
      */
     public Element getArtifact() { return this.artifact; }
+    public void setArtifact(Element element) { this.artifact = element; }
     public int getAbs() { return this.x; }
     public int getOrd() { return this.y; }
     public State getState() { return this.state; }

@@ -23,9 +23,9 @@ public class TestPlayer {
         Player p = new Player(island, "titi", 4, 3);
         Player p2 = new Player(island, "tutu", p, 4, 3);
         Player p3 = new Player(island, "tata", p2, 4, 3);
-        assert(p.getNext().getName() == "titi");
-        assert(p2.getNext().getName() == "titi");
-        assert(p3.getNext().getName() == "tutu");
+        assert(p.getNext().getName().equals("titi"));
+        assert(p2.getNext().getName().equals("titi"));
+        assert(p3.getNext().getName().equals("tutu"));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TestPlayer {
     void getIsDeadTest(){
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 4, 3);
-        assert(p.getIsDead() == false);
+        assert(!p.getIsDead());
     }
 
     @Test

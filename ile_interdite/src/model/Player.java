@@ -37,7 +37,6 @@ public class Player {
         this.next = next;
     }
 
-
     public String getName(){ return this.name; }
     public Player getNext() { return this.next; }
     public Color getColor() { return this.color; }
@@ -52,32 +51,41 @@ public class Player {
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {
-        switch(key) {
-            case UP:
-                if(this.ord != 0) {
-                    this.ord--;
-                }
-                break;
-            case DOWN:
-                if(this.ord != this.model.height-1) {
-                    this.ord++;
-                }
-                break;
-            case RIGHT:
-                if(this.abs != this.model.width-1) {
-                    this.abs++;
-                }
-                break;
-            case LEFT:
-                if(this.abs != 0) {
-                    this.abs--;
-                }
-                break;
+        try {
+            switch(key) {
+                case UP:
+                    if((this.ord != 0) && !(this.model.board[this.abs][this.ord-1].isSubmerged())) {
+                        this.addHits();
+                        this.ord--;
+                    }
+                    break;
+                case DOWN:
+                    if((this.ord != this.model.height-1) && !(this.model.board[this.abs][this.ord+1].isSubmerged())) {
+                        this.addHits();
+                        this.ord++;
+                    }
+                    break;
+                case RIGHT:
+                    if((this.abs != this.model.width-1) && !(this.model.board[this.abs+1][this.ord].isSubmerged())) {
+                        this.addHits();
+                        this.abs++;
+                    }
+                    break;
+                case LEFT:
+                    if((this.abs != 0) && !(this.model.board[this.abs-1][this.ord].isSubmerged())) {
+                        this.addHits();
+                        this.abs--;
+                    }
+                    break;
+            }
+        } catch (ExceptionNbHits exceptionNbHits) {
+            // TODO afficher un message au joueur
+            //exceptionNbHits.printStackTrace();
         }
     }
 
     public void addHits() throws ExceptionNbHits {
-        if(this.nbHits == 6) {
+        if(this.nbHits == 3) {
             throw new ExceptionNbHits();
         }
         else {

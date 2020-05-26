@@ -92,6 +92,8 @@ public class Cell {
             case FLOODED:
                 this.state = State.SUBMERGED;
                 break;
+            case SUBMERGED:
+                break;
             default:
                 System.out.println("Erreur dans flood");
                 break;

@@ -7,20 +7,20 @@ public class TestCell {
     @Test
     void hasKeyTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.AIR, Cell.Element.NONE);
-        assert (c.hasKey());
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
-        assert (!c2.hasKey());
+        Cell c = new Cell(island, 4, 4, false);
+        assert (!c.hasKey());
+        /**Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE);
+        assert (!c2.hasKey());**/
     }
 
     @Test
     void updateKeyTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.AIR);
+        Cell c = new Cell(island, 4, 4, false);
         c.updateKey();
         assert (c.getKey() == Cell.Element.NONE);
 
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c2 = new Cell(island, 4, 4, false);
         c2.updateKey();
         assert (c.getKey() == Cell.Element.NONE);
     }
@@ -28,38 +28,38 @@ public class TestCell {
     @Test
     void hasArtifactTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.AIR);
-        assert (c.hasArtifact());
-        Cell c2 = new Cell(island,4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c = new Cell(island, 4, 4, false);
+        assert (!c.hasArtifact());
+        Cell c2 = new Cell(island,4, 4, false);
         assert (!c2.hasArtifact());
     }
 
     @Test
     void updateArtifactTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.AIR);
+        Cell c = new Cell(island, 4, 4, false);
         c.updateArtifact();
         assert (c.getArtifact() == Cell.Element.NONE);
 
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c2 = new Cell(island, 4, 4, false);
         c2.updateArtifact();
         assert (c2.getArtifact() == Cell.Element.NONE);
     }
 
 
     @Test
-    void isHelicopterTest() {
+    void isHeliportTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, true, Cell.Element.NONE, Cell.Element.NONE);
-        assert (c.isHelicopter());
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
-        assert (!c2.isHelicopter());
+        Cell c = new Cell(island, 4, 4, true);
+        assert (c.isHeliport());
+        Cell c2 = new Cell(island, 4, 4, false);
+        assert (!c2.isHeliport());
     }
 
     @Test
     void floodTest() {
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c = new Cell(island, 4, 4, false);
         assert (c.getState() == Cell.State.NORMAL);
         c.flood();
         assert (c.getState() == Cell.State.FLOODED);
@@ -73,8 +73,8 @@ public class TestCell {
     void isSubmergedTest() {
 
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c = new Cell(island, 4, 4, false);
+        Cell c2 = new Cell(island, 4, 4, false);
         c.flood();
         c.flood();
         assert(c.isSubmerged());
@@ -84,8 +84,8 @@ public class TestCell {
     @Test
     void isFloodedTest(){
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c = new Cell(island, 4, 4, false);
+        Cell c2 = new Cell(island, 4, 4, false);
         c.flood();
         assert(c.isFlooded());
         assert(!c2.isFlooded());
@@ -94,12 +94,12 @@ public class TestCell {
     @Test
     void dewateringCellTest(){
         Island island = new Island(10, 10);
-        Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
-        Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
+        Cell c = new Cell(island, 4, 4, false);
+        Cell c2 = new Cell(island, 4, 4, false);
         c.flood();
         c2.flood();
         c2.flood();
-        c.dewateringCell();
+        c.dryCell();
         assert(c.getState() == Cell.State.NORMAL);
         assert(c2.getState() != Cell.State.NORMAL);
     }

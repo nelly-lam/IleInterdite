@@ -1,6 +1,5 @@
 package controllers;
 
-import exceptions.ExceptionNbHits;
 import model.Island;
 import model.Player;
 
@@ -26,46 +25,37 @@ public class ControllerMovement implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        try {
-            this.model.playerCourant.addHits();
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_UP:
-                    this.model.movePlayer(Player.Direction.UP);
-                    break;
-                case KeyEvent.VK_DOWN:
-                    this.model.movePlayer(Player.Direction.DOWN);
-                    break;
-                case KeyEvent.VK_LEFT:
-                    this.model.movePlayer(Player.Direction.LEFT);
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    this.model.movePlayer(Player.Direction.RIGHT);
-                    break;
-                case KeyEvent.VK_SPACE:
-                    this.model.risingWater();
-                    break;
-                case KeyEvent.VK_A:
-                    this.model.addPlayer("toto");
-                    break;
-                case KeyEvent.VK_Z:
-                    this.model.dewatering(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()-1);
-                    break;
-                case KeyEvent.VK_S:
-                    this.model.dewatering(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd());
-                    break;
-                case KeyEvent.VK_D:
-                    this.model.dewatering(this.model.playerCourant.getAbs()+1, this.model.playerCourant.getOrd());
-                    break;
-                case KeyEvent.VK_Q:
-                    this.model.dewatering(this.model.playerCourant.getAbs()-1, this.model.playerCourant.getOrd());
-                    break;
-                case KeyEvent.VK_W:
-                    this.model.dewatering(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()+1);
-                    break;
-            }
-        } catch (ExceptionNbHits exceptionNbHits) {
-            // TODO afficher un message au joueur
-            exceptionNbHits.printStackTrace();
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                this.model.movePlayer(Player.Direction.UP);
+                break;
+            case KeyEvent.VK_DOWN:
+                this.model.movePlayer(Player.Direction.DOWN);
+                break;
+            case KeyEvent.VK_LEFT:
+                this.model.movePlayer(Player.Direction.LEFT);
+                break;
+            case KeyEvent.VK_RIGHT:
+                this.model.movePlayer(Player.Direction.RIGHT);
+                break;
+            case KeyEvent.VK_A:
+                this.model.addPlayer("toto");
+                break;
+            case KeyEvent.VK_Z:
+                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()-1);
+                break;
+            case KeyEvent.VK_S:
+                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd());
+                break;
+            case KeyEvent.VK_D:
+                this.model.dry(this.model.playerCourant.getAbs()+1, this.model.playerCourant.getOrd());
+                break;
+            case KeyEvent.VK_Q:
+                this.model.dry(this.model.playerCourant.getAbs()-1, this.model.playerCourant.getOrd());
+                break;
+            case KeyEvent.VK_W:
+                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()+1);
+                break;
         }
     }
 }

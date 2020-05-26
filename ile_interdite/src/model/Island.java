@@ -1,5 +1,8 @@
 package model;
 
+import exceptions.ExceptionNbHits;
+
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +11,7 @@ public class Island extends Observable {
     public Cell[][] board;
     public int width;
     public int height;
-    public List<Player> players;
+    public ArrayList<Player> players;
     public Player playerCourant;
     Random random = new Random();
 
@@ -19,20 +22,38 @@ public class Island extends Observable {
         this.players = new ArrayList<>();
         this.addPlayer("toto");
 
-        //helicoptere 1chance sur width*height
-        //keys on va en avoir 4
-        //artifact on va en avoir 4
+        int heliportX = random.nextInt(this.width/2)+10;
+        int heliportY = random.nextInt(this.height/2)+10;
 
         //nous remplissons la hashmap avec toutes les cellules du plateau
         for(int i = 0; i < this.width; i++){
             for(int j = 0; j < this.height; j++){
-                this.board[i][j] = new Cell(this,i, j);
-                //TODO ajouter les random pour les keys et artifacts
+                if(heliportX == i && heliportY == j) {
+                    this.board[i][j] = new Cell(this, i, j, true, Cell.Element.NONE);
+                }
+                this.board[i][j] = new Cell(this, i, j, false, Cell.Element.NONE);
             }
-            //creer une cell pour chaque i
-            //donner une Model.Location qui augmente en x et y en fonction de width et height
-            //random les keys et artifacts
-            //Pas key et artifact du meme element sur la meme case
+
+        }
+        Cell.Element[] keys = new Cell.Element[4];
+        keys[0] = Cell.Element.FIRE;
+        keys[1] = Cell.Element.AIR;
+        keys[2] = Cell.Element.WATER;
+        keys[3] = Cell.Element.EARTH;
+
+        //TODO optimiser
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 15; j++) {
+                Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
+                if(cell.getKey() == Cell.Element.NONE) {
+                    cell.setKey(keys[i]);
+                }
+            }
+
+            Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
+            if(cell.getKey() == Cell.Element.NONE) {
+                cell.setArtifact(keys[i]);
+            }
         }
     }
 
@@ -68,15 +89,21 @@ public class Island extends Observable {
         this.playerCourant = this.playerCourant.getNext();
     }
 
-    public void dewatering(int x, int y) {
-        Cell cell = this.board[x][y];
-        if (cell.isFlooded()) {
-            cell.dewateringCell();
+    public void dry(int x, int y) {
+        try {
+            this.playerCourant.addHits();
+            Cell cell = this.board[x][y];
+            if (cell.isFlooded()) {
+                cell.dewateringCell();
+            }
+            else if (cell.isSubmerged()) {
+                // TODO : exception pour l'impossibilité d'assécher
+            }
+            notifyObservers();
+        } catch (ExceptionNbHits exceptionNbHits) {
+            // TODO afficher un message au joueur
+            exceptionNbHits.printStackTrace();
         }
-        else if (cell.isSubmerged()) {
-            // TODO : exceptions pour l'impossibilité d'assécher
-        }
-        notifyObservers();
     }
 
     public void play() {

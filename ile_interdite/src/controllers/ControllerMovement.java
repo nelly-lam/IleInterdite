@@ -56,6 +56,12 @@ public class ControllerMovement implements KeyListener {
             case KeyEvent.VK_W:
                 this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()+1);
                 break;
+            case KeyEvent.VK_ENTER:
+
+                break;
+            case KeyEvent.VK_SPACE:
+
+                break;
         }
     }
 }

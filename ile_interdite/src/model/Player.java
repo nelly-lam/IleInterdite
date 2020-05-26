@@ -47,7 +47,6 @@ public class Player {
     public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
     public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
-
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {

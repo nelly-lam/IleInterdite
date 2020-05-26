@@ -6,10 +6,10 @@ public class Cell {
     public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
 
     private boolean heliport;
+    private Island model;
     private Element key;
     private Element artifact;
     private State state;
-    private Island model;
     private int x;
     private int y;
 

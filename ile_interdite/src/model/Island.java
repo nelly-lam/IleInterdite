@@ -12,6 +12,7 @@ public class Island extends Observable {
     public ArrayList<Player> players;
     public Player playerCourant;
     private final Cell heliport;
+    private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
     Random random = new Random();
 
     public Island(int w, int h) {
@@ -30,19 +31,14 @@ public class Island extends Observable {
         }
         this.heliport = this.board[heliportX][heliportY];
 
-        // TODO pas hyper convaincu par ce code
-        Cell.Element[] keys = new Cell.Element[4];
-        keys[0] = Cell.Element.FIRE;
-        keys[1] = Cell.Element.AIR;
-        keys[2] = Cell.Element.WATER;
-        keys[3] = Cell.Element.EARTH;
+        int nbKey = (int) (this.width*this.height*0.15);
 
         for(int i = 0; i < 4; i++) {
             int j = 0;
-            while (j < 15){
+            while (j < nbKey/4){
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
                 if (!cell.hasKey() && !cell.isHeliport()) {
-                    cell.setKey(keys[i]);
+                    cell.setKey(ELEMENTS[i]);
                     j++;
                 }
             }
@@ -50,7 +46,7 @@ public class Island extends Observable {
             while(!artefact) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
                 if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.hasKey() && !cell.isHeliport()) {
-                    cell.setArtifact(keys[i]);
+                    cell.setArtifact(ELEMENTS[i]);
                     artefact = true;
                 }
             }
@@ -95,6 +91,12 @@ public class Island extends Observable {
                     }
                 }
             }
+        }
+
+        double nb = Math.random();
+        if(nb < 0.25) {
+            int hint = random.nextInt(4);
+            this.playerCourant.addKey(ELEMENTS[hint]);
         }
         notifyObservers();
         this.playerCourant.restoreNbHits();

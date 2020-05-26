@@ -11,12 +11,15 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ViewItem extends JPanel {
+public class ViewItem extends JPanel implements Observer {
     private final Island model;
     private JPanel panKey;
     private JTable tableKey;
+    private Object[][] listKey;
     private JPanel panArtifact;
     private JTable tableArtifact;
+    private Object[][] listArtifact;
+    private String[] nounElements = { "Joueurs", "AIR", "EAU", "FEU", "TERRE" };
 
     public ViewItem(Island model){
         this.model = model;
@@ -33,18 +36,9 @@ public class ViewItem extends JPanel {
         this.panKey.setLayout(new BorderLayout());
         JLabel labelKey = new JLabel("Liste des clés");
         this.panKey.add(labelKey, BorderLayout.NORTH);
-        String[] nounElements = { "Joueurs", "AIR", "EAU", "FEU", "TERRE" };
         int nbPlayer = this.model.players.size();
-        Object[][] listElements = new Object[nbPlayer][5]; //row column
-
-        for (int i = 0; i < model.players.size(); i++) {
-            listElements[i][0] = this.model.players.get(i).getName();
-            listElements[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.AIR);
-            listElements[i][2] = this.model.players.get(i).nbKeyElement(Cell.Element.WATER);
-            listElements[i][3] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
-            listElements[i][4] = this.model.players.get(i).nbKeyElement(Cell.Element.EARTH);
-            tableKey = new JTable(listElements, nounElements);
-        }
+        this.listKey = new Object[nbPlayer][5]; //row column
+        this.updateListKey();
 
         TableColumnModel columnModel = tableKey.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(150);
@@ -61,16 +55,8 @@ public class ViewItem extends JPanel {
         this.panArtifact.setLayout(new BorderLayout());
         JLabel labelArtifact = new JLabel("Liste des Artefacts");
         this.panArtifact.add(labelArtifact, BorderLayout.NORTH);
-        Object[][] listArtifact = new Object[nbPlayer][5]; //row column
-
-        for (int i = 0; i < model.players.size(); i++) {
-            listArtifact[i][0] = model.players.get(i).getName();
-            listArtifact[i][1] = model.players.get(i).nbArtifactElement(Cell.Element.AIR);
-            listArtifact[i][2] = model.players.get(i).nbArtifactElement(Cell.Element.WATER);
-            listArtifact[i][3] = model.players.get(i).nbArtifactElement(Cell.Element.FIRE);
-            listArtifact[i][4] = model.players.get(i).nbArtifactElement(Cell.Element.EARTH);
-            tableArtifact = new JTable(listArtifact, nounElements);
-        }
+        this.listArtifact = new Object[nbPlayer][5]; //row column
+        this.updateListArtifact();
 
         TableColumnModel columnModel2 = tableArtifact.getColumnModel();
         columnModel2.getColumn(0).setPreferredWidth(150);
@@ -82,7 +68,34 @@ public class ViewItem extends JPanel {
         this.panArtifact.add(tableArtifact, BorderLayout.CENTER);
         this.panArtifact.add(new JScrollPane(tableArtifact));
         //tableArtifact.setPreferredSize(d);
+    }
 
+    public void updateListKey() {
+        for (int i = 0; i < model.players.size(); i++) {
+            listKey[i][0] = this.model.players.get(i).getName();
+            listKey[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.AIR);
+            listKey[i][2] = this.model.players.get(i).nbKeyElement(Cell.Element.WATER);
+            listKey[i][3] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
+            listKey[i][4] = this.model.players.get(i).nbKeyElement(Cell.Element.EARTH);
+            tableKey = new JTable(listKey, this.nounElements);
+        }
+    }
+
+    public void updateListArtifact() {
+        for (int i = 0; i < model.players.size(); i++) {
+            listArtifact[i][0] = model.players.get(i).getName();
+            listArtifact[i][1] = model.players.get(i).nbArtifactElement(Cell.Element.AIR);
+            listArtifact[i][2] = model.players.get(i).nbArtifactElement(Cell.Element.WATER);
+            listArtifact[i][3] = model.players.get(i).nbArtifactElement(Cell.Element.FIRE);
+            listArtifact[i][4] = model.players.get(i).nbArtifactElement(Cell.Element.EARTH);
+            tableArtifact = new JTable(listArtifact, this.nounElements);
+        }
+    }
+
+    @Override
+    public void update() {
+        this.updateListKey();
+        this.updateListArtifact();
     }
 
 

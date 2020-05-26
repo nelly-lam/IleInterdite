@@ -4,7 +4,7 @@ import model.Cell;
 import model.Island;
 import model.Player;
 import org.junit.jupiter.api.Test;
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 public class TestPlayer {
@@ -85,8 +85,8 @@ public class TestPlayer {
         Player p2 = new Player(island, "Joueur2", 3, 4);
         p.setNext(p2);
         p2.setNext(p);
-        assert(p.getNext().getName().equals("Joueur2"));
-        assert(p2.getNext().getName().equals("Joueur"));
+        assert(p.getNext().getName() == "Joueur2");
+        assert(p2.getNext().getName() == "Joueur");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class TestPlayer {
         }
         assert (hasFireElement);
     }
-    /**
+
     @Test
     void nearbyCellsTest() {
         //up down right left
@@ -189,7 +189,7 @@ public class TestPlayer {
         assertEquals(up5, a5.get(0));
         assertEquals(left5, a5.get(1));
 
-    }**/
+    }
 
     @Test
     void dieTest() {
@@ -231,5 +231,31 @@ public class TestPlayer {
         System.out.println(island2.getCell(0,4).getState());
         System.out.println(compteur2);
         assert(compteur2 == island2.width * island2.height);
+    }
+
+    @Test
+    void nbKeyElementTest(){
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.AIR);
+        assert(p.nbKeyElement(Cell.Element.AIR) == 3);
+        assert(p.nbKeyElement(Cell.Element.WATER) == 1);
+        assert(p.nbKeyElement(Cell.Element.EARTH) == 0);
+    }
+
+    @Test
+    void nbArtifactElementTest(){
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addArtifact(Cell.Element.AIR);
+        p.addArtifact(Cell.Element.EARTH);
+        p.addArtifact(Cell.Element.WATER);
+        p.addArtifact(Cell.Element.AIR);
+        assert(p.nbArtifactElement(Cell.Element.AIR) == 2);
+        assert(p.nbArtifactElement(Cell.Element.WATER) == 1);
+        assert(p.nbArtifactElement(Cell.Element.FIRE) == 0);
     }
 }

@@ -44,9 +44,10 @@ public class Player {
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
     public boolean getIsDead(){ return this.isDead; }
-    public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
     public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
+    public void updateKey(Cell.Element key) { this.artifact.remove(key); }
+    public boolean hasKey(Cell.Element key) { return this.artifact.contains(key); }
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {

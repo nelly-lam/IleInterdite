@@ -130,9 +130,34 @@ public class Island extends Observable {
     }
 
     public void searchKey() {
-        if(this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()].hasKey()) {
-            this.playerCourant.addKey(this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()].getKey());
+        try {
+            this.playerCourant.addHits();
+            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
+            if (cell.hasKey()) {
+                this.playerCourant.addKey(cell.getKey());
+                cell.updateKey();
+            } else {
+                double nb = Math.random();
+                if (nb < 0.65) {
+                    cell.flood();
+                }
+            }
+        } catch (ExceptionNbHits exceptionNbHits) {
+            exceptionNbHits.printStackTrace();
         }
-        // TODO rajouter montée des eaux sinon
+    }
+
+    public void recoverArtifact () {
+        try {
+            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
+            if(cell.hasArtifact() && this.playerCourant.hasKey(cell.getArtifact())) {
+                this.playerCourant.addHits();
+                this.playerCourant.addArtifact(cell.getArtifact());
+                this.playerCourant.updateKey(cell.getArtifact());
+                cell.updateArtifact();
+            }
+        } catch (ExceptionNbHits exceptionNbHits) {
+            exceptionNbHits.printStackTrace();
+        }
     }
 }

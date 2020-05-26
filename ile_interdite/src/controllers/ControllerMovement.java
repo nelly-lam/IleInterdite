@@ -60,7 +60,7 @@ public class ControllerMovement implements KeyListener {
                 this.model.searchKey();
                 break;
             case KeyEvent.VK_SPACE:
-
+                this.model.recoverArtifact();
                 break;
         }
     }

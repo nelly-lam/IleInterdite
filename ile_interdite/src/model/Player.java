@@ -17,7 +17,7 @@ public class Player {
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
-    public enum Direction {UP, DOWN, RIGHT, LEFT} //majuscules!
+    public enum Direction {UP, DOWN, RIGHT, LEFT}
 
     public Player(Island model, String name, int x, int y){
         this.model = model;
@@ -47,7 +47,6 @@ public class Player {
     public boolean getIsDead(){ return this.isDead; }
     public ArrayList<Cell.Element> getKeyArray(){ return this.key; }
     public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
-
 
 
     public void setNext(Player p) { this.next = p; }
@@ -209,6 +208,38 @@ public class Player {
                 this.isDead = true;
             }
         }
+    }
+
+    /**
+     * méthode nbKeyElement() : donne le nombre de clé d'un certain élément
+     * que le player possède
+     * @param : un Element e
+     * @return int counter le nombre de clé
+     */
+    public int nbKeyElement(Cell.Element e){
+        int counter = 0;
+        for (Cell.Element temp : this.key) {
+            if(temp == e){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    /**
+     * méthode nbArtifactElement() : donne le nombre d'artifact d'un certain élément
+     * que le player possède
+     * @param : un Element e
+     * @return int counter le nombre d'artifact
+     */
+    public int nbArtifactElement(Cell.Element e){
+        int counter = 0;
+        for (Cell.Element temp : this.artifact) {
+            if(temp == e){
+                counter++;
+            }
+        }
+        return counter;
     }
 
 }

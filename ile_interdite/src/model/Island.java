@@ -8,7 +8,7 @@ public class Island extends Observable {
     public Cell[][] board;
     public int width;
     public int height;
-    public List<Player> players;
+    public ArrayList<Player> players;
     public Player playerCourant;
     Random random = new Random();
 
@@ -18,6 +18,7 @@ public class Island extends Observable {
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<>();
         this.addPlayer("toto");
+        this.addPlayer("titi");
 
         //helicoptere 1chance sur width*height
         //keys on va en avoir 4

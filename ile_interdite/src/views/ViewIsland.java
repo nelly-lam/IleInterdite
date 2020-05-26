@@ -42,6 +42,8 @@ public class ViewIsland extends JPanel implements Observer {
                 g.setColor(new Color(35, 10, 89));
         }
         g.fillRect(x, y, this.SIZE -2, this.SIZE -2);
+        g.setColor(Color.BLUE);
+        g.drawRect(x, y, SIZE, SIZE);
     }
 
     @Override

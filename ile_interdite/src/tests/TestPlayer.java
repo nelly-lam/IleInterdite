@@ -232,4 +232,30 @@ public class TestPlayer {
         System.out.println(compteur2);
         assert(compteur2 == island2.width * island2.height);
     }
+
+    @Test
+    void nbKeyElementTest(){
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.AIR);
+        assert(p.nbKeyElement(Cell.Element.AIR) == 3);
+        assert(p.nbKeyElement(Cell.Element.WATER) == 1);
+        assert(p.nbKeyElement(Cell.Element.EARTH) == 0);
+    }
+
+    @Test
+    void nbArtifactElementTest(){
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addArtifact(Cell.Element.AIR);
+        p.addArtifact(Cell.Element.EARTH);
+        p.addArtifact(Cell.Element.WATER);
+        p.addArtifact(Cell.Element.AIR);
+        assert(p.nbArtifactElement(Cell.Element.AIR) == 2);
+        assert(p.nbArtifactElement(Cell.Element.WATER) == 1);
+        assert(p.nbArtifactElement(Cell.Element.FIRE) == 0);
+    }
 }

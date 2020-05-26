@@ -16,7 +16,7 @@ public class ViewDisplay extends JPanel {
         JTextArea turnPlayer = new JTextArea();
         //turnPlayer.setBounds(50,25,100,30);
         turnPlayer.setBackground(Color.CYAN);
-        turnPlayer.setText("It is " + model.playerCourant.getName() + " turn");
+        turnPlayer.setText("It is " + this.model.playerCourant.getName() + " turn");
         this.add(turnPlayer);
 
         JTextArea textAction = new JTextArea();

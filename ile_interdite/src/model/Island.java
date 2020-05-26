@@ -11,7 +11,7 @@ public class Island extends Observable {
     public int height;
     public ArrayList<Player> players;
     public Player playerCourant;
-    private Cell heliport;
+    private final Cell heliport;
     Random random = new Random();
 
     public Island(int w, int h) {
@@ -55,6 +55,7 @@ public class Island extends Observable {
                 }
             }
         }
+        addPlayer("toto");
     }
 
     public Cell getCell(int x, int y) {

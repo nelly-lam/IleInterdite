@@ -1,3 +1,4 @@
+
 package controllers;
 
 import model.Island;
@@ -58,6 +59,7 @@ public class ControllerMovement implements KeyListener {
                 break;
             case KeyEvent.VK_ENTER:
                 this.model.searchKey();
+                // Appel de la fonction dans view
                 break;
             case KeyEvent.VK_SPACE:
                 this.model.recoverArtifact();

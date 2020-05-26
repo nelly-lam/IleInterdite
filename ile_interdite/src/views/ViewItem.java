@@ -8,6 +8,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class ViewItem extends JPanel {
     private final Island model;
@@ -36,11 +38,11 @@ public class ViewItem extends JPanel {
         Object[][] listElements = new Object[nbPlayer][5]; //row column
 
         for (int i = 0; i < model.players.size(); i++) {
-            listElements[i][0] = model.players.get(i).getName();
-            listElements[i][1] = model.players.get(i).nbKeyElement(Cell.Element.AIR);
-            listElements[i][2] = model.players.get(i).nbKeyElement(Cell.Element.WATER);
-            listElements[i][3] = model.players.get(i).nbKeyElement(Cell.Element.FIRE);
-            listElements[i][4] = model.players.get(i).nbKeyElement(Cell.Element.EARTH);
+            listElements[i][0] = this.model.players.get(i).getName();
+            listElements[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.AIR);
+            listElements[i][2] = this.model.players.get(i).nbKeyElement(Cell.Element.WATER);
+            listElements[i][3] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
+            listElements[i][4] = this.model.players.get(i).nbKeyElement(Cell.Element.EARTH);
             tableKey = new JTable(listElements, nounElements);
         }
 
@@ -55,7 +57,7 @@ public class ViewItem extends JPanel {
         this.panKey.add(new JScrollPane(tableKey));
         //tableKey.setPreferredSize(d);
 
-        //Table des artifacts
+        //Table des artifacts en possession
         this.panArtifact.setLayout(new BorderLayout());
         JLabel labelArtifact = new JLabel("Liste des Artefacts");
         this.panArtifact.add(labelArtifact, BorderLayout.NORTH);
@@ -82,6 +84,8 @@ public class ViewItem extends JPanel {
         //tableArtifact.setPreferredSize(d);
 
     }
+
+
 
     /*public ViewItem(Island model){
         this.model = model;

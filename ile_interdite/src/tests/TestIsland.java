@@ -12,6 +12,7 @@ public class TestIsland {
         Cell c = new Cell(island, 4, 4, false, Cell.Element.AIR, Cell.Element.NONE);
         island.board[0][0] = c;
         assert (island.getCell(0, 0) == c);
+
     }
 
     @Test

@@ -71,6 +71,7 @@ public class TestCell {
 
     @Test
     void isSubmergedTest() {
+
         Island island = new Island(10, 10);
         Cell c = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);
         Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE, Cell.Element.NONE);

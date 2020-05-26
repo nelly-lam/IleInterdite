@@ -79,9 +79,21 @@ public class Island extends Observable {
         while (nbcell < 3) {
             Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
             if (!cell.isSubmerged()) {
-                // TODO : Un test lorsqu'il reste moins de 2 cases avec une exception
-                cell.flood();
-                nbcell++;
+                try{
+                    cell.flood();
+                    nbcell++;
+                }
+                catch (Exception e) {
+                    //If there's an error at runtime, flood everything
+                    for(int i = 0; i<this.width; i++){
+                        for(int j = 0; j < this.height; j++){
+                            if (!this.board[i][j].isSubmerged()) {
+                                this.board[i][j].flood();
+                            }
+                        }
+                    }
+                }
+
             }
         }
         notifyObservers();

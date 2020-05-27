@@ -78,7 +78,6 @@ public class Cell {
      * Teste si une cellule est submergee
      */
     public boolean isSubmerged() { return this.state == State.SUBMERGED; }
-
     public boolean isFlooded() { return this.state == State.FLOODED; }
 
     /**

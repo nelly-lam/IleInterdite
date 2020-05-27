@@ -19,7 +19,12 @@ public class ControllerAddPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.model.addPlayer(name.getText());
+        if(this.model.players.size() < 10) {
+            this.model.addPlayer(name.getText());
+        }
+        else {
+            System.out.println("Vous avez atteint le nombre de joueur max");
+        }
         frame.dispose();
     }
 }

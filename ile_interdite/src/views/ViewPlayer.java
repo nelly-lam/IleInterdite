@@ -23,6 +23,7 @@ public class ViewPlayer extends JPanel {
 
     private void paint(Graphics g, Player p, int x, int y) {
         g.setColor(p.getColor());
-        g.fillOval(x, y, 10, 10);
+        //TODO adapter en fonction du nombre de joueur sur la case
+        g.fillOval(x+5, y+5, 10, 10);
     }
 }

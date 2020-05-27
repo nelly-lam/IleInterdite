@@ -41,6 +41,7 @@ public class ViewIsland extends JPanel implements Observer {
             case SUBMERGED:
                 g.setColor(new Color(35, 10, 89));
         }
+        g.fillRect(x, y, SIZE -2, SIZE -2);
         switch(c.getArtifact()) {
             case FIRE:
                 g.setColor(Color.RED);
@@ -60,7 +61,7 @@ public class ViewIsland extends JPanel implements Observer {
         if(c.isHeliport()) {
             g.setColor(Color.BLACK);
         }
-        g.fillRect(x, y, SIZE -2, SIZE -2);
+        g.fillOval(x+2, y+2, SIZE-6, SIZE-6);
     }
 
     @Override

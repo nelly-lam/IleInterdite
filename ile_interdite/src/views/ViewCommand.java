@@ -13,9 +13,9 @@ public class ViewCommand extends JPanel {
     public ViewCommand(Island model) {
         this.model = model;
 
-        this.setLayout(new FlowLayout());
-        this.display = new ViewDisplay(this.model);
-        this.add(display);
+        //this.setLayout(new FlowLayout());
+        //this.display = new ViewDisplay(this.model);
+        //this.add(display);
         this.button = new ViewButton(this.model);
         this.add(button);
     }

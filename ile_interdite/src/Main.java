@@ -6,7 +6,7 @@ import views.ViewMenu;
 
 public class Main {
     public static void main (String[] args) {
-        Island model = new Island(20, 20);
+        Island model = new Island(15, 15);
         //View vue = new View(model);
         ViewMenu viewMenu = new ViewMenu(model);
     }

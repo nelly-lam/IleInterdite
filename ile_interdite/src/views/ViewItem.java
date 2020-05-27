@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
-public class ViewItem extends JPanel implements Observer {
+public class ViewItem extends JPanel {
     private final Island model;
     private JPanel panKey;
     private JTable tableKey;
@@ -15,11 +15,11 @@ public class ViewItem extends JPanel implements Observer {
     private JPanel panArtifact;
     private JTable tableArtifact;
     private Object[][] listArtifact;
+    private int nbPlayer;
     private String[] nounElements = { "Joueurs", "AIR", "EAU", "FEU", "TERRE" };
 
     public ViewItem(Island model){
         this.model = model;
-        this.model.addObserver(this);
         this.setLayout(new GridLayout(2, 1));
         Dimension d = new Dimension(250, 100);
         this.setPreferredSize(d);
@@ -27,30 +27,29 @@ public class ViewItem extends JPanel implements Observer {
         this.add(panKey);
         this.panArtifact = new JPanel();
         this.add(panArtifact);
-        int nbPlayer = this.model.players.size();
+        this.nbPlayer = this.model.players.size();
 
         //Table des keys en possession
         this.panKey.setLayout(new BorderLayout());
         JLabel labelKey = new JLabel("Liste des clés");
         this.panKey.add(labelKey, BorderLayout.NORTH);
 
-        this.listKey = new Object[nbPlayer][5]; //row column
-        this.updateListKey(5);
+        this.updateListKey();
 
         //Table des artifacts en possession
         this.panArtifact.setLayout(new BorderLayout());
         JLabel labelArtifact = new JLabel("Liste des Artefacts");
         this.panArtifact.add(labelArtifact, BorderLayout.NORTH);
 
-        this.listArtifact = new Object[nbPlayer][5]; //row column
         this.updateListArtifact();
     }
 
-    public void updateListKey(int nb) {
+    public void updateListKey() {
+        this.listKey = new Object[this.nbPlayer][5];
         for (int i = 0; i < this.model.players.size(); i++) {
             listKey[i][0] = this.model.players.get(i).getName();
-            listKey[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
-            listKey[i][2] = nb;
+            listKey[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.AIR);
+            listKey[i][2] = this.model.players.get(i).nbKeyElement(Cell.Element.WATER);
             listKey[i][3] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
             listKey[i][4] = this.model.players.get(i).nbKeyElement(Cell.Element.EARTH);
             tableKey = new JTable(listKey, this.nounElements);
@@ -66,6 +65,7 @@ public class ViewItem extends JPanel implements Observer {
     }
 
     public void updateListArtifact() {
+        this.listArtifact = new Object[this.nbPlayer][5];
         for (int i = 0; i < model.players.size(); i++) {
             listArtifact[i][0] = model.players.get(i).getName();
             listArtifact[i][1] = model.players.get(i).nbArtifactElement(Cell.Element.AIR);
@@ -82,11 +82,5 @@ public class ViewItem extends JPanel implements Observer {
         columnModel2.getColumn(4).setPreferredWidth(80);
         this.panArtifact.add(tableArtifact, BorderLayout.CENTER);
         this.panArtifact.add(new JScrollPane(tableArtifact));
-    }
-
-    @Override
-    public void update() {
-        this.updateListKey(3);
-        this.updateListArtifact();
     }
 }

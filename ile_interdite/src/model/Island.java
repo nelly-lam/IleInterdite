@@ -30,7 +30,7 @@ public class Island extends Observable {
 
         for(int i = 0; i < this.width; i++) {
             for(int j = 0; j < this.height; j++) {
-                this.board[i][j] = new Cell(this, i, j, heliportX == i && heliportY == j);
+                this.board[i][j] = new Cell(i, j, heliportX == i && heliportY == j);
             }
         }
         this.heliport = this.board[heliportX][heliportY];
@@ -184,6 +184,7 @@ public class Island extends Observable {
         for (Player p : this.players) {
             if (p.isDead()) {
                 System.out.println("Vous avez perdu !");
+                //TODO
             }
             else if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 win = false;
@@ -191,14 +192,17 @@ public class Island extends Observable {
         }
         if(this.heliport.isSubmerged()) {
             System.out.println("Vous avez perdu !");
+            //TODO
         }
         for (Cell artifact : this.artifacts) {
             if (artifact.isSubmerged()) {
                 System.out.println("Vous avez perdu !");
+                //TODO
             }
         }
         if(win && this.artifacts.isEmpty()) {
             System.out.println("Vous avez gagné !");
+            //TODO
         }
     }
 }

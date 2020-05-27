@@ -19,18 +19,6 @@ public class View {
         this.model = model;
         this.game = new JFrame();
 
-       /* |-----------------------------------------------------|
-          |                   L'ile interdite !!!!'             |
-          |                                                     |
-          |------------------------      -----------------------|
-          |   Ajouter un joueur   |      |        Jouer         |
-          |------------------------      -----------------------|
-          | Joueur 1 : Patrick                                  |
-          | Joueur 2 : Ancelle           -----------------------|
-          | Joueur 3 : Janine            |       Notice         |
-          |-----------------------------------------------------|
-        */
-
         this.game.setTitle("L'île interdite");
         this.game.setLayout(new BorderLayout());
 
@@ -52,6 +40,7 @@ public class View {
                         game.requestFocusInWindow();
                     }
                 });
+
         this.game.pack();
         this.game.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.game.setVisible(true);

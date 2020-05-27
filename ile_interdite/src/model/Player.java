@@ -41,7 +41,6 @@ public class Player {
     public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
-    public boolean isDead(){ return false; }
     public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
     public void updateKey(Cell.Element key) { this.artifact.remove(key); }
@@ -111,99 +110,27 @@ public class Player {
         this.artifact.add(e);
     }
 
-    /**  USING HASHMAP
-     * méthode cellAroundPlayer() : donne une liste des cell (haut
-     * , bas, droite, gauche) situées autour du player
-     * @param : un Island island
-     * @return une ArrayList<Cell> cap
-     */
-    /*
-    public ArrayList<Cell> cellAroundPlayer(Island island){
-        ArrayList<Cell> cap = new ArrayList<Cell>();
-        Coord haut = new Coord(this.location.getX(), this.location.getY()+1);
-        Coord bas = new Coord(this.location.getX(), this.location.getY()-1);;
-        Coord droite = new Coord(this.location.getX()+1, this.location.getY());;
-        Coord gauche = new Coord(this.location.getX()-1, this.location.getthis.Y());;
-        cap.add(this.island.board.get(haut));
-        cap.add(this.island.board.get(bas));
-        cap.add(island.this.board.get(droite));
-        cap.add(island.board.get(gauche));
-        return cap;
-    }
-    */
-
-    /**  USING ARRAY
-     * méthode cellAroundPlayer() : donne une liste des cell (haut
-     * , bas, droite, gauche) situées autour du player
-     * @return une ArrayList<Cell> cap
-     */
-    public ArrayList<Cell> nearbyCells(){
-        ArrayList<Cell> cap = new ArrayList<Cell>();
-        int playerX = this.getAbs();
-        int playerY = this.getOrd();
-        if (playerY != 0) {
-            cap.add(this.model.board[playerX][playerY-1]);
+    public boolean isDead(){
+        boolean dead = true;
+        ArrayList<Cell> cap = new ArrayList<>();
+        if (this.ord != 0)  {
+            cap.add(this.model.board[this.abs][this.ord-1]);
         }
-        if (playerY != this.model.height-1) {
-            cap.add(this.model.board[playerX][playerY+1]);
+        if (this.ord != this.model.height-1) {
+            cap.add(this.model.board[this.abs][this.ord+1]);
         }
-        if (playerX != this.model.width-1) {
-            cap.add(this.model.board[playerX+1][playerY]);
+        if (this.abs != this.model.width-1) {
+            cap.add(this.model.board[this.abs+1][this.ord]);
         }
-        if (playerX != 0) {
-            cap.add(this.model.board[playerX-1][playerY]);
+        if (this.abs != 0) {
+            cap.add(this.model.board[this.abs-1][this.ord]);
         }
-        return cap;
-    }
-
-    /** USING HASHMAP
-     * méthode die() : update le statut du player isDead en true si :
-     * - le player se situe sur une cell submergée
-     * - le player est entouré de cells submergées
-     * @param : un Island island (board)
-     */
-    /*
-    public void die(){
-        ArrayList<Cell> cap = cellAroundPlayer(island);
-        int compteur = 0;
-        if (island.board.get(this.location).state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
-            System.out.println("Mskn you are dead");
-            this.isDead = true;
-        } else {
-            for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
-                if (cap.get(i).state == Cell.State.Submerged){
-                    compteur++; //incrémenter le compteur si la cell est submergée
-                }
-            }
-            if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
-                System.out.println("Mskn you are dead");
-                this.isDead = true;
-            }
-         }
-    }
-    */
-
-    /** USING ARRAY
-     * méthode die() : update le statut du player isDead en true si :
-     * - le player se situe sur une cell submergée
-     * - le player est entouré de cells submergées
-     * @param : un Island island (board)
-     */
-    public void die(){
-        ArrayList<Cell> cap = nearbyCells();
-        int compteur = 0;
-        if (model.board[this.getAbs()][this.getOrd()].getState() == Cell.State.SUBMERGED){ //si la cell où se trouve le player est submergée
-            System.out.println("Mskn you are dead");
-        } else {
-            for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
-                if (cap.get(i).getState() == Cell.State.SUBMERGED){
-                    compteur++; //incrémenter le compteur si la cell est submergée
-                }
-            }
-            if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
-                System.out.println("Mskn you are dead");
+        for(Cell c : cap) {
+            if(!c.isSubmerged()) {
+                dead = false;
             }
         }
+        return this.model.board[this.abs][this.ord].isSubmerged() || dead;
     }
 
     /**
@@ -240,9 +167,9 @@ public class Player {
 
     public Color randomColor() {
         // On veut des couleurs foncées
-        float r = (float) (this.model.random.nextFloat() / 2f);
-        float g = (float) (this.model.random.nextFloat() / 2f);
-        float b = (float) (this.model.random.nextFloat() / 2f);
+        float r = (float) (this.model.random.nextFloat());
+        float g = (float) (this.model.random.nextFloat());
+        float b = (float) (this.model.random.nextFloat());
         return new Color(r,g,b);
     }
 

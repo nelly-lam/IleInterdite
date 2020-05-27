@@ -6,19 +6,17 @@ public class Cell {
     public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
 
     private final boolean heliport;
-    private final Island model;
     private Element key;
     private Element artifact;
     private State state;
     private final int x;
     private final int y;
 
-    public Cell(Island model, int x, int y, boolean h) {
+    public Cell(int x, int y, boolean h) {
         this.heliport = h;
         this.artifact = Cell.Element.NONE;
         this.key = Element.NONE;
         this.state = State.NORMAL;
-        this.model = model;
         this.x = x;
         this.y = y;
     }
@@ -29,6 +27,7 @@ public class Cell {
     public Element getKey() { return this.key; }
 
     public void setKey(Element key) { this.key = key; }
+
     /**
      * Donne l'artifact associee a la cellule
      */
@@ -37,7 +36,6 @@ public class Cell {
     public int getAbs() { return this.x; }
     public int getOrd() { return this.y; }
     public State getState() { return this.state; }
-
 
     /**
      * Teste si la cell possede une cle

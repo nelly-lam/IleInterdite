@@ -19,7 +19,7 @@ public class ControllerAddPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.model.players.size() < 10) {
+        if(this.model.players.size() < 8) {
             this.model.addPlayer(name.getText());
         }
         else {

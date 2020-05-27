@@ -22,7 +22,9 @@ public class ControllerPlay implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.menu.dispose();
-        View view = new View(this.model);
+        if(this.model.players.size() > 0) {
+            this.menu.dispose();
+            View view = new View(this.model);
+        }
     }
 }

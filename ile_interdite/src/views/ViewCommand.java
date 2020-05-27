@@ -17,6 +17,7 @@ public class ViewCommand extends JPanel {
         //this.display = new ViewDisplay(this.model);
         //this.add(display);
         this.button = new ViewButton(this.model);
+        this.setOpaque(false);
         this.add(button);
     }
 }

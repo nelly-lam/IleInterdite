@@ -19,21 +19,21 @@ public class View {
         this.model = model;
         this.game = new JFrame();
         this.game.setTitle("L'île interdite");
-        this.game.setSize(730, 558);
+        this.game.setSize(875, 686);
         this.game.setLayout(null);
 
         this.island = new ViewIsland(this.model);
-        this.island.setBounds(240,35,600,400);
+        this.island.setBounds(295,45,500,500);
         this.game.add(this.island);
         this.command = new ViewCommand(this.model);
-        this.command.setBounds(240,520,100,50);
+        this.command.setBounds(495,545,100,50);
         this.game.add(this.command);
         //this.item = new ViewItem(this.model);
         //this.game.add(this.item, BorderLayout.EAST);
 
-        ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_game.jpg").getImage().getScaledInstance(720, 520, Image.SCALE_DEFAULT));
+        ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_game.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, JLabel.CENTER);
-        background.setBounds(0,0,720,520);
+        background.setBounds(0,0,864,648);
         this.game.add(background);
 
         this.game.addKeyListener(new ControllerMovement(this.model));

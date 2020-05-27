@@ -17,10 +17,12 @@ public class ViewIsland extends JPanel implements Observer {
         this.player = new ViewPlayer(this.model);
         Dimension dim = new Dimension(SIZE *this.model.width, SIZE *this.model.height);
         this.setPreferredSize(dim);
+        this.setOpaque(false);
     }
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
@@ -41,7 +43,7 @@ public class ViewIsland extends JPanel implements Observer {
             case SUBMERGED:
                 g.setColor(new Color(35, 10, 89));
         }
-        g.fillRect(x, y, SIZE -2, SIZE -2);
+        g.fillRect(x, y, SIZE -4, SIZE -4);
         switch(c.getArtifact()) {
             case FIRE:
                 g.setColor(Color.RED);

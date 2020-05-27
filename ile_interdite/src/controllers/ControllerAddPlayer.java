@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Island;
+import views.ViewMenu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,8 +20,9 @@ public class ControllerAddPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.model.players.size() < 8) {
+        if ((this.model.players.size() < 8)) {
             this.model.addPlayer(name.getText());
+            ViewMenu.addPlayer(name.getText());
         }
         else {
             System.out.println("Vous avez atteint le nombre de joueur max");

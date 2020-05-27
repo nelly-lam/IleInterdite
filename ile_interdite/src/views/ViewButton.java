@@ -11,8 +11,12 @@ public class ViewButton extends JPanel {
 
     public ViewButton(Island model) {
         this.model = model;
-        this.setBackground(Color.YELLOW);
-        JButton button = new JButton("fin de tour");
+        JButton button = new JButton("Fin de tour");
+        button.setForeground(Color.WHITE);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        this.setOpaque(false);
         this.add(button);
         Controller ctrl = new Controller(this.model);
         button.addActionListener(ctrl);

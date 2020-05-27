@@ -15,7 +15,6 @@ public class Player {
     private int nbHits;
     public ArrayList<Cell.Element> key;
     private ArrayList<Cell.Element> artifact;
-    private boolean isDead;
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
 
@@ -24,10 +23,9 @@ public class Player {
         this.name = name;
         this.next = this;
         this.nbHits = 0;
-        this.color = Color.RED;
+        this.color = this.randomColor();
         this.abs = x;
         this.ord = y;
-        this.isDead = false;
         this.key = new ArrayList<>();
         this.artifact = new ArrayList<>();
     }
@@ -43,7 +41,7 @@ public class Player {
     public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
-    public boolean getIsDead(){ return this.isDead; }
+    public boolean isDead(){ return false; }
     public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
     public void updateKey(Cell.Element key) { this.artifact.remove(key); }
@@ -196,7 +194,6 @@ public class Player {
         int compteur = 0;
         if (model.board[this.getAbs()][this.getOrd()].getState() == Cell.State.SUBMERGED){ //si la cell où se trouve le player est submergée
             System.out.println("Mskn you are dead");
-            this.isDead = true;
         } else {
             for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
                 if (cap.get(i).getState() == Cell.State.SUBMERGED){
@@ -205,7 +202,6 @@ public class Player {
             }
             if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
                 System.out.println("Mskn you are dead");
-                this.isDead = true;
             }
         }
     }
@@ -240,5 +236,36 @@ public class Player {
             }
         }
         return counter;
+    }
+
+    public Color randomColor() {
+        // On veut des couleurs foncées
+        float r = (float) (this.model.random.nextFloat() / 2f);
+        float g = (float) (this.model.random.nextFloat() / 2f);
+        float b = (float) (this.model.random.nextFloat() / 2f);
+        return new Color(r,g,b);
+    }
+
+    /**
+     *  Permet de donner une cle a un autre joueur
+     * @param k la cle concernee
+     * @param p le joueur
+     */
+    public void giveKey(Cell.Element k, Player p){
+        try{
+            if(this.nbKeyElement(k) >=1 && this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd() ){
+                int index = 0;
+                for (Cell.Element tmp : this.key) {
+                    if(tmp == k){
+                        break;
+                    }
+                    index++;
+                }
+                p.addKey(this.key.get(index));
+                this.updateKey(this.key.get(index));
+            }
+        } catch (Exception notEnoughKeys){
+            System.out.println("Vous n'avez pas assez de cles!");
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Player {
     private int nbHits;
     public ArrayList<Cell.Element> key;
     private ArrayList<Cell.Element> artifact;
+    private boolean isDead;
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
 
@@ -23,9 +24,10 @@ public class Player {
         this.name = name;
         this.next = this;
         this.nbHits = 0;
-        this.color = this.randomColor();
+        this.color = Color.RED;
         this.abs = x;
         this.ord = y;
+        this.isDead = false;
         this.key = new ArrayList<>();
         this.artifact = new ArrayList<>();
     }
@@ -41,7 +43,8 @@ public class Player {
     public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
-    public boolean isDead(){ return false; }
+    public boolean getIsDead(){ return this.isDead; }
+    public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
     public void updateKey(Cell.Element key) { this.artifact.remove(key); }
     public boolean hasKey(Cell.Element key) { return this.artifact.contains(key); }
@@ -110,6 +113,27 @@ public class Player {
         this.artifact.add(e);
     }
 
+    /**  USING HASHMAP
+     * méthode cellAroundPlayer() : donne une liste des cell (haut
+     * , bas, droite, gauche) situées autour du player
+     * @param : un Island island
+     * @return une ArrayList<Cell> cap
+     */
+    /*
+    public ArrayList<Cell> cellAroundPlayer(Island island){
+        ArrayList<Cell> cap = new ArrayList<Cell>();
+        Coord haut = new Coord(this.location.getX(), this.location.getY()+1);
+        Coord bas = new Coord(this.location.getX(), this.location.getY()-1);;
+        Coord droite = new Coord(this.location.getX()+1, this.location.getY());;
+        Coord gauche = new Coord(this.location.getX()-1, this.location.getthis.Y());;
+        cap.add(this.island.board.get(haut));
+        cap.add(this.island.board.get(bas));
+        cap.add(island.this.board.get(droite));
+        cap.add(island.board.get(gauche));
+        return cap;
+    }
+    */
+
     /**  USING ARRAY
      * méthode cellAroundPlayer() : donne une liste des cell (haut
      * , bas, droite, gauche) situées autour du player
@@ -134,6 +158,33 @@ public class Player {
         return cap;
     }
 
+    /** USING HASHMAP
+     * méthode die() : update le statut du player isDead en true si :
+     * - le player se situe sur une cell submergée
+     * - le player est entouré de cells submergées
+     * @param : un Island island (board)
+     */
+    /*
+    public void die(){
+        ArrayList<Cell> cap = cellAroundPlayer(island);
+        int compteur = 0;
+        if (island.board.get(this.location).state == Cell.State.Submerged){ //si la cell où se trouve le player est submergée
+            System.out.println("Mskn you are dead");
+            this.isDead = true;
+        } else {
+            for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
+                if (cap.get(i).state == Cell.State.Submerged){
+                    compteur++; //incrémenter le compteur si la cell est submergée
+                }
+            }
+            if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
+                System.out.println("Mskn you are dead");
+                this.isDead = true;
+            }
+         }
+    }
+    */
+
     /** USING ARRAY
      * méthode die() : update le statut du player isDead en true si :
      * - le player se situe sur une cell submergée
@@ -145,14 +196,16 @@ public class Player {
         int compteur = 0;
         if (model.board[this.getAbs()][this.getOrd()].getState() == Cell.State.SUBMERGED){ //si la cell où se trouve le player est submergée
             System.out.println("Mskn you are dead");
+            this.isDead = true;
         } else {
-            for (Cell cell : cap) { //pour toutes les cell de cap
-                if (cell.getState() == Cell.State.SUBMERGED) {
+            for (int i = 0; i < cap.size(); i++){ //pour toutes les cell de cap
+                if (cap.get(i).getState() == Cell.State.SUBMERGED){
                     compteur++; //incrémenter le compteur si la cell est submergée
                 }
             }
             if (compteur == cap.size()){ //si toutes les cells de cap sont submergées
                 System.out.println("Mskn you are dead");
+                this.isDead = true;
             }
         }
     }
@@ -187,13 +240,5 @@ public class Player {
             }
         }
         return counter;
-    }
-
-    public Color randomColor() {
-        // On veut des couleurs foncées
-        float r = (float) (this.model.random.nextFloat() / 2f);
-        float g = (float) (this.model.random.nextFloat() / 2f);
-        float b = (float) (this.model.random.nextFloat() / 2f);
-        return new Color(r,g,b);
     }
 }

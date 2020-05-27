@@ -12,9 +12,7 @@ public class Island extends Observable {
     public ArrayList<Player> players;
     public Player playerCourant;
     private final Cell heliport;
-    private final ArrayList<Cell> artifacts;
     private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
-    private int nbCellSafe;
     Random random = new Random();
 
     public Island(int w, int h) {
@@ -22,8 +20,6 @@ public class Island extends Observable {
         this.height = h;
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<>();
-        this.artifacts = new ArrayList<>();
-        this.nbCellSafe = this.height*this.width*2;
 
         int heliportX = random.nextInt(this.width/2)+this.width/4;
         int heliportY = random.nextInt(this.height/2)+this.height/4;
@@ -51,7 +47,6 @@ public class Island extends Observable {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
                 if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setArtifact(ELEMENTS[i]);
-                    this.artifacts.add(cell);
                     artefact = true;
                 }
             }
@@ -76,33 +71,26 @@ public class Island extends Observable {
     }
 
     public void risingWater() {
-        if (this.nbCellSafe > 2) {
-            int nbCell = 0;
-            while (nbCell < 3) {
+        int nbcell = 0;
+        // TODO REVOIR L'EXCEPTION
+        try{
+            while (nbcell < 3) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
                 if (!cell.isSubmerged()) {
                     cell.flood();
-                    this.nbCellSafe--;
-                    nbCell++;
+                    nbcell++;
                 }
             }
-        }
-        else {
+        } catch (Exception e) {
             //If there's an error at runtime, flood everything
-            for(int i = 0; i < this.width; i++) {
+            for(int i = 0; i<this.width; i++) {
                 for(int j = 0; j < this.height; j++) {
                     if (!this.board[i][j].isSubmerged()) {
                         this.board[i][j].flood();
-                        this.nbCellSafe--;
                     }
-                    if(this.board[i][j].getState() == Cell.State.FLOODED) {
-                        j--;
-                    }
-                    if(this.nbCellSafe == 0) { break; }
                 }
             }
         }
-
         double nb = Math.random();
         if(nb < 1) {
             int hint = random.nextInt(4);
@@ -113,7 +101,6 @@ public class Island extends Observable {
         this.playerCourant = this.playerCourant.getNext();
         System.out.println(this.players.size());
         notifyObservers();
-        this.stateGame();
     }
 
     public void dry(int x, int y) {
@@ -165,35 +152,11 @@ public class Island extends Observable {
                 this.playerCourant.addHits();
                 this.playerCourant.addArtifact(cell.getArtifact());
                 this.playerCourant.updateKey(cell.getArtifact());
-                this.artifacts.remove(cell);
                 cell.updateArtifact();
             }
         } catch (ExceptionNbHits exceptionNbHits) {
             System.out.println("Vous ne pouvez pas ramasser d'artefact");
             //exceptionNbHits.printStackTrace();
-        }
-    }
-
-    public void stateGame() {
-        boolean win = true;
-        for (Player p : this.players) {
-            if (p.isDead()) {
-               System.out.println("Vous avez perdu !");
-            }
-            else if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
-                win = false;
-            }
-        }
-        if(this.heliport.isSubmerged()) {
-            System.out.println("Vous avez perdu !");
-        }
-        for (Cell artifact : this.artifacts) {
-            if (artifact.isSubmerged()) {
-                System.out.println("Vous avez perdu !");
-            }
-        }
-        if(win && this.artifacts.isEmpty()) {
-            System.out.println("Vous avez gagné !");
         }
     }
 }

@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ControllerMovement implements KeyListener {
-    private Island model;
+    private final Island model;
 
     public ControllerMovement(Island model) {
         this.model = model;
@@ -39,9 +39,6 @@ public class ControllerMovement implements KeyListener {
             case KeyEvent.VK_RIGHT:
                 this.model.movePlayer(Player.Direction.RIGHT);
                 break;
-            case KeyEvent.VK_A:
-                this.model.addPlayer("toto");
-                break;
             case KeyEvent.VK_Z:
                 this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()-1);
                 break;
@@ -64,6 +61,8 @@ public class ControllerMovement implements KeyListener {
             case KeyEvent.VK_SPACE:
                 this.model.recoverArtifact();
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + e.getKeyCode());
         }
     }
 }

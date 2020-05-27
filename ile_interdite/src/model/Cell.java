@@ -5,13 +5,13 @@ public class Cell {
     public enum State{ NORMAL, FLOODED, SUBMERGED }
     public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
 
-    private boolean heliport;
-    private Island model;
+    private final boolean heliport;
+    private final Island model;
     private Element key;
     private Element artifact;
     private State state;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Cell(Island model, int x, int y, boolean h) {
         this.heliport = h;
@@ -111,7 +111,7 @@ public class Cell {
      * @return un boolean
      */
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         boolean status = false;
         if (this.heliport == ((Cell) obj).heliport
                 && this.key == ((Cell) obj).key

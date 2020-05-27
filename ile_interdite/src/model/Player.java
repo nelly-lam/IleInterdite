@@ -13,7 +13,7 @@ public class Player {
     private int abs;
     private int ord;
     private int nbHits;
-    private ArrayList<Cell.Element> key;
+    public ArrayList<Cell.Element> key;
     private ArrayList<Cell.Element> artifact;
     private boolean isDead;
 
@@ -80,6 +80,7 @@ public class Player {
             }
         } catch (ExceptionNbHits exceptionNbHits) {
             // TODO afficher un message au joueur
+            System.out.println("Vous ne passerez pas !");
             //exceptionNbHits.printStackTrace();
         }
     }
@@ -96,14 +97,6 @@ public class Player {
         this.nbHits = 0;
     }
 
-    /*
-    //EN CHANTIER
-    public void updatePosition(Island island, Cell c){
-        //this.locathis.tion = new Coord(island.board.get(c));
-    } //changer la position du joueur
-    //isMovementPossible(Cellule c) // checker si le joueur a le droit de faire un mouvement
-    */
-
     /**
      * méthode addkey() : ajoute une clé (élément) à la liste des key du player
      * @param : un Element e
@@ -119,7 +112,6 @@ public class Player {
     public void addArtifact(Cell.Element e){
         this.artifact.add(e);
     }
-
 
     /**  USING HASHMAP
      * méthode cellAroundPlayer() : donne une liste des cell (haut
@@ -249,5 +241,4 @@ public class Player {
         }
         return counter;
     }
-
 }

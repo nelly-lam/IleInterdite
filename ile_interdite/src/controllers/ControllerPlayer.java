@@ -1,12 +1,13 @@
 package controllers;
 
 import model.Island;
+import views.ViewAddPlayer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControllerPlayer implements ActionListener {
-    private Island model;
+    private final Island model;
 
     public ControllerPlayer(Island model) {
         this.model = model;
@@ -14,6 +15,6 @@ public class ControllerPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.model.addPlayer("toto");
+        ViewAddPlayer viewAddPlayer = new ViewAddPlayer(this.model);
     }
 }

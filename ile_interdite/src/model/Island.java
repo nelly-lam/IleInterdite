@@ -45,13 +45,12 @@ public class Island extends Observable {
             boolean artefact = false;
             while(!artefact) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.hasKey() && !cell.isHeliport()) {
+                if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setArtifact(ELEMENTS[i]);
                     artefact = true;
                 }
             }
         }
-        addPlayer("toto");
     }
 
     public Cell getCell(int x, int y) {
@@ -92,15 +91,16 @@ public class Island extends Observable {
                 }
             }
         }
-
         double nb = Math.random();
-        if(nb < 0.25) {
+        if(nb < 1) {
             int hint = random.nextInt(4);
             this.playerCourant.addKey(ELEMENTS[hint]);
         }
-        notifyObservers();
+
         this.playerCourant.restoreNbHits();
         this.playerCourant = this.playerCourant.getNext();
+        System.out.println(this.players.size());
+        notifyObservers();
     }
 
     public void dry(int x, int y) {
@@ -115,13 +115,9 @@ public class Island extends Observable {
             }
             notifyObservers();
         } catch (ExceptionNbHits exceptionNbHits) {
-            // TODO afficher un message au joueur
-            exceptionNbHits.printStackTrace();
+            System.out.println("Vous ne pouvez pas assécher");
+            //exceptionNbHits.printStackTrace();
         }
-    }
-
-    public void play() {
-        //TODO
     }
 
     public void movePlayer(Player.Direction key) {
@@ -143,8 +139,10 @@ public class Island extends Observable {
                 }
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            exceptionNbHits.printStackTrace();
+            System.out.println("Vous ne pouvez pas fouiller la zone");
+            //exceptionNbHits.printStackTrace();
         }
+        notifyObservers();
     }
 
     public void recoverArtifact () {
@@ -157,7 +155,8 @@ public class Island extends Observable {
                 cell.updateArtifact();
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            exceptionNbHits.printStackTrace();
+            System.out.println("Vous ne pouvez pas ramasser d'artefact");
+            //exceptionNbHits.printStackTrace();
         }
     }
 }

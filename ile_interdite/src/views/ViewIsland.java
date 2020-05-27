@@ -54,6 +54,8 @@ public class ViewIsland extends JPanel implements Observer {
             case AIR:
                 g.setColor(Color.LIGHT_GRAY);
                 break;
+            case NONE:
+                break;
         }
         if(c.isHeliport()) {
             g.setColor(Color.BLACK);

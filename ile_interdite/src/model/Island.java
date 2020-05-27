@@ -148,10 +148,16 @@ public class Island extends Observable {
     public void recoverArtifact () {
         try {
             Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
-            if(cell.hasArtifact() && this.playerCourant.hasKey(cell.getArtifact())) {
+            if(cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >=4) {
                 this.playerCourant.addHits();
                 this.playerCourant.addArtifact(cell.getArtifact());
-                this.playerCourant.updateKey(cell.getArtifact());
+                try {
+                    for(int i = 0; i < 4; i++){
+                        this.playerCourant.updateKey(cell.getArtifact());
+                    }
+                } catch (Exception notEnoughKeys){
+                    System.out.println("Erreur lors de la suppression des Cles dans recoverArtifact!");
+                }
                 cell.updateArtifact();
             }
         } catch (ExceptionNbHits exceptionNbHits) {

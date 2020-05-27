@@ -53,17 +53,7 @@ public class TestPlayer {
         Player p = new Player(island, "Joueur", 4, 3);
         assert(!p.getIsDead());
     }
-
-    @Test
-    void getKeyArrayTest(){
-        Island island = new Island(5,5);
-        Player p = new Player(island, "Joueur", 4, 3);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.WATER);
-        assert(p.getKeyArray().size() == 2);
-        assert(p.getKeyArray().get(0) == Cell.Element.EARTH);
-        assert(p.getKeyArray().get(1) == Cell.Element.WATER);
-    }
+    
 
     @Test
     void getArtifactArray(){
@@ -98,21 +88,6 @@ public class TestPlayer {
     //@Test
     void restoreNbHitsTest(){
         //TODO
-    }
-
-    @Test
-    void addKeyTest() {
-        Island island = new Island(20,20);
-        Player p = new Player(island, "Joueur", 1, 2);
-        p.addKey(Cell.Element.FIRE);
-        ArrayList<Cell.Element> e = p.getKeyArray();
-        boolean hasFireElement = false;
-        for(int i = 0; i < e.size() ; i++){
-            if(e.get(i) == Cell.Element.FIRE) {
-                hasFireElement = true;
-            }
-        }
-        assert (hasFireElement);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package controllers;
 
 import model.Island;
-import views.View;
+import views.ViewGame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +24,7 @@ public class ControllerPlay implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(this.model.players.size() > 0) {
             this.menu.dispose();
-            View view = new View(this.model);
+            ViewGame view = new ViewGame(this.model);
         }
     }
 }

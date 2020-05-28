@@ -8,14 +8,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class View {
+public class ViewGame {
     private final Island model;
     private final JFrame game;
     private ViewIsland island;
-    private ViewCommand command;
+    private ViewButton button;
+    private ViewNbHits nbHits;
     private ViewItem item;
 
-    public View(Island model) {
+    public ViewGame(Island model) {
         this.model = model;
         this.game = new JFrame();
         this.game.setTitle("L'île interdite");
@@ -25,9 +26,16 @@ public class View {
         this.island = new ViewIsland(this.model);
         this.island.setBounds(295,45,500,500);
         this.game.add(this.island);
-        this.command = new ViewCommand(this.model);
-        this.command.setBounds(495,545,100,50);
-        this.game.add(this.command);
+
+        // TODO mettre le bouton dans le rectangle (voir Nelly & Antonin pour comprendre)
+        this.button = new ViewButton(this.model);
+        this.button.setBounds(495,550,100,50);
+        this.game.add(this.button);
+
+        this.nbHits = new ViewNbHits(this.model);
+        this.nbHits.setBounds(800,110,50,50);
+        this.game.add(this.nbHits);
+
         //this.item = new ViewItem(this.model);
         //this.game.add(this.item, BorderLayout.EAST);
 

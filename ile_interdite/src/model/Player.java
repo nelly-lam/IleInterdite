@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
+import views.ViewNbHits;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Player {
         this.model = model;
         this.name = name;
         this.next = this;
-        this.nbHits = 0;
+        this.nbHits = 3;
         this.color = this.randomColor();
         this.abs = x;
         this.ord = y;
@@ -83,15 +84,17 @@ public class Player {
     }
 
     public void addHits() throws ExceptionNbHits {
-        if(this.nbHits == 3) {
+        if(this.nbHits == 0) {
             throw new ExceptionNbHits();
         }
         else {
-            this.nbHits++;
+            this.nbHits--;
+            ViewNbHits.updateNbHits(this.nbHits);
         }
     }
     public void restoreNbHits() {
-        this.nbHits = 0;
+        this.nbHits = 3;
+        ViewNbHits.updateNbHits(this.nbHits);
     }
 
     /**

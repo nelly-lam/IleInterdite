@@ -16,7 +16,7 @@ public class ViewAddPlayer extends JPanel {
         this.addPlayer.setTitle("Ajouter un joueur");
 
         this.addPlayer.setLayout(new BorderLayout());
-        JTextArea name = new JTextArea();
+        JTextField name = new JTextField();
         this.addPlayer.add(name, BorderLayout.NORTH);
 
         JButton buttonPlay = new JButton("Ajouter");

@@ -1,5 +1,4 @@
 import model.Island;
-import views.View;
 import views.ViewMenu;
 
 //TODO Ajouter des interfaces pour les classes

@@ -35,7 +35,7 @@ public class ViewIsland extends JPanel implements Observer {
     private void paint(Graphics g, Cell c, int x, int y) {
         switch(c.getState()) {
             case NORMAL:
-                g.setColor(new Color(255, 186, 10));
+                g.setColor(new Color(242, 176, 53));
                 break;
             case FLOODED:
                 g.setColor(new Color(130, 159, 217));

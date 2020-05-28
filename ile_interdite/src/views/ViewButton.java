@@ -11,7 +11,9 @@ public class ViewButton extends JPanel {
 
     public ViewButton(Island model) {
         this.model = model;
-        JButton button = new JButton("Fin de tour");
+        JButton button = new JButton("FIN DE TOUR");
+
+        button.setPreferredSize(new Dimension(146,40));
         button.setForeground(Color.WHITE);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);

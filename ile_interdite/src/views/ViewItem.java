@@ -2,12 +2,16 @@ package views;
 
 import model.Cell;
 import model.Island;
+import model.Player;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class ViewItem extends JPanel {
+import static javax.swing.SwingConstants.CENTER;
+
+public class ViewItem extends JPanel implements Observer{
     private final Island model;
     private JPanel panKey;
     private JTable tableKey;
@@ -16,71 +20,87 @@ public class ViewItem extends JPanel {
     private JTable tableArtifact;
     private Object[][] listArtifact;
     private int nbPlayer;
-    private String[] nounElements = { "Joueurs", "AIR", "EAU", "FEU", "TERRE" };
+    private String[] header = { "Joueurs", "AIR", "EAU", "FEU", "TERRE" };
+    private int sizeCourante = 2;
+    private static final int SIZE = 8;
 
-    public ViewItem(Island model){
+    private ArrayList<JLabel> mmmm;
+
+    public ViewItem(Island model) {
         this.model = model;
-        this.setLayout(new GridLayout(2, 1));
-        Dimension d = new Dimension(250, 100);
-        this.setPreferredSize(d);
-        this.panKey = new JPanel();
-        this.add(panKey);
-        this.panArtifact = new JPanel();
-        this.add(panArtifact);
-        this.nbPlayer = this.model.players.size();
+        this.model.addObserver(this);
+        this.setLayout(null);
+        this.setOpaque(false);
 
-        //Table des keys en possession
-        this.panKey.setLayout(new BorderLayout());
-        JLabel labelKey = new JLabel("Liste des clés");
-        this.panKey.add(labelKey, BorderLayout.NORTH);
+        for(Player p : this.model.players) {
+            JLabel name = new JLabel(p.getName());
+            name.setFont(new Font("Panton", Font.PLAIN, 20));
+            name.setBounds(20,this.sizeCourante,200,30);
+            name.setForeground(Color.WHITE);
+            this.add(name);
+            JLabel lblb = new JLabel();
+            lblb.setForeground(p.getColor());
+            this.add(lblb);
 
-        this.updateListKey();
+            ImageIcon keyFire = new ImageIcon(new ImageIcon("./src/images/key_fire.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+            JLabel labelKeyFire = new JLabel("", keyFire, CENTER);
+            labelKeyFire.setBounds(35,this.sizeCourante+12,50,50);
+            this.add(labelKeyFire);
+            JLabel nbKeyFire = new JLabel("0");
+            nbKeyFire.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyFire.setBounds(65,this.sizeCourante+18,50,50);
+            nbKeyFire.setForeground(Color.WHITE);
+            this.add(nbKeyFire);
 
-        //Table des artifacts en possession
-        this.panArtifact.setLayout(new BorderLayout());
-        JLabel labelArtifact = new JLabel("Liste des Artefacts");
-        this.panArtifact.add(labelArtifact, BorderLayout.NORTH);
+            ImageIcon keyWater = new ImageIcon(new ImageIcon("./src/images/key_water.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+            JLabel labelKeyWater = new JLabel("", keyWater, CENTER);
+            labelKeyWater.setBounds(65,this.sizeCourante+12,50,50);
+            this.add(labelKeyWater);
+            JLabel nbKeyWater = new JLabel("0");
+            nbKeyWater.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyWater.setBounds(95,this.sizeCourante+18,50,50);
+            nbKeyWater.setForeground(Color.WHITE);
+            this.add(nbKeyWater);
 
-        this.updateListArtifact();
-    }
+            ImageIcon keyEarth = new ImageIcon(new ImageIcon("./src/images/key_earth.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+            JLabel labelKeyEarth = new JLabel("", keyEarth, CENTER);
+            labelKeyEarth.setBounds(95,this.sizeCourante+12,50,50);
+            this.add(labelKeyEarth);
+            JLabel nbKeyEarth = new JLabel("0");
+            nbKeyEarth.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyEarth.setBounds(125,this.sizeCourante+18,50,50);
+            nbKeyEarth.setForeground(Color.WHITE);
+            this.add(nbKeyEarth);
 
-    public void updateListKey() {
-        this.listKey = new Object[this.nbPlayer][5];
-        for (int i = 0; i < this.model.players.size(); i++) {
-            listKey[i][0] = this.model.players.get(i).getName();
-            listKey[i][1] = this.model.players.get(i).nbKeyElement(Cell.Element.AIR);
-            listKey[i][2] = this.model.players.get(i).nbKeyElement(Cell.Element.WATER);
-            listKey[i][3] = this.model.players.get(i).nbKeyElement(Cell.Element.FIRE);
-            listKey[i][4] = this.model.players.get(i).nbKeyElement(Cell.Element.EARTH);
-            tableKey = new JTable(listKey, this.nounElements);
+            ImageIcon keyAir = new ImageIcon(new ImageIcon("./src/images/key_air.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+            JLabel labelKeyAir = new JLabel("", keyAir, CENTER);
+            labelKeyAir.setBounds(125,this.sizeCourante+12,50,50);
+            this.add(labelKeyAir);
+            JLabel nbKeyAir = new JLabel("0");
+            nbKeyAir.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyAir.setBounds(155,this.sizeCourante+18,50,50);
+            nbKeyAir.setForeground(Color.WHITE);
+            this.add(nbKeyAir);
+
+            this.sizeCourante += 56;
         }
-        var columnModel = tableKey.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(150);
-        columnModel.getColumn(1).setPreferredWidth(80);
-        columnModel.getColumn(2).setPreferredWidth(80);
-        columnModel.getColumn(3).setPreferredWidth(80);
-        columnModel.getColumn(4).setPreferredWidth(80);
-        this.panKey.add(tableKey, BorderLayout.CENTER);
-        this.panKey.add(new JScrollPane(tableKey));
     }
 
-    public void updateListArtifact() {
-        this.listArtifact = new Object[this.nbPlayer][5];
-        for (int i = 0; i < model.players.size(); i++) {
-            listArtifact[i][0] = model.players.get(i).getName();
-            listArtifact[i][1] = model.players.get(i).nbArtifactElement(Cell.Element.AIR);
-            listArtifact[i][2] = model.players.get(i).nbArtifactElement(Cell.Element.WATER);
-            listArtifact[i][3] = model.players.get(i).nbArtifactElement(Cell.Element.FIRE);
-            listArtifact[i][4] = model.players.get(i).nbArtifactElement(Cell.Element.EARTH);
-            tableArtifact = new JTable(listArtifact, this.nounElements);
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        int height = 8;
+        for (int i = 0; i < this.model.players.size(); i++){
+            paint(g, this.model.players.get(i),5, height);
+            height += 56;
         }
-        TableColumnModel columnModel2 = tableArtifact.getColumnModel();
-        columnModel2.getColumn(0).setPreferredWidth(150);
-        columnModel2.getColumn(1).setPreferredWidth(80);
-        columnModel2.getColumn(2).setPreferredWidth(80);
-        columnModel2.getColumn(3).setPreferredWidth(80);
-        columnModel2.getColumn(4).setPreferredWidth(80);
-        this.panArtifact.add(tableArtifact, BorderLayout.CENTER);
-        this.panArtifact.add(new JScrollPane(tableArtifact));
     }
+
+    public void paint(Graphics g, Player p, int x, int y){
+        g.setColor(p.getColor());
+        g.fillOval(x, y, SIZE, SIZE);
+    }
+
+    @Override
+    public void update() { repaint(); }
 }

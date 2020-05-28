@@ -4,18 +4,18 @@ import model.Cell;
 import model.Island;
 import org.junit.jupiter.api.Test;
 
-public class TestIsland {
+public class TestIsland {/**
 
     @Test
     void getCellTest() {
-        /**Island island = new Island(20, 20);
+        Island island = new Island(20, 20);
         Cell c = new Cell(island, 4, 4, false, Cell.Element.AIR, Cell.Element.NONE);
         island.board[0][0] = c;
-        assert (island.getCell(0, 0) == c);**/
+        assert (island.getCell(0, 0) == c);
 
     }
 
-    /**@Test
+    @Test
     void addPlayerTest(){
         Island island = new Island(10,10);
         island.addPlayer("toto");
@@ -29,7 +29,7 @@ public class TestIsland {
         //assert(island2.players.size() == 3);
         //assert(island2.players.get(2).getName() == "tutu");
         //assert(island2.playerCourant.getName() == "titi");
-    }**/
+    }
 
     @Test
     void risingWaterTest() {
@@ -65,6 +65,6 @@ public class TestIsland {
     //@Test
     void movePlayerTest(){
         //TODO
-    }
+    }**/
 
 }

@@ -18,7 +18,7 @@ public class ControllerActionTeleport implements MouseListener {
         int x = e.getX();
         int y = e.getY();
         Cell cell = this.model.getCell(x, y);
-        this.model.playerCourant.teleportPlayer(x, y);
+        this.model.currentPlayer.teleportPlayer(x, y);
     }
 
     @Override

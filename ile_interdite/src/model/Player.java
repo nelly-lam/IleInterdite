@@ -14,8 +14,8 @@ public class Player {
     private int abs;
     private int ord;
     private int nbHits;
-    public ArrayList<Cell.Element> key;
-    private ArrayList<Cell.Element> artifact;
+    public ArrayList<Cell.Element> keys;
+    private ArrayList<Cell.Element> artifacts;
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
 
@@ -27,8 +27,8 @@ public class Player {
         this.color = this.randomColor();
         this.abs = x;
         this.ord = y;
-        this.key = new ArrayList<>();
-        this.artifact = new ArrayList<>();
+        this.keys = new ArrayList<>();
+        this.artifacts = new ArrayList<>();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -42,10 +42,9 @@ public class Player {
     public int getNbHits() { return this.nbHits; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
-    public ArrayList<Cell.Element> getArtifactArray(){ return this.artifact; }
 
-    public void updateKey(Cell.Element key) { this.artifact.remove(key); }
-    public boolean hasKey(Cell.Element key) { return this.artifact.contains(key); }
+    public void updateKey(Cell.Element key) { this.keys.remove(key); }
+    public boolean hasKey(Cell.Element key) { return this.artifacts.contains(key); }
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {
@@ -102,7 +101,7 @@ public class Player {
      * @param : un Element e
      */
     public void addKey(Cell.Element e){
-        this.key.add(e);
+        this.keys.add(e);
     }
 
     /**
@@ -110,7 +109,7 @@ public class Player {
      * @param : un Element e
      */
     public void addArtifact(Cell.Element e){
-        this.artifact.add(e);
+        this.artifacts.add(e);
     }
 
     public boolean isDead(){
@@ -144,7 +143,7 @@ public class Player {
      */
     public int nbKeyElement(Cell.Element e){
         int counter = 0;
-        for (Cell.Element temp : this.key) {
+        for (Cell.Element temp : this.keys) {
             if(temp == e){
                 counter++;
             }
@@ -160,7 +159,7 @@ public class Player {
      */
     public int nbArtifactElement(Cell.Element e){
         int counter = 0;
-        for (Cell.Element temp : this.artifact) {
+        for (Cell.Element temp : this.artifacts) {
             if(temp == e){
                 counter++;
             }
@@ -185,14 +184,14 @@ public class Player {
         try{
             if(this.nbKeyElement(k) >=1 && this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd() ){
                 int index = 0;
-                for (Cell.Element tmp : this.key) {
+                for (Cell.Element tmp : this.keys) {
                     if(tmp == k){
                         break;
                     }
                     index++;
                 }
-                p.addKey(this.key.get(index));
-                this.updateKey(this.key.get(index));
+                p.addKey(this.keys.get(index));
+                this.updateKey(this.keys.get(index));
             }
         } catch (Exception notEnoughKeys){
             System.out.println("Vous n'avez pas assez de cles!");

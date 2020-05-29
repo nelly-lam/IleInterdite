@@ -1,16 +1,14 @@
 package views;
 
-import fonts.PantonFont;
 import model.Cell;
 import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class ViewIsland extends JPanel implements Observer {
     private final Island model;
-    private ViewPlayer player;
+    private final ViewPlayer player;
     public static final int SIZE = 35;
 
     public ViewIsland(Island model) {
@@ -27,19 +25,13 @@ public class ViewIsland extends JPanel implements Observer {
         super.repaint();
         for(int i = 0; i < this.model.width; i++) {
             for(int j = 0; j < this.model.height; j++) {
-                try {
-                    paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (FontFormatException e) {
-                    e.printStackTrace();
-                }
+                paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
             }
         }
         player.paintComponent(g);
     }
 
-    private void paint(Graphics g, Cell c, int x, int y) throws IOException, FontFormatException {
+    private void paint(Graphics g, Cell c, int x, int y) {
         switch(c.getState()) {
             case NORMAL:
                 g.setColor(new Color(252, 210, 133, 192));
@@ -66,6 +58,8 @@ public class ViewIsland extends JPanel implements Observer {
                 case AIR:
                     g.setColor(new Color(255, 255, 255));
                     break;
+                case NONE:
+                    break;
             }
             g.fillRoundRect(x+6, y+6, SIZE - 20, SIZE - 20, 6, 6);
         }
@@ -74,7 +68,6 @@ public class ViewIsland extends JPanel implements Observer {
             g.fillOval(x+2, y+2, SIZE - 12, SIZE - 12);
             g.setColor(Color.WHITE);
             g.drawOval(x+2, y+2, SIZE - 12, SIZE - 12);
-            g.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 12));
             g.drawString("H", x+9, y+17);
         }
     }

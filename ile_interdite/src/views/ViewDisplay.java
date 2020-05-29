@@ -15,12 +15,12 @@ public class ViewDisplay extends JPanel {
 
         JTextArea turnPlayer = new JTextArea();
         turnPlayer.setBackground(Color.CYAN);
-        turnPlayer.setText("It is " + this.model.playerCourant.getName() + " turn");
+        turnPlayer.setText("It is " + this.model.currentPlayer.getName() + " turn");
         this.add(turnPlayer);
 
         JTextArea textAction = new JTextArea();
         textAction.setBackground(Color.CYAN);
-        textAction.setText("What do you want to do darling ? Actions : " + this.model.playerCourant.getNbHits());
+        textAction.setText("What do you want to do darling ? Actions : " + this.model.currentPlayer.getNbHits());
         this.add(textAction);
         textAction.setEditable(false);
 

@@ -3,6 +3,7 @@ package controllers;
 
 import model.Island;
 import model.Player;
+import views.ViewGame;
 import views.ViewSwapKey;
 
 import java.awt.event.KeyEvent;
@@ -17,12 +18,12 @@ public class ControllerMovement implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // Nous n'avons pas besoin de cette méthode
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // Nous n'avons pas besoin de cette méthode
+
     }
 
     @Override
@@ -41,33 +42,32 @@ public class ControllerMovement implements KeyListener {
                 this.model.movePlayer(Player.Direction.RIGHT);
                 break;
             case KeyEvent.VK_Z:
-                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()-1);
+                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd()-1);
                 break;
             case KeyEvent.VK_S:
-                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd());
+                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd());
                 break;
             case KeyEvent.VK_D:
-                this.model.dry(this.model.playerCourant.getAbs()+1, this.model.playerCourant.getOrd());
+                this.model.dry(this.model.currentPlayer.getAbs()+1, this.model.currentPlayer.getOrd());
                 break;
             case KeyEvent.VK_Q:
-                this.model.dry(this.model.playerCourant.getAbs()-1, this.model.playerCourant.getOrd());
+                this.model.dry(this.model.currentPlayer.getAbs()-1, this.model.currentPlayer.getOrd());
                 break;
             case KeyEvent.VK_W:
-                this.model.dry(this.model.playerCourant.getAbs(), this.model.playerCourant.getOrd()+1);
+                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd()+1);
                 break;
             case KeyEvent.VK_ENTER:
                 this.model.searchKey();
-                //this.model.searchKey2();
                 break;
             case KeyEvent.VK_SPACE:
                 this.model.recoverArtifact();
                 break;
             case KeyEvent.VK_M:
-                if(this.model.playerCourant.keys.size() != 0 && this.model.playerCourant.isOnSameCell().size() != 0){
+                if(this.model.currentPlayer.keys.size() != 0 && this.model.currentPlayer.isOnSameCell().size() != 0){
                     ViewSwapKey swapKey = new ViewSwapKey(this.model);
                 }
             default:
-                throw new IllegalStateException("Unexpected value: " + e.getKeyCode());
+                ViewGame.updateDisplay("Cette commande n'a pas besoin d'être utilisé pour jouer");
         }
     }
 }

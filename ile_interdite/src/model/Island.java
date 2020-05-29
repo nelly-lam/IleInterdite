@@ -11,7 +11,7 @@ public class Island extends Observable {
     public int width;
     public int height;
     public ArrayList<Player> players;
-    public Player playerCourant;
+    public Player currentPlayer;
     private final Cell heliport;
     private final ArrayList<Cell> artifacts;
     private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
@@ -67,7 +67,7 @@ public class Island extends Observable {
         if(players.isEmpty()) {
             Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
             this.players.add(p);
-            this.playerCourant = p;
+            this.currentPlayer = p;
         }
         else {
             Player p = new Player(this, name, this.players.get(0), this.heliport.getAbs(), this.heliport.getOrd());
@@ -106,11 +106,11 @@ public class Island extends Observable {
         double nb = Math.random();
         if(nb < 0.2) {
             int hint = random.nextInt(4);
-            this.playerCourant.addKey(ELEMENTS[hint]);
+            this.currentPlayer.addKey(ELEMENTS[hint]);
         }
 
-        this.playerCourant.restoreNbHits();
-        this.playerCourant = this.playerCourant.getNext();
+        this.currentPlayer.restoreNbHits();
+        this.currentPlayer = this.currentPlayer.getNext();
         System.out.println(this.players.size());
         notifyObservers();
         this.stateGame();
@@ -119,31 +119,31 @@ public class Island extends Observable {
     public void dry(int x, int y) {
         try {
             Cell cell = this.board[x][y];
-            if (cell.isFlooded()) {
-                this.playerCourant.addHits();
+            if(cell.isFlooded()) {
+                this.currentPlayer.addHits();
                 cell.dryCell();
                 this.nbCellSafe++;
             }
-            else if (cell.isSubmerged()) {
-                ViewGame.updateDisplay("Vous ne pouvez pas assécher cette case");
+            else if(cell.isSubmerged()) {
+                ViewGame.updateDisplay("Cette case est submergée, vous ne pouvez pas l'assécher");
             }
             notifyObservers();
-        } catch (ExceptionNbHits exceptionNbHits) {
-            ViewGame.updateDisplay("Vous n'avez plus de coups pour assécher cette case");
+        } catch(ExceptionNbHits exceptionNbHits) {
+            ViewGame.updateDisplay("Vous n'avez pas assez de coups pour assécher cette case");
         }
     }
 
     public void movePlayer(Player.Direction key) {
-        this.playerCourant.move(key);
+        this.currentPlayer.move(key);
         notifyObservers();
     }
 
     public void searchKey() {
         try {
-            this.playerCourant.addHits();
-            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
+            this.currentPlayer.addHits();
+            Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
             if (cell.hasKey()) {
-                this.playerCourant.addKey(cell.getKey());
+                this.currentPlayer.addKey(cell.getKey());
                 cell.updateKey();
             } else {
                 double nb = Math.random();
@@ -152,24 +152,24 @@ public class Island extends Observable {
                 }
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            ViewGame.updateDisplay("Vous n'avez plus de coups pour chercher une clé");
+            ViewGame.updateDisplay("Vous n'avez pas assez de coups pour chercher une clé");
         }
         notifyObservers();
     }
 
     public void recoverArtifact () {
         try {
-            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
-            if (cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >= 2) {
-                this.playerCourant.addHits();
-                this.playerCourant.addArtifact(cell.getArtifact());
+            Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
+            if (cell.hasArtifact() && this.currentPlayer.nbKeyElement(cell.getArtifact()) >= 1) {
+                this.currentPlayer.addHits();
+                this.currentPlayer.addArtifact(cell.getArtifact());
                 for (int i = 0; i < 1; i++) {
-                    this.playerCourant.updateKey(cell.getArtifact());
+                    this.currentPlayer.updateKey(cell.getArtifact());
                 }
                 cell.updateArtifact();
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            ViewGame.updateDisplay("Vous n'avez plus de coups pour ramassez l'artefact");
+            ViewGame.updateDisplay("Vous n'avez pas assez de coups pour ramassez l'artefact");
         }
         notifyObservers();
     }
@@ -232,26 +232,26 @@ public class Island extends Observable {
     //for Actions Spéciales EN CHANTIER évènement recherche clés
     public void searchKey2(int x, int y){
         try {
-            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
+            Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
             if (cell.hasKey()) {  //Récup la clé si il y en a une
-                this.playerCourant.addKey(cell.getKey());
+                this.currentPlayer.addKey(cell.getKey());
                 System.out.println("clé obtenue :" + cell.getKey());
                 cell.updateKey();
-                this.playerCourant.addHits();
+                this.currentPlayer.addHits();
             } else {              //Sinon inonde la Cell sur laquelle le PlayerCourant se situe
                 double rand = Math.random();
                 if (rand < 0.33) {
                     double nb = Math.random();
                     if (nb < 0.65) {
                         cell.flood();
-                        this.playerCourant.addHits();
+                        this.currentPlayer.addHits();
                     }            //Ou rien
                 } else if (rand >= 0.33 && rand < 0.66) { //Ou assèche une Cell au hasard
                     Cell cell2 = this.board[x][y];
                     if (cell2.getState() == Cell.State.FLOODED){ this.dry(x, y); }
                 } else {  //Ou se téléporte sur une Cell de son choix
                     //System.out.println("You can't travel yet");
-                    this.playerCourant.teleportPlayer(x,y);
+                    this.currentPlayer.teleportPlayer(x,y);
                 }
             }
         } catch (ExceptionNbHits exceptionNbHits) {

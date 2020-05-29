@@ -2,6 +2,7 @@ package controllers;
 
 import model.Island;
 import views.ViewGame;
+import views.ViewMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,9 @@ public class ControllerPlay implements ActionListener {
             } catch (FontFormatException fontFormatException) {
                 fontFormatException.printStackTrace();
             }
+        }
+        else {
+            ViewMenu.updateLabel("Vous devez ajouter au moins 1 joueur");
         }
     }
 }

@@ -18,6 +18,7 @@ public class ViewMenu extends JPanel{
     private JFrame menu = new JFrame();
     private static ArrayList<JLabel> players = new ArrayList<>();;
     private int coordy = 110;
+    private static JLabel info;
 
     public ViewMenu(Island model) throws IOException, FontFormatException {
         this.model = model;
@@ -63,6 +64,12 @@ public class ViewMenu extends JPanel{
         buttonPlay.addActionListener(new ControllerPlay(this.model, menu));
         this.menu.add(buttonPlay);
 
+        info = new JLabel();
+        info.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 10));
+        info.setBounds(35,400,180,35);
+        info.setForeground(Color.WHITE);
+        this.menu.add(info);
+
         JButton buttonAddPlayer = new JButton("Ajouter joueur");
         buttonAddPlayer.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 12));
         buttonAddPlayer.setBounds(719,380,120,40);
@@ -100,5 +107,9 @@ public class ViewMenu extends JPanel{
 
     public static void addPlayer(String name, int joueur) {
         players.get(joueur-1).setText(name);
+    }
+
+    public static void updateLabel(String message) {
+        info.setText(message);
     }
 }

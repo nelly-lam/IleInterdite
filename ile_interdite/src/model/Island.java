@@ -13,14 +13,14 @@ public class Island extends Observable {
     public ArrayList<Player> players;
     public Player currentPlayer;
     private final Cell heliport;
-    private final ArrayList<Cell> artifacts;
+    private ArrayList<Cell> artifacts;
     private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
     private int nbCellSafe;
     Random random = new Random();
 
-    public Island(int w, int h) {
-        this.width = w;
-        this.height = h;
+    public Island(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<>();
         this.artifacts = new ArrayList<>();
@@ -39,21 +39,22 @@ public class Island extends Observable {
         int nbKey = (int) (this.width*this.height*0.25);
 
         for(int i = 0; i < 4; i++) {
+            boolean isArtefactPlaced = false;
+            while(!isArtefactPlaced) {
+                Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
+                if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.isHeliport() && !cell.hasArtifact()) {
+                    cell.setArtifact(ELEMENTS[i]);
+                    this.artifacts.add(cell);
+                    isArtefactPlaced = true;
+                }
+            }
+
             int j = 0;
             while (j < nbKey/4){
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (!cell.hasKey() && !cell.isHeliport()) {
+                if (!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setKey(ELEMENTS[i]);
                     j++;
-                }
-            }
-            boolean artefact = false;
-            while(!artefact) {
-                Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if(cell.getAbs() < this.width/4 || cell.getAbs() > (this.width/4)*3 && cell.getOrd() < this.height/4 || cell.getOrd() > (this.height/4)*3 && !cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
-                    cell.setArtifact(ELEMENTS[i]);
-                    this.artifacts.add(cell);
-                    artefact = true;
                 }
             }
         }
@@ -166,8 +167,10 @@ public class Island extends Observable {
                 for (int i = 0; i < 1; i++) {
                     this.currentPlayer.updateKey(cell.getArtifact());
                 }
+                this.artifacts.remove(cell);
                 cell.updateArtifact();
             }
+            //TODO note 2
         } catch (ExceptionNbHits exceptionNbHits) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour ramassez l'artefact");
         }
@@ -177,17 +180,12 @@ public class Island extends Observable {
     public void stateGame() {
         boolean win = true;
         for (Player p : this.players) {
-            if (p.isDead()) {
-                System.out.println("Vous avez perdu !");
-                //TODO
-            }
-            else if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
+            if (p.isDead() || (p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd())) {
                 win = false;
             }
         }
         if(this.heliport.isSubmerged()) {
-            System.out.println("Vous avez perdu !");
-            //TODO
+            win = false;
         }
         for (Cell artifact : this.artifacts) {
             if (artifact.isSubmerged()) {
@@ -260,5 +258,4 @@ public class Island extends Observable {
         }
         notifyObservers();
     }
-
 }

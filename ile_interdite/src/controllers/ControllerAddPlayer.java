@@ -25,8 +25,7 @@ public class ControllerAddPlayer implements ActionListener {
             ViewMenu.addPlayer(name.getText(), this.model.players.size());
         }
         else {
-            //TODO afficher lorsque le nb de caractère est trop petit ou trop grand
-            System.out.println("Vous avez atteint le nombre de joueur max");
+            ViewMenu.updateLabel("Vous avez atteint la limite maximal de joue");
         }
         frame.dispose();
     }

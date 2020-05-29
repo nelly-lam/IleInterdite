@@ -86,7 +86,7 @@ public class ViewMenu extends JPanel{
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
         footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
         footer.setBounds(550,588,300,80);
-        footer.setForeground(Color.WHITE);
+        footer.setForeground(new Color(89, 97, 125));
         this.menu.add(footer);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));

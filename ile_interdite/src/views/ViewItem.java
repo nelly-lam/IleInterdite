@@ -6,6 +6,7 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -13,13 +14,15 @@ public class ViewItem extends JPanel implements Observer{
     private final Island model;
     private int coordy = 2;
     private int coordx;
-    private static JLabel[][] tabJLabel;
+    private JLabel[][] tabJLabel;
+    private ArrayList<JLabel> tabName;
     private String[] filename = {"./src/images/key_fire.png", "./src/images/key_water.png", "./src/images/key_earth.png", "./src/images/key_air.png"};
 
     public ViewItem(Island model) {
         this.model = model;
         this.model.addObserver(this);
         tabJLabel = new JLabel[this.model.players.size()][4];
+        this.tabName = new ArrayList<>();
         this.setLayout(null);
         this.setOpaque(false);
 
@@ -27,7 +30,8 @@ public class ViewItem extends JPanel implements Observer{
             JLabel name = new JLabel(p.getName());
             name.setFont(new Font("Panton", Font.PLAIN, 20));
             name.setBounds(20,this.coordy,200,30);
-            name.setForeground(Color.WHITE);
+            name.setForeground(Color.GRAY);
+            this.tabName.add(name);
             this.add(name);
             JLabel color = new JLabel();
             this.add(color);
@@ -39,7 +43,7 @@ public class ViewItem extends JPanel implements Observer{
                 JLabel labelKey = new JLabel("", key, CENTER);
                 labelKey.setBounds(this.coordx,this.coordy+12,50,50);
                 this.add(labelKey);
-                JLabel nbKey = new JLabel("0");
+                JLabel nbKey = new JLabel();
                 nbKey.setFont(new Font("Panton", Font.PLAIN, 10));
                 nbKey.setBounds(this.coordx+30,this.coordy+18,50,50);
                 nbKey.setForeground(Color.WHITE);
@@ -50,6 +54,7 @@ public class ViewItem extends JPanel implements Observer{
             this.coordy += 56;
         }
         repaint();
+        update();
     }
 
     @Override
@@ -70,6 +75,8 @@ public class ViewItem extends JPanel implements Observer{
             tabJLabel[this.model.players.indexOf(p)][1].setText(String.valueOf(p.nbKeyElement(Cell.Element.WATER)));
             tabJLabel[this.model.players.indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
             tabJLabel[this.model.players.indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.AIR)));
+            this.tabName.get(this.model.players.indexOf(p)).setForeground(Color.gray);
         }
+        //this.tabName.get(this.model.players.indexOf(this.model.playerCourant)).setForeground(Color.WHITE);
     }
 }

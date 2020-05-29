@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
+import views.ViewGame;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -117,18 +118,18 @@ public class Island extends Observable {
 
     public void dry(int x, int y) {
         try {
-            this.playerCourant.addHits();
             Cell cell = this.board[x][y];
             if (cell.isFlooded()) {
+                this.playerCourant.addHits();
                 cell.dryCell();
+                this.nbCellSafe++;
             }
             else if (cell.isSubmerged()) {
-                // TODO : exception pour l'impossibilité d'assécher
+                ViewGame.updateDisplay("Vous ne pouvez pas assécher cette case");
             }
             notifyObservers();
         } catch (ExceptionNbHits exceptionNbHits) {
-            System.out.println("Vous ne pouvez pas assécher");
-            //exceptionNbHits.printStackTrace();
+            ViewGame.updateDisplay("Vous n'avez plus de coups pour assécher cette case");
         }
     }
 
@@ -151,8 +152,7 @@ public class Island extends Observable {
                 }
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            System.out.println("Vous ne pouvez pas fouiller la zone");
-            //exceptionNbHits.printStackTrace();
+            ViewGame.updateDisplay("Vous n'avez plus de coups pour chercher une clé");
         }
         notifyObservers();
     }
@@ -160,23 +160,18 @@ public class Island extends Observable {
     public void recoverArtifact () {
         try {
             Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
-            if (cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >= 4) {
+            if (cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >= 1) {
                 this.playerCourant.addHits();
                 this.playerCourant.addArtifact(cell.getArtifact());
-                // TODO : revoir cette partie
-                try {
-                    for (int i = 0; i < 4; i++) {
-                        this.playerCourant.updateKey(cell.getArtifact());
-                    }
-                } catch (Exception notEnoughKeys) {
-                    System.out.println("Erreur lors de la suppression des Cles dans recoverArtifact!");
+                for (int i = 0; i < 1; i++) {
+                    this.playerCourant.updateKey(cell.getArtifact());
                 }
                 cell.updateArtifact();
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            System.out.println("Vous ne pouvez pas ramasser d'artefact");
-            //exceptionNbHits.printStackTrace();
+            ViewGame.updateDisplay("Vous n'avez plus de coups pour ramassez l'artefact");
         }
+        notifyObservers();
     }
 
     public void stateGame() {

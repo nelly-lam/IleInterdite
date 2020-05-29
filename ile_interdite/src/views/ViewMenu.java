@@ -16,12 +16,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class ViewMenu extends JPanel{
     private final Island model;
     private JFrame menu = new JFrame();
-    private static ArrayList<JLabel> players;
-    private static int coordy = 110;
+    private static ArrayList<JLabel> players = new ArrayList<>();;
+    private int coordy = 110;
 
     public ViewMenu(Island model) throws IOException, FontFormatException {
         this.model = model;
-        players = new ArrayList<>();
         //TODO exception fichier
 
         this.menu.setTitle("Menu");
@@ -40,6 +39,20 @@ public class ViewMenu extends JPanel{
         operation.setForeground(Color.WHITE);
         this.menu.add(operation);
 
+        JLabel instructions = new JLabel("Instructions");
+        instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
+        instructions.setBounds(70,170,160,35);
+        instructions.setForeground(new Color(188, 199, 236));
+        // Controller
+        this.menu.add(instructions);
+
+        JLabel controles = new JLabel("Contrôles");
+        controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
+        controles.setBounds(70,210,160,35);
+        controles.setForeground(new Color(188, 199, 236));
+        // Controller
+        this.menu.add(controles);
+
         JButton buttonPlay = new JButton("Jouer");
         buttonPlay.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 25));
         buttonPlay.setBounds(48,354,130,45);
@@ -47,21 +60,8 @@ public class ViewMenu extends JPanel{
         buttonPlay.setContentAreaFilled(false);
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
-        ControllerPlay ctrlplay = new ControllerPlay(this.model, menu);
-        buttonPlay.addActionListener(ctrlplay);
+        buttonPlay.addActionListener(new ControllerPlay(this.model, menu));
         this.menu.add(buttonPlay);
-
-        JLabel instructions = new JLabel("Instruction");
-        instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 18));
-        instructions.setBounds(80,155,160,35);
-        instructions.setForeground(new Color(188, 199, 236));
-        this.menu.add(instructions);
-
-        JLabel controles = new JLabel("Controles");
-        controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 18));
-        controles.setBounds(80,185,160,35);
-        controles.setForeground(new Color(99, 108, 139));
-        this.menu.add(controles);
 
         JButton buttonAddPlayer = new JButton("Ajouter joueur");
         buttonAddPlayer.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 12));
@@ -70,8 +70,7 @@ public class ViewMenu extends JPanel{
         buttonAddPlayer.setContentAreaFilled(false);
         buttonAddPlayer.setBorderPainted(false);
         buttonAddPlayer.setFocusPainted(false);
-        ControllerPlayer ctrlAddPlayer = new ControllerPlayer(this.model);
-        buttonAddPlayer.addActionListener(ctrlAddPlayer);
+        buttonAddPlayer.addActionListener(new ControllerPlayer(this.model));
         this.menu.add(buttonAddPlayer);
 
         for(int i = 0; i < 8; i++) {
@@ -80,7 +79,7 @@ public class ViewMenu extends JPanel{
             player.setBounds(740,coordy,100,35);
             player.setForeground(Color.WHITE);
             players.add(player);
-            coordy += 30;
+            this.coordy += 30;
             this.menu.add(player);
         }
 

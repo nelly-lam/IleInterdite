@@ -35,7 +35,7 @@ public class Island extends Observable {
         }
         this.heliport = this.board[heliportX][heliportY];
 
-        int nbKey = (int) (this.width*this.height*0.15);
+        int nbKey = (int) (this.width*this.height*0.25);
 
         for(int i = 0; i < 4; i++) {
             int j = 0;
@@ -88,7 +88,7 @@ public class Island extends Observable {
             }
         }
         else {
-            for(int i = 0; i<this.width; i++) {
+            for(int i = 0; i < this.width; i++) {
                 for(int j = 0; j < this.height; j++) {
                     if (!this.board[i][j].isSubmerged()) {
                         this.board[i][j].flood();
@@ -103,7 +103,7 @@ public class Island extends Observable {
         }
 
         double nb = Math.random();
-        if(nb < 1) {
+        if(nb < 0.2) {
             int hint = random.nextInt(4);
             this.playerCourant.addKey(ELEMENTS[hint]);
         }

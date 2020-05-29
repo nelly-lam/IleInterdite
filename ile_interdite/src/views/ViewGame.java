@@ -64,7 +64,7 @@ public class ViewGame {
         this.game.add(this.item);
 
         this.artifact = new ViewArtifact(this.model);
-        this.artifact.setBounds(800,135,30,200);
+        this.artifact.setBounds(800,135,60,200);
         this.game.add(this.artifact);
 
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");

@@ -32,6 +32,7 @@ public class Player {
         this.ord = y;
         this.keys = new ArrayList<>();
         this.artifacts = new ArrayList<>();
+        this.artifacts.add(Cell.Element.AIR);
         this.actions = new ArrayList();
     }
 

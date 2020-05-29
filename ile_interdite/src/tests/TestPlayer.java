@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 //import static org.junit.Assert.*;
 import java.util.ArrayList;
 
-public class TestPlayer {
-/**
+/*public class TestPlayer {
+
     @Test
     void getNameTest() {
         Island island = new Island(20,20);
@@ -46,6 +46,14 @@ public class TestPlayer {
         Player p = new Player(island, "Joueur", 1, 2);
         assert (p.getOrd() == 2);
     }
+
+    @Test
+    void getIsDeadTest(){
+        Island island = new Island(5,5);
+        Player p = new Player(island, "Joueur", 4, 3);
+        assert(!p.getIsDead());
+    }
+    
 
     @Test
     void getArtifactArray(){
@@ -95,7 +103,7 @@ public class TestPlayer {
             }
         }
         assert (hasFireElement);
-    }**/
+    }
 
     //@Test
     void nearbyCellsTest() {
@@ -157,8 +165,8 @@ public class TestPlayer {
         assertEquals(left5, a5.get(1));
  **/
 
-    }
-    /**
+    /*}
+
     @Test
     void dieTest() {
         //Cell du player submergée
@@ -166,8 +174,8 @@ public class TestPlayer {
         Player p = new Player(island, "Joueur", 1, 2);
         island.board[p.getAbs()][p.getOrd()].flood();
         island.board[p.getAbs()][p.getOrd()].flood();
-        //p.die();
-        //assert (p.getIsDead());
+        p.die();
+        assert (p.getIsDead());
 
         //Cells autour du player submergées
         ArrayList<Cell> cap = p.nearbyCells();
@@ -225,5 +233,5 @@ public class TestPlayer {
         assert(p.nbArtifactElement(Cell.Element.AIR) == 2);
         assert(p.nbArtifactElement(Cell.Element.WATER) == 1);
         assert(p.nbArtifactElement(Cell.Element.FIRE) == 0);
-    }**/
-}
+    }
+}*/

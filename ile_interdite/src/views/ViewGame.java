@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
+
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewGame {
@@ -15,8 +17,9 @@ public class ViewGame {
     private ViewButton button;
     private ViewNbHits nbHits;
     private ViewItem item;
+    private ViewArtifact artifact;
 
-    public ViewGame(Island model) {
+    public ViewGame(Island model) throws IOException, FontFormatException {
         this.model = model;
         this.game = new JFrame();
         this.game.setTitle("L'île interdite");
@@ -24,20 +27,24 @@ public class ViewGame {
         this.game.setLayout(null);
 
         this.island = new ViewIsland(this.model);
-        this.island.setBounds(295,45,500,500);
+        this.island.setBounds(336,84,420,420);
         this.game.add(this.island);
 
-        // TODO mettre le bouton dans le rectangle (voir Nelly & Antonin pour comprendre)
         this.button = new ViewButton(this.model);
-        this.button.setBounds(495,550,100,50);
+        this.button.setBounds(470,545,147,39);
         this.game.add(this.button);
 
         this.nbHits = new ViewNbHits(this.model);
         this.nbHits.setBounds(800,110,50,50);
         this.game.add(this.nbHits);
 
-        //this.item = new ViewItem(this.model);
-        //this.game.add(this.item, BorderLayout.EAST);
+        this.item = new ViewItem(this.model);
+        this.item.setBounds(30,135,178,452);
+        this.game.add(this.item);
+
+        this.artifact = new ViewArtifact(this.model);
+        this.artifact.setBounds(800,135,30,200);
+        this.game.add(this.artifact);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_game.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, JLabel.CENTER);

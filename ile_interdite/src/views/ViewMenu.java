@@ -2,161 +2,104 @@ package views;
 
 import controllers.ControllerPlay;
 import controllers.ControllerPlayer;
+import fonts.PantonFont;
 import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewMenu extends JPanel{
     private final Island model;
-    private static JFrame menu = new JFrame();
-    private static JLabel player1;
-    private static JLabel player2;
-    private static JLabel player3;
-    private static JLabel player4;
-    private static JLabel player5;
-    private static JLabel player6;
-    private static JLabel player7;
-    private static JLabel player8;
+    private JFrame menu = new JFrame();
+    private static ArrayList<JLabel> players;
+    private static int coordy = 110;
 
-    public ViewMenu(Island model) {
+    public ViewMenu(Island model) throws IOException, FontFormatException {
         this.model = model;
-        menu.setTitle("Menu");
-        menu.setSize(875, 686);
-        menu.setLayout(null);
+        players = new ArrayList<>();
+        //TODO exception fichier
+
+        this.menu.setTitle("Menu");
+        this.menu.setSize(875, 686);
+        this.menu.setLayout(null);
+
+        JLabel title = new JLabel("L'île interdite");
+        title.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 32));
+        title.setBounds(20,28,200,80);
+        title.setForeground(Color.WHITE);
+        this.menu.add(title);
+
+        JLabel operation = new JLabel("Fonctionnement");
+        operation.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 23));
+        operation.setBounds(25,108,200,80);
+        operation.setForeground(Color.WHITE);
+        this.menu.add(operation);
 
         JButton buttonPlay = new JButton("Jouer");
-        buttonPlay.setFont(new Font("Panton", Font.PLAIN, 25));
-        buttonPlay.setBounds(60,345,100,50);
-        buttonPlay.setForeground(Color.WHITE);
+        buttonPlay.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 25));
+        buttonPlay.setBounds(48,354,130,45);
+        buttonPlay.setForeground(new Color(188, 199, 236));
         buttonPlay.setContentAreaFilled(false);
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
         ControllerPlay ctrlplay = new ControllerPlay(this.model, menu);
         buttonPlay.addActionListener(ctrlplay);
-        menu.add(buttonPlay);
+        this.menu.add(buttonPlay);
 
-        JLabel Instructions = new JLabel("Instruction");
-        Instructions.setFont(new Font("Panton", Font.PLAIN, 20));
-        Instructions.setBounds(80,155,160,35);
-        Instructions.setForeground(new Color(99, 108, 139));
-        menu.add(Instructions);
+        JLabel instructions = new JLabel("Instruction");
+        instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 18));
+        instructions.setBounds(80,155,160,35);
+        instructions.setForeground(new Color(188, 199, 236));
+        this.menu.add(instructions);
 
-        JLabel Controles = new JLabel("Controles");
-        Controles.setFont(new Font("Panton", Font.PLAIN, 20));
-        Controles.setBounds(80,185,160,35);
-        Controles.setForeground(new Color(99, 108, 139));
-        menu.add(Controles);
+        JLabel controles = new JLabel("Controles");
+        controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 18));
+        controles.setBounds(80,185,160,35);
+        controles.setForeground(new Color(99, 108, 139));
+        this.menu.add(controles);
 
-        JButton buttonAddPlayer = new JButton("<HTML><BODY><CENTER>Ajouter un <BR> joueur</CENTER></BODY></HTML>");
-        buttonAddPlayer.setFont(new Font("Panton", Font.PLAIN, 15));
-        buttonAddPlayer.setBounds(680,370,200,35);
+        JButton buttonAddPlayer = new JButton("Ajouter joueur");
+        buttonAddPlayer.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 12));
+        buttonAddPlayer.setBounds(719,380,120,40);
         buttonAddPlayer.setForeground(Color.WHITE);
         buttonAddPlayer.setContentAreaFilled(false);
         buttonAddPlayer.setBorderPainted(false);
         buttonAddPlayer.setFocusPainted(false);
         ControllerPlayer ctrlAddPlayer = new ControllerPlayer(this.model);
         buttonAddPlayer.addActionListener(ctrlAddPlayer);
-        menu.add(buttonAddPlayer);
+        this.menu.add(buttonAddPlayer);
 
+        for(int i = 0; i < 8; i++) {
+            JLabel player = new JLabel();
+            player.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 14));
+            player.setBounds(740,coordy,100,35);
+            player.setForeground(Color.WHITE);
+            players.add(player);
+            coordy += 30;
+            this.menu.add(player);
+        }
 
-        player1 = new JLabel();
-        player1.setFont(new Font("Panton", Font.PLAIN, 15));
-        player1.setBounds(740,110,100,35);
-        player1.setForeground(Color.WHITE);
-        menu.add(player1);
-
-        player2 = new JLabel();
-        player2.setFont(new Font("Panton", Font.PLAIN, 15));
-        player2.setBounds(740,130,100,35);
-        player2.setForeground(Color.WHITE);
-        menu.add(player2);
-
-        player3 = new JLabel();
-        player3.setFont(new Font("Panton", Font.PLAIN, 15));
-        player3.setBounds(740,150,100,35);
-        player3.setForeground(Color.WHITE);
-        menu.add(player3);
-
-        player4 = new JLabel();
-        player4.setFont(new Font("Panton", Font.PLAIN, 15));
-        player4.setBounds(740,170,100,35);
-        player4.setForeground(Color.WHITE);
-        menu.add(player4);
-
-        player5 = new JLabel();
-        player5.setFont(new Font("Panton", Font.PLAIN, 15));
-        player5.setBounds(740,190,100,35);
-        player5.setForeground(Color.WHITE);
-        menu.add(player5);
-
-        player6 = new JLabel();
-        player6.setFont(new Font("Panton", Font.PLAIN, 15));
-        player6.setBounds(740,210,100,35);
-        player6.setForeground(Color.WHITE);
-        menu.add(player6);
-
-        player7 = new JLabel();
-        player7.setFont(new Font("Panton", Font.PLAIN, 15));
-        player7.setBounds(740,230,100,35);
-        player7.setForeground(Color.WHITE);
-        menu.add(player7);
-
-        player8 = new JLabel();
-        player8.setFont(new Font("Panton", Font.PLAIN, 15));
-        player8.setBounds(740,250,100,35);
-        player8.setForeground(Color.WHITE);
-        menu.add(player8);
+        JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
+        footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
+        footer.setBounds(550,588,300,80);
+        footer.setForeground(Color.WHITE);
+        this.menu.add(footer);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
-        JLabel background = new JLabel("", img, JLabel.CENTER);
+        JLabel background = new JLabel("", img, CENTER);
         background.setBounds(0,0,864,648);
-        menu.add(background);
+        this.menu.add(background);
 
-        menu.setVisible(true);
-        menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.menu.setVisible(true);
+        this.menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void addPlayer(String name, int taille) {
-        /*JLabel player = new JLabel(name);
-        player.setFont(new Font("Panton", Font.PLAIN, 15));
-        player.setBounds(640,150,100,35);
-        player.setForeground(Color.WHITE);
-        player.setFocusable(false);
-        menu.setContentPane(player);
-         */
-        switch(taille){
-            case 1:
-                player1.setText(name);
-                break;
-            case 2:
-                player2.setText(name);
-                break;
-            case 3:
-                player3.setText(name);
-                break;
-            case 4:
-                player4.setText(name);
-                break;
-            case 5:
-                player5.setText(name);
-                break;
-            case 6:
-                player6.setText(name);
-                break;
-            case 7:
-                player7.setText(name);
-                break;
-            case 8:
-                player8.setText(name);
-                break;
-            default:
-                break;
-        }
+    public static void addPlayer(String name, int joueur) {
+        players.get(joueur-1).setText(name);
     }
-
 }

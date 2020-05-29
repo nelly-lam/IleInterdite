@@ -160,7 +160,7 @@ public class Island extends Observable {
     public void recoverArtifact () {
         try {
             Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
-            if (cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >= 1) {
+            if (cell.hasArtifact() && this.playerCourant.nbKeyElement(cell.getArtifact()) >= 2) {
                 this.playerCourant.addHits();
                 this.playerCourant.addArtifact(cell.getArtifact());
                 for (int i = 0; i < 1; i++) {
@@ -200,4 +200,65 @@ public class Island extends Observable {
             //TODO
         }
     }
+
+    //for Actions Spéciales : Sac de sable OUPS
+    /**
+     * méthode dryRandomly() : liste les Cell FLOODED, en prend une au hasard et l'assèche
+     */
+    /*
+    public void dryRandomly(){
+        try {
+            ArrayList<Cell> listFloodedCells = new ArrayList<Cell>();
+            for (int i = 0; i < this.width; i++){
+                for (int j = 0; j < this.height; j++){
+                    if (this.board[i][j].getState() == Cell.State.FLOODED){
+                        listFloodedCells.add(this.board[i][j]);
+                    }
+                }
+            }
+            Random rand = new Random();
+            int rand1 = rand.nextInt(listFloodedCells.size()-1);
+            Cell cell = listFloodedCells.get(rand1);
+            cell.dryCell();
+            this.playerCourant.addHits();
+            notifyObservers();
+        } catch (ExceptionNbHits exceptionNbHits) {
+            System.out.println("Vous ne pouvez pas assécher");
+            //exceptionNbHits.printStackTrace();
+        }
+    }
+    */
+
+    //for Actions Spéciales EN CHANTIER évènement recherche clés
+    public void searchKey2(int x, int y){
+        try {
+            Cell cell = this.board[this.playerCourant.getAbs()][this.playerCourant.getOrd()];
+            if (cell.hasKey()) {  //Récup la clé si il y en a une
+                this.playerCourant.addKey(cell.getKey());
+                System.out.println("clé obtenue :" + cell.getKey());
+                cell.updateKey();
+                this.playerCourant.addHits();
+            } else {              //Sinon inonde la Cell sur laquelle le PlayerCourant se situe
+                double rand = Math.random();
+                if (rand < 0.33) {
+                    double nb = Math.random();
+                    if (nb < 0.65) {
+                        cell.flood();
+                        this.playerCourant.addHits();
+                    }            //Ou rien
+                } else if (rand >= 0.33 && rand < 0.66) { //Ou assèche une Cell au hasard
+                    Cell cell2 = this.board[x][y];
+                    if (cell2.getState() == Cell.State.FLOODED){ this.dry(x, y); }
+                } else {  //Ou se téléporte sur une Cell de son choix
+                    //System.out.println("You can't travel yet");
+                    this.playerCourant.teleportPlayer(x,y);
+                }
+            }
+        } catch (ExceptionNbHits exceptionNbHits) {
+            System.out.println("Vous ne pouvez pas fouiller la zone");
+            //exceptionNbHits.printStackTrace();
+        }
+        notifyObservers();
+    }
+
 }

@@ -16,8 +16,10 @@ public class Player {
     private int nbHits;
     public ArrayList<Cell.Element> keys;
     private ArrayList<Cell.Element> artifacts;
+    private ArrayList<SpecialAction> actions;
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
+    public enum SpecialAction {SAND, TELEPORTATION}
 
     public Player(Island model, String name, int x, int y){
         this.model = model;
@@ -29,6 +31,7 @@ public class Player {
         this.ord = y;
         this.keys = new ArrayList<>();
         this.artifacts = new ArrayList<>();
+        this.actions = new ArrayList();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -195,6 +198,50 @@ public class Player {
             }
         } catch (Exception notEnoughKeys){
             System.out.println("Vous n'avez pas assez de cles!");
+        }
+    }
+
+    //for ECHANGE DE CLES
+    public ArrayList<Player> isOnSameCell(){
+        ArrayList<Player> listPlayer = new ArrayList<Player>();
+        for (Player p : this.model.players){
+            if (this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd()){
+                listPlayer.add(p);
+            }
+        }
+        return listPlayer;
+    }
+
+    //ACTIONS SPECIALES PART 4
+    public void setAbs(int x){ this.abs = x; }
+    public void setOrd(int y){ this.ord = y; }
+    public void addActions(Player.SpecialAction a){ this.actions.add(a); }
+
+    public int nbActionSable(){
+        int counter = 0;
+        for (Player.SpecialAction temp : this.actions) {
+            if(temp == SpecialAction.SAND){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public int nbActionTeleport(){
+        int counter = 0;
+        for (Player.SpecialAction temp : this.actions) {
+            if(temp == SpecialAction.TELEPORTATION){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public void teleportPlayer(int x, int y){
+        Cell cell = this.model.getCell(x, y);
+        if (cell.getState() == Cell.State.NORMAL){
+            this.setAbs(x);
+            this.setOrd(y);
         }
     }
 }

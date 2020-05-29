@@ -3,6 +3,7 @@ package controllers;
 
 import model.Island;
 import model.Player;
+import views.ViewSwapKey;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -56,11 +57,15 @@ public class ControllerMovement implements KeyListener {
                 break;
             case KeyEvent.VK_ENTER:
                 this.model.searchKey();
-                // Appel de la fonction dans view
+                //this.model.searchKey2();
                 break;
             case KeyEvent.VK_SPACE:
                 this.model.recoverArtifact();
                 break;
+            case KeyEvent.VK_M:
+                if(this.model.playerCourant.keys.size() != 0 && this.model.playerCourant.isOnSameCell().size() != 0){
+                    ViewSwapKey swapKey = new ViewSwapKey(this.model);
+                }
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getKeyCode());
         }

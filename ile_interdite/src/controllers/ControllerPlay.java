@@ -4,8 +4,10 @@ import model.Island;
 import views.ViewGame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControllerPlay implements ActionListener {
     private final Island model;
@@ -24,7 +26,13 @@ public class ControllerPlay implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(this.model.players.size() > 0) {
             this.menu.dispose();
-            ViewGame view = new ViewGame(this.model);
+            try {
+                ViewGame view = new ViewGame(this.model);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (FontFormatException fontFormatException) {
+                fontFormatException.printStackTrace();
+            }
         }
     }
 }

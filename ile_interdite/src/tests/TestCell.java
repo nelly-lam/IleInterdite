@@ -3,7 +3,7 @@ import model.Cell;
 import model.Island;
 import org.junit.jupiter.api.Test;
 
-public class TestCell {
+/*public class TestCell {
     @Test
     void hasKeyTest() {
         Island island = new Island(10, 10);
@@ -11,9 +11,9 @@ public class TestCell {
         assert (!c.hasKey());
         /**Cell c2 = new Cell(island, 4, 4, false, Cell.Element.NONE);
         assert (!c2.hasKey());**/
-    }
+    /*}
 
-    @Test
+    /*@Test
     void updateKeyTest() {
         Island island = new Island(10, 10);
         Cell c = new Cell(island, 4, 4, false);
@@ -103,4 +103,4 @@ public class TestCell {
         assert(c.getState() == Cell.State.NORMAL);
         assert(c2.getState() != Cell.State.NORMAL);
     }
-}
+}*/

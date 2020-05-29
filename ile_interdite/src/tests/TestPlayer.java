@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 //import static org.junit.Assert.*;
 import java.util.ArrayList;
 
-public class TestPlayer {
+/*public class TestPlayer {
 
     @Test
     void getNameTest() {
@@ -165,7 +165,7 @@ public class TestPlayer {
         assertEquals(left5, a5.get(1));
  **/
 
-    }
+    /*}
 
     @Test
     void dieTest() {
@@ -234,4 +234,4 @@ public class TestPlayer {
         assert(p.nbArtifactElement(Cell.Element.WATER) == 1);
         assert(p.nbArtifactElement(Cell.Element.FIRE) == 0);
     }
-}
+}*/

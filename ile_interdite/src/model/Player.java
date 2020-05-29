@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
+import views.ViewGame;
 import views.ViewNbHits;
 
 import java.awt.*;
@@ -79,9 +80,7 @@ public class Player {
                     break;
             }
         } catch (ExceptionNbHits exceptionNbHits) {
-            // TODO afficher un message au joueur
-            System.out.println("Vous ne passerez pas !");
-            //exceptionNbHits.printStackTrace();
+            ViewGame.updateDisplay("Vous n'avez pas assez de coups pour vous déplacer");
         }
     }
 

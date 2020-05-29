@@ -1,6 +1,8 @@
 package views;
 
+import controllers.Controller;
 import controllers.ControllerMovement;
+import fonts.PantonFont;
 import model.Island;
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,6 @@ public class ViewGame {
     private final Island model;
     private final JFrame game;
     private ViewIsland island;
-    private ViewButton button;
     private ViewNbHits nbHits;
     private ViewItem item;
     private ViewArtifact artifact;
@@ -26,13 +27,25 @@ public class ViewGame {
         this.game.setSize(875, 686);
         this.game.setLayout(null);
 
+        JLabel title = new JLabel("L'île interdite");
+        title.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 32));
+        title.setBounds(20,28,200,80);
+        title.setForeground(Color.WHITE);
+        this.game.add(title);
+
         this.island = new ViewIsland(this.model);
         this.island.setBounds(336,84,420,420);
         this.game.add(this.island);
 
-        this.button = new ViewButton(this.model);
-        this.button.setBounds(470,545,147,39);
-        this.game.add(this.button);
+        JButton button = new JButton("FIN DE TOUR");
+        button.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
+        button.setBounds(470,552,147,39);
+        button.setForeground(Color.WHITE);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.addActionListener(new Controller(this.model));
+        this.game.add(button);
 
         this.nbHits = new ViewNbHits(this.model);
         this.nbHits.setBounds(800,110,50,50);
@@ -45,6 +58,12 @@ public class ViewGame {
         this.artifact = new ViewArtifact(this.model);
         this.artifact.setBounds(800,135,30,200);
         this.game.add(this.artifact);
+
+        JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
+        footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
+        footer.setBounds(550,588,300,80);
+        footer.setForeground(Color.WHITE);
+        this.game.add(footer);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_game.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, JLabel.CENTER);
@@ -63,7 +82,6 @@ public class ViewGame {
                     }
                 }
         );
-
         this.game.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.game.setVisible(true);
     }

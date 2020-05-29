@@ -11,8 +11,7 @@ import java.io.IOException;
 public class Main {
     public static void main (String[] args) throws IOException, FontFormatException {
         Island model = new Island(12, 12);
-        //ViewGame vue = new ViewGame(model);
-
-        ViewMenu viewMenu = new ViewMenu(model);
+        ViewGame vue = new ViewGame(model);
+        //ViewMenu viewMenu = new ViewMenu(model);
     }
 }

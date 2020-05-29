@@ -10,16 +10,16 @@ import java.io.IOException;
 
 import static javax.swing.SwingConstants.CENTER;
 
-public class ViewArtifact extends JPanel implements Observer {
+public class ViewArtifact extends JPanel implements Observer{
     private final Island model;
     private static JLabel artifactAir;
     private static JLabel artifactWater;
     private static JLabel artifactFire;
     private static JLabel artifactEarth;
-    ImageIcon img1 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-    ImageIcon img2 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/water.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-    ImageIcon img3 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/fire.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-    ImageIcon img4 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/earth.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+    private static ImageIcon img1 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+    private static ImageIcon img2 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/water.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+    private static ImageIcon img3 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/fire.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+    private static ImageIcon img4 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/earth.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
 
     public ViewArtifact(Island model) throws IOException, FontFormatException {
         this.model = model;
@@ -27,21 +27,17 @@ public class ViewArtifact extends JPanel implements Observer {
         this.setLayout(null);
         this.setOpaque(false);
 
-        JLabel artifactAir = new JLabel();
-        artifactAir.setBounds(0,0,50,50);
-        this.add(artifactAir);
+        //ImageIcon img1 = new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
 
-        JLabel artifactWater = new JLabel();
+
+        artifactWater = new JLabel("", img2, CENTER);
         artifactWater.setBounds(0,50,50,50);
-        this.add(artifactWater);
 
-        JLabel artifactFire = new JLabel();
+        artifactFire = new JLabel("", img3, CENTER);
         artifactFire.setBounds(0,100,50,50);
-        this.add(artifactFire);
 
-        JLabel artifactEarth = new JLabel();
+        artifactEarth = new JLabel("", img4, CENTER);
         artifactEarth.setBounds(0,150,50,50);
-        this.add(artifactEarth);
 
         update();
     }
@@ -63,17 +59,21 @@ public class ViewArtifact extends JPanel implements Observer {
         System.out.println("artifact feu acquis :" + artiFire);
         System.out.println("artifact terre acquis :" + artiEarth);
         if (artiAir == 1){
-            artifactAir = new JLabel("",new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            //artifactAir = new JLabel("",new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            //artifactAir.setIcon(img1);
+            this.add(artifactAir);
         }
         if (artiWater == 1){
-            artifactWater = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            //artifactWater = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            this.add(artifactWater);
         }
-        if (artiWater == 1){
-            artifactFire = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+        if (artiFire == 1){
+            //artifactFire = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            this.add(artifactFire);
         }
         if (artiEarth == 1){
-            artifactEarth = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            //artifactEarth = new JLabel("", new ImageIcon(new ImageIcon("./ile_interdite/src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            this.add(artifactEarth);
         }
     }
-
 }

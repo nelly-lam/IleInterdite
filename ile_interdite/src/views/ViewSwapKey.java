@@ -70,10 +70,10 @@ public class ViewSwapKey extends JPanel implements Observer {
 
     @Override
     public void update() {
-        int keyAir = this.model.playerCourant.nbKeyElement(Cell.Element.AIR);
-        int keyWater = this.model.playerCourant.nbKeyElement(Cell.Element.AIR);
-        int keyFire = this.model.playerCourant.nbKeyElement(Cell.Element.AIR);
-        int keyEarth = this.model.playerCourant.nbKeyElement(Cell.Element.AIR);
+        int keyAir = this.model.currentPlayer.nbKeyElement(Cell.Element.AIR);
+        int keyWater = this.model.currentPlayer.nbKeyElement(Cell.Element.AIR);
+        int keyFire = this.model.currentPlayer.nbKeyElement(Cell.Element.AIR);
+        int keyEarth = this.model.currentPlayer.nbKeyElement(Cell.Element.AIR);
         nbKeyAir = new JLabel(String.valueOf(keyAir));
         nbKeyWater = new JLabel(String.valueOf(keyWater));
         nbKeyFire = new JLabel(String.valueOf(keyFire));

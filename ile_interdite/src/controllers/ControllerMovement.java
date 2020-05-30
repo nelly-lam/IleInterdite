@@ -62,10 +62,10 @@ public class ControllerMovement implements KeyListener {
             case KeyEvent.VK_SPACE:
                 this.model.recoverArtifact();
                 break;
-            case KeyEvent.VK_M:
+            /*case KeyEvent.VK_M:
                 if(this.model.currentPlayer.keys.size() != 0 && this.model.currentPlayer.isOnSameCell().size() != 0){
                     ViewSwapKey swapKey = new ViewSwapKey(this.model);
-                }
+                }*/
             default:
                 ViewGame.updateDisplay("Cette commande n'a pas besoin d'être utilisé pour jouer");
         }

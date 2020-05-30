@@ -19,6 +19,7 @@ public class ControllerActionSand implements MouseListener {
         int y = e.getY();
         Cell cell = this.model.getCell(x, y);
         this.model.dry(x, y);
+        //NOT FINISHED
     }
 
     @Override

@@ -54,10 +54,7 @@ public class ViewArtifact extends JPanel implements Observer{
             artiFire += this.model.players.get(i).nbArtifactElement(Cell.Element.FIRE);
             artiEarth += this.model.players.get(i).nbArtifactElement(Cell.Element.EARTH);
         }
-        System.out.println("artifact air acquis :" + artiAir);
-        System.out.println("artifact eau acquis :" + artiWater);
-        System.out.println("artifact feu acquis :" + artiFire);
-        System.out.println("artifact terre acquis :" + artiEarth);
+
         if (artiAir == 1 ){
             artifactAir.setVisible(true);
         }

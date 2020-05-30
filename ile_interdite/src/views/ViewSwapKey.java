@@ -9,7 +9,7 @@ import model.Observable;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewSwapKey extends JPanel implements Observer {
+/*public class ViewSwapKey extends JPanel implements Observer {
     private final Island model;
     private JFrame swapKey;
     private static JLabel nbKeyAir;
@@ -79,4 +79,4 @@ public class ViewSwapKey extends JPanel implements Observer {
         nbKeyFire = new JLabel(String.valueOf(keyFire));
         nbKeyEarth = new JLabel(String.valueOf(keyEarth));
     }
-}
+}*/

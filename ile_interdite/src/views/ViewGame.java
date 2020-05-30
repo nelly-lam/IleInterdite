@@ -1,6 +1,6 @@
 package views;
 
-import controllers.Controller;
+import controllers.ControllerEndTurn;
 import controllers.ControllerMovement;
 import fonts.PantonFont;
 import model.Island;
@@ -18,7 +18,7 @@ public class ViewGame {
     private final JFrame game;
     private ViewIsland island;
     private ViewNbHits nbHits;
-    private ViewItem item;
+    private ViewItem2 item;
     private ViewArtifact artifact;
     private static JLabel display;
 
@@ -46,7 +46,7 @@ public class ViewGame {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
-        button.addActionListener(new Controller(this.model));
+        button.addActionListener(new ControllerEndTurn(this.model));
         this.game.add(button);
 
         display = new JLabel();
@@ -59,7 +59,7 @@ public class ViewGame {
         this.nbHits.setBounds(800,110,50,50);
         this.game.add(this.nbHits);
 
-        this.item = new ViewItem(this.model);
+        this.item = new ViewItem2(this.model);
         this.item.setBounds(30,135,178,452);
         this.game.add(this.item);
 
@@ -82,9 +82,7 @@ public class ViewGame {
         this.game.setFocusable(true);
         this.game.addFocusListener(
             new FocusListener() {
-                public void focusGained(FocusEvent e) {
-                    // Nous n'avons pas besoin de cette méthode
-                }
+                public void focusGained(FocusEvent e) {  }
                 public void focusLost(FocusEvent e) {
                     game.requestFocusInWindow();
                 }

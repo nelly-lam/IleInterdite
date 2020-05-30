@@ -4,7 +4,6 @@ package controllers;
 import model.Island;
 import model.Player;
 import views.ViewGame;
-import views.ViewSwapKey;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

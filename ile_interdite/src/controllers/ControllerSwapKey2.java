@@ -28,7 +28,7 @@ public class ControllerSwapKey2 extends MouseAdapter {
             Cell.Element el;
             if (text == "A"){
                 this.Color = Color.WHITE;
-                ViewItem2.setVisibleButton(this.Color);
+                //ViewItem2.setVisibleButton(this.Color);
                 //this.model.currentPlayer.updateKey(Cell.Element.AIR);
                 ViewGame.updateDisplay("Echange de clé : Veuillez choisir un joueur");
             } else if (text == "W"){

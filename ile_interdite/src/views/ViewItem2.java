@@ -2,7 +2,6 @@ package views;
 
 import controllers.ControllerSwapKey;
 import controllers.ControllerSwapKey2;
-import controllers.ControllerSwapKey3;
 import fonts.PantonFont;
 import model.Cell;
 import model.Island;

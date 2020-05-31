@@ -20,7 +20,7 @@ public class ViewGame {
     private ViewNbHits nbHits;
     private ViewItem2 item;
     private ViewArtifact artifact;
-    private static JLabel display;
+    private static JLabel display = new JLabel();
 
     public ViewGame(Island model) throws IOException, FontFormatException {
         this.model = model;
@@ -49,7 +49,6 @@ public class ViewGame {
         button.addActionListener(new ControllerEndTurn(this.model));
         this.game.add(button);
 
-        display = new JLabel();
         display.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
         display.setBounds(380,12,400,30);
         display.setForeground(Color.WHITE);
@@ -64,7 +63,7 @@ public class ViewGame {
         this.game.add(this.item);
 
         this.artifact = new ViewArtifact(this.model);
-        this.artifact.setBounds(800,135,60,200);
+        this.artifact.setBounds(800,160,60,200);
         this.game.add(this.artifact);
 
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
@@ -82,7 +81,7 @@ public class ViewGame {
         this.game.setFocusable(true);
         this.game.addFocusListener(
             new FocusListener() {
-                public void focusGained(FocusEvent e) {  }
+                public void focusGained(FocusEvent e) { /* */ }
                 public void focusLost(FocusEvent e) {
                     game.requestFocusInWindow();
                 }

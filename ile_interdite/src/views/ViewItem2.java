@@ -3,12 +3,14 @@ package views;
 import controllers.ControllerSwapKey;
 import controllers.ControllerSwapKey2;
 import controllers.ControllerSwapKey3;
+import fonts.PantonFont;
 import model.Cell;
 import model.Island;
 import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.CENTER;
@@ -32,7 +34,7 @@ public class ViewItem2 extends JPanel implements Observer{
     private JLabel[][] tabJLabel;
     private ArrayList<JLabel> tabName;
 
-    public ViewItem2(Island model){
+    public ViewItem2(Island model) throws IOException, FontFormatException {
         this.model = model;
         this.model.addObserver(this);
         this.tabJLabel = new JLabel[this.model.players.size()][4];
@@ -44,7 +46,7 @@ public class ViewItem2 extends JPanel implements Observer{
         for (Player p : this.model.players) {
             //JLABEL FOR NAME PLAYERS
             JLabel name = new JLabel(p.getName());
-            name.setFont(new Font("Panton", Font.PLAIN, 20));
+            name.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
             name.setBounds(20, this.coordy, 150, 30);
             name.setHorizontalAlignment(SwingConstants.LEFT);
             name.setForeground(Color.GRAY);
@@ -75,7 +77,7 @@ public class ViewItem2 extends JPanel implements Observer{
             //JLABEL FOR NUMBER KEY "AIR"
             nbKeyAir = new JLabel();
             nbKeyAir.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyAir.setBounds(65, this.coordy + 18, 50, 50);
+            nbKeyAir.setBounds(62, this.coordy + 18, 50, 50);
             nbKeyAir.setForeground(Color.WHITE);
             this.add(nbKeyAir);
             tabJLabel[this.model.players.indexOf(p)][0] = nbKeyAir;
@@ -91,7 +93,7 @@ public class ViewItem2 extends JPanel implements Observer{
             //JLABEL FOR NUMBER KEY "WATER"
             nbKeyWater = new JLabel();
             nbKeyWater.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyWater.setBounds(95, this.coordy + 18, 50, 50);
+            nbKeyWater.setBounds(92, this.coordy + 18, 50, 50);
             nbKeyWater.setForeground(Color.WHITE);
             this.add(nbKeyWater);
             tabJLabel[this.model.players.indexOf(p)][1] = nbKeyWater;
@@ -107,7 +109,7 @@ public class ViewItem2 extends JPanel implements Observer{
             //JLABEL FOR NUMBER KEY "FIRE"
             nbKeyFire = new JLabel();
             nbKeyFire.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyFire.setBounds(125, this.coordy + 18, 50, 50);
+            nbKeyFire.setBounds(122, this.coordy + 18, 50, 50);
             nbKeyFire.setForeground(Color.WHITE);
             this.add(nbKeyFire);
             tabJLabel[this.model.players.indexOf(p)][2] = nbKeyFire;
@@ -123,7 +125,7 @@ public class ViewItem2 extends JPanel implements Observer{
             //JLABEL FOR NUMBER KEY "EARTH"
             nbKeyEarth = new JLabel();
             nbKeyEarth.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyEarth.setBounds(155, this.coordy + 18, 50, 50);
+            nbKeyEarth.setBounds(152, this.coordy + 18, 50, 50);
             nbKeyEarth.setForeground(Color.WHITE);
             this.add(nbKeyEarth);
             tabJLabel[this.model.players.indexOf(p)][3] = nbKeyEarth;
@@ -142,7 +144,7 @@ public class ViewItem2 extends JPanel implements Observer{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int y = 8;
+        int y = 12;
         for (int i = 0; i < this.model.players.size(); i++) {
             g.setColor(this.model.players.get(i).getColor());
             g.fillOval(5, y, 8, 8);
@@ -157,7 +159,7 @@ public class ViewItem2 extends JPanel implements Observer{
             tabJLabel[this.model.players.indexOf(p)][1].setText(String.valueOf(p.nbKeyElement(Cell.Element.WATER)));
             tabJLabel[this.model.players.indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.FIRE)));
             tabJLabel[this.model.players.indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
-            this.tabName.get(this.model.players.indexOf(p)).setForeground(Color.gray);
+            this.tabName.get(this.model.players.indexOf(p)).setForeground(new Color(80,80,80));
         }
         this.tabName.get(this.model.players.indexOf(this.model.currentPlayer)).setForeground(Color.WHITE);
     }

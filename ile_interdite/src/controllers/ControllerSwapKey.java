@@ -41,19 +41,23 @@ public class ControllerSwapKey extends MouseAdapter {
             ViewGame.updateDisplay("Echange de la clé de TERRE : Veuillez choisir un joueur");
         }
 
-        if(this.model.currentPlayer.nbKeyElement(this.el) > 0) {
+        if(this.model.currentPlayer.hasKey(this.el)) {
             for(Player p : this.model.players) {
-                if(p.getName() == text && this.model.currentPlayer.isOnSameCell2(p)) {
-                    try {
-                        this.model.currentPlayer.addHits();
-                        p.addKey(this.el);
-                        this.model.currentPlayer.updateKey(this.el);
-                        this.el = Cell.Element.NONE;
-                        ViewGame.updateDisplay("La clé a été transféré");
-                    } catch (ExceptionNbHits exceptionNbHits) {
-                        ViewGame.updateDisplay("Vous n'avez pas assez de coup");
+                if(p.getName() == text) {
+                    if (this.model.currentPlayer.isOnSameCell2(p)) {
+                        try {
+                            this.model.currentPlayer.addHits();
+                            p.addKey(this.el);
+                            this.model.currentPlayer.updateKey(this.el);
+                            this.el = Cell.Element.NONE;
+                            ViewGame.updateDisplay("La clé a été transféré");
+                        } catch (ExceptionNbHits exceptionNbHits) {
+                            ViewGame.updateDisplay("Vous n'avez pas assez de coup");
+                        }
+                        break;
+                    } else {
+                        ViewGame.updateDisplay("Vous n'êtes pas sur la même cellule");
                     }
-                    break;
                 }
             }
             this.model.notifyObservers();

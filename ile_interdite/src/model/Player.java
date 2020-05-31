@@ -40,7 +40,7 @@ public class Player {
         this.next = next;
     }
 
-    public String getName(){ return this.name; }
+    public String getName() { return this.name; }
     public Player getNext() { return this.next; }
     public Color getColor() { return this.color; }
     public int getNbHits() { return this.nbHits; }
@@ -213,6 +213,7 @@ public class Player {
     public boolean isOnSameCell2(Player p) {
         return this.ord == p.getOrd() && this.abs == p.getAbs();
     }
+
 
     //ACTIONS SPECIALES PART 4
     public void setAbs(int x){ this.abs = x; }

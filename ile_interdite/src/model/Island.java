@@ -51,9 +51,9 @@ public class Island extends Observable {
             }
 
             int j = 0;
-            while (j < nbKey/4){
+            while(j < nbKey/4) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
+                if(!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setKey(ELEMENTS[i]);
                     j++;
                 }
@@ -70,8 +70,7 @@ public class Island extends Observable {
             Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
             this.players.add(p);
             this.currentPlayer = p;
-        }
-        else {
+        } else {
             Player p = new Player(this, name, this.players.get(0), this.heliport.getAbs(), this.heliport.getOrd());
             this.players.get(this.players.size()-1).setNext(p);
             this.players.add(p);
@@ -79,11 +78,11 @@ public class Island extends Observable {
     }
 
     public void risingWater() {
-        if (this.nbCellSafe > 2) {
+        if(this.nbCellSafe > 2) {
             int nbcell = 0;
-            while (nbcell < 3) {
+            while(nbcell < 3) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (!cell.isSubmerged()) {
+                if(!cell.isSubmerged()) {
                     cell.flood();
                     nbcell++;
                     this.nbCellSafe--;
@@ -93,7 +92,7 @@ public class Island extends Observable {
         else {
             for(int i = 0; i < this.width; i++) {
                 for(int j = 0; j < this.height; j++) {
-                    if (!this.board[i][j].isSubmerged()) {
+                    if(!this.board[i][j].isSubmerged()) {
                         this.board[i][j].flood();
                         this.nbCellSafe--;
                     }
@@ -143,42 +142,40 @@ public class Island extends Observable {
         try {
             this.currentPlayer.addHits();
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if (cell.hasKey()) {
+            if(cell.hasKey()) {
                 this.currentPlayer.addKey(cell.getKey());
                 cell.updateKey();
             } else {
                 double nb = Math.random();
-                if (nb < 0.65) {
+                if(nb < 0.65) {
                     cell.flood();
                 }
             }
-        } catch (ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbHits exceptionNbHits) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour chercher une clé");
         }
         notifyObservers();
     }
 
-    public void recoverArtifact () {
+    public void recoverArtifact() {
         try {
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if (cell.hasArtifact()) {
-                if (this.currentPlayer.nbKeyElement(cell.getArtifact()) >= 4) {
+            if(cell.hasArtifact()) {
+                if(this.currentPlayer.nbKeyElement(cell.getArtifact()) >= 1) {
                     this.currentPlayer.addHits();
                     this.currentPlayer.addArtifact(cell.getArtifact());
-                    for (int i = 0; i < 4; i++) {
+                    for(int i = 0; i < 1; i++) {
                         this.currentPlayer.updateKey(cell.getArtifact());
                     }
                     this.artifacts.remove(cell);
                     cell.updateArtifact();
-                }
-                else {
+                } else {
                     ViewGame.updateDisplay("Il vous manque " + (4 - this.currentPlayer.nbKeyElement(cell.getArtifact())) +" clés pour récupérer cet artefact");
                 }
-            }
-            else {
+            } else {
                 ViewGame.updateDisplay("Il n'y a pas d'artefacts sur cette case");
             }
-        } catch (ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbHits exceptionNbHits) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour ramassez l'artefact");
         }
         notifyObservers();
@@ -188,8 +185,8 @@ public class Island extends Observable {
         if(this.heliport.isSubmerged()) {
             ViewEndGame.display(false);
         }
-        for (Cell artifact : this.artifacts) {
-            if (artifact.isSubmerged()) {
+        for(Cell artifact : this.artifacts) {
+            if(artifact.isSubmerged()) {
                 ViewEndGame.display(false);
             }
         }

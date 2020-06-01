@@ -1,7 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
-import views.ViewEndGame;
+import views.ViewEndGame2;
 import views.ViewGame;
 
 import java.util.ArrayList;
@@ -183,24 +183,28 @@ public class Island extends Observable {
 
     public void stateGame() {
         if(this.heliport.isSubmerged()) {
-            ViewEndGame.display(false);
+            //ViewEndGame.display(false);
+            ViewEndGame2 endGame = new ViewEndGame2(false);
         }
         for(Cell artifact : this.artifacts) {
             if(artifact.isSubmerged()) {
-                ViewEndGame.display(false);
+                //ViewEndGame.display(false);
+                ViewEndGame2 endGame = new ViewEndGame2(false);
             }
         }
         boolean win = true;
         for(Player p : this.players) {
             if(p.isDead()) {
-                ViewEndGame.display(false);
+                //ViewEndGame.display(false);
+                ViewEndGame2 endGame = new ViewEndGame2(false);
             }
             if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 win = false;
             }
         }
         if(win && this.artifacts.isEmpty()) {
-            ViewEndGame.display(true);
+            //ViewEndGame.display(true);
+            ViewEndGame2 endGame = new ViewEndGame2(false);
         }
     }
 }

@@ -32,7 +32,7 @@ public class Player {
         this.ord = y;
         this.keys = new ArrayList<>();
         this.artifacts = new ArrayList<>();
-        this.actions = new ArrayList();
+        this.actions = new ArrayList<>();
     }
 
     public Player(Island model, String name, Player next, int x, int y) {
@@ -40,7 +40,7 @@ public class Player {
         this.next = next;
     }
 
-    public String getName(){ return this.name; }
+    public String getName() { return this.name; }
     public Player getNext() { return this.next; }
     public Color getColor() { return this.color; }
     public int getNbHits() { return this.nbHits; }
@@ -143,10 +143,10 @@ public class Player {
      * @param : un Element e
      * @return int counter le nombre de clé
      */
-    public int nbKeyElement(Cell.Element e){
+    public int nbKeyElement(Cell.Element e) {
         int counter = 0;
         for (Cell.Element temp : this.keys) {
-            if(temp == e){
+            if(temp == e) {
                 counter++;
             }
         }
@@ -159,10 +159,10 @@ public class Player {
      * @param : un Element e
      * @return int counter le nombre d'artifact
      */
-    public int nbArtifactElement(Cell.Element e){
+    public int nbArtifactElement(Cell.Element e) {
         int counter = 0;
         for (Cell.Element temp : this.artifacts) {
-            if(temp == e){
+            if(temp == e) {
                 counter++;
             }
         }
@@ -170,10 +170,9 @@ public class Player {
     }
 
     public Color randomColor() {
-        // On veut des couleurs foncées
-        float r = (float) (this.model.random.nextFloat());
-        float g = (float) (this.model.random.nextFloat());
-        float b = (float) (this.model.random.nextFloat());
+        float r = (this.model.random.nextFloat());
+        float g = (this.model.random.nextFloat());
+        float b = (this.model.random.nextFloat());
         return new Color(r,g,b);
     }
 
@@ -182,7 +181,7 @@ public class Player {
      * @param k la cle concernee
      * @param p le joueur
      */
-    public void giveKey(Cell.Element k, Player p){
+    public void giveKey(Cell.Element k, Player p) {
         try{
             if(this.nbKeyElement(k) >=1 && this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd() ){
                 int index = 0;
@@ -195,21 +194,26 @@ public class Player {
                 p.addKey(this.keys.get(index));
                 this.updateKey(this.keys.get(index));
             }
-        } catch (Exception notEnoughKeys){
+        } catch (Exception notEnoughKeys) {
             System.out.println("Vous n'avez pas assez de cles!");
         }
     }
 
     //for ECHANGE DE CLES
-    public ArrayList<Player> isOnSameCell(){
-        ArrayList<Player> listPlayer = new ArrayList<Player>();
-        for (Player p : this.model.players){
-            if (this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd()){
+    public ArrayList<Player> isOnSameCell() {
+        ArrayList<Player> listPlayer = new ArrayList<>();
+        for(Player p : this.model.players) {
+            if(this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd()){
                 listPlayer.add(p);
             }
         }
         return listPlayer;
     }
+
+    public boolean isOnSameCell2(Player p) {
+        return this.ord == p.getOrd() && this.abs == p.getAbs();
+    }
+
 
     //ACTIONS SPECIALES PART 4
     public void setAbs(int x){ this.abs = x; }

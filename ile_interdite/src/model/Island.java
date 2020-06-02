@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
+import views.ViewEndGame2;
 import views.ViewGame;
 
 import java.util.ArrayList;
@@ -50,9 +51,9 @@ public class Island extends Observable {
             }
 
             int j = 0;
-            while (j < nbKey/4){
+            while(j < nbKey/4) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
+                if(!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setKey(ELEMENTS[i]);
                     j++;
                 }
@@ -69,8 +70,7 @@ public class Island extends Observable {
             Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
             this.players.add(p);
             this.currentPlayer = p;
-        }
-        else {
+        } else {
             Player p = new Player(this, name, this.players.get(0), this.heliport.getAbs(), this.heliport.getOrd());
             this.players.get(this.players.size()-1).setNext(p);
             this.players.add(p);
@@ -78,11 +78,11 @@ public class Island extends Observable {
     }
 
     public void risingWater() {
-        if (this.nbCellSafe > 2) {
+        if(this.nbCellSafe > 2) {
             int nbcell = 0;
-            while (nbcell < 3) {
+            while(nbcell < 3) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (!cell.isSubmerged()) {
+                if(!cell.isSubmerged()) {
                     cell.flood();
                     nbcell++;
                     this.nbCellSafe--;
@@ -92,7 +92,7 @@ public class Island extends Observable {
         else {
             for(int i = 0; i < this.width; i++) {
                 for(int j = 0; j < this.height; j++) {
-                    if (!this.board[i][j].isSubmerged()) {
+                    if(!this.board[i][j].isSubmerged()) {
                         this.board[i][j].flood();
                         this.nbCellSafe--;
                     }
@@ -112,7 +112,6 @@ public class Island extends Observable {
 
         this.currentPlayer.restoreNbHits();
         this.currentPlayer = this.currentPlayer.getNext();
-        System.out.println(this.players.size());
         notifyObservers();
         this.stateGame();
     }
@@ -143,61 +142,72 @@ public class Island extends Observable {
         try {
             this.currentPlayer.addHits();
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if (cell.hasKey()) {
+            if(cell.hasKey()) {
                 this.currentPlayer.addKey(cell.getKey());
                 cell.updateKey();
             } else {
                 double nb = Math.random();
-                if (nb < 0.65) {
+                if(nb < 0.65) {
                     cell.flood();
                 }
             }
-        } catch (ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbHits exceptionNbHits) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour chercher une clé");
         }
         notifyObservers();
     }
 
-    public void recoverArtifact () {
+    public void recoverArtifact() {
         try {
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if (cell.hasArtifact() && this.currentPlayer.nbKeyElement(cell.getArtifact()) >= 1) {
-                this.currentPlayer.addHits();
-                this.currentPlayer.addArtifact(cell.getArtifact());
-                for (int i = 0; i < 1; i++) {
-                    this.currentPlayer.updateKey(cell.getArtifact());
+            if(cell.hasArtifact()) {
+                if(this.currentPlayer.nbKeyElement(cell.getArtifact()) >= 1) {
+                    this.currentPlayer.addHits();
+                    this.currentPlayer.addArtifact(cell.getArtifact());
+                    for(int i = 0; i < 1; i++) {
+                        this.currentPlayer.updateKey(cell.getArtifact());
+                    }
+                    this.artifacts.remove(cell);
+                    cell.updateArtifact();
+                } else {
+                    ViewGame.updateDisplay("Il vous manque " + (4 - this.currentPlayer.nbKeyElement(cell.getArtifact())) +" clés pour récupérer cet artefact");
                 }
-                this.artifacts.remove(cell);
-                cell.updateArtifact();
+            } else {
+                ViewGame.updateDisplay("Il n'y a pas d'artefacts sur cette case");
             }
-            //TODO note 2
-        } catch (ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbHits exceptionNbHits) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour ramassez l'artefact");
         }
         notifyObservers();
     }
 
     public void stateGame() {
+        if(this.heliport.isSubmerged()) {
+            //ViewEndGame.display(false);
+            ViewEndGame2 endGame = new ViewEndGame2(false);
+        }
+        for(Cell artifact : this.artifacts) {
+            if(artifact.isSubmerged()) {
+                //ViewEndGame.display(false);
+                ViewEndGame2 endGame = new ViewEndGame2(false);
+            }
+        }
         boolean win = true;
-        for (Player p : this.players) {
-            if (p.isDead() || (p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd())) {
+        for(Player p : this.players) {
+            if(p.isDead()) {
+                //ViewEndGame.display(false);
+                ViewEndGame2 endGame = new ViewEndGame2(false);
+            }
+            if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 win = false;
             }
         }
-        if(this.heliport.isSubmerged()) {
-            win = false;
-        }
-        for (Cell artifact : this.artifacts) {
-            if (artifact.isSubmerged()) {
-                System.out.println("Vous avez perdu !");
-                //TODO
-            }
-        }
         if(win && this.artifacts.isEmpty()) {
-            System.out.println("Vous avez gagné !");
-            //TODO
+            //ViewEndGame.display(true);
+            ViewEndGame2 endGame = new ViewEndGame2(false);
         }
     }
+}
 
     //for Actions Spéciales : Sac de sable OUPS
     /**
@@ -228,7 +238,7 @@ public class Island extends Observable {
     */
 
     //for Actions Spéciales EN CHANTIER évènement recherche clés
-    public void searchKey2(int x, int y){
+    /*public void searchKey2(int x, int y){
         try {
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
             if (cell.hasKey()) {  //Récup la clé si il y en a une
@@ -257,5 +267,4 @@ public class Island extends Observable {
             //exceptionNbHits.printStackTrace();
         }
         notifyObservers();
-    }
-}
+    }*/

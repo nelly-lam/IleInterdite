@@ -20,12 +20,23 @@ public class ControllerAddPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ((this.model.players.size() < 8) && name.getText().length() <= 10 && name.getText().length() > 0) {
-            this.model.addPlayer(name.getText());
-            ViewMenu.addPlayer(name.getText(), this.model.players.size());
+        if(this.model.players.size() < 8) {
+            if(name.getText().length() <= 10) {
+                if(name.getText().length() > 0) {
+                    this.model.addPlayer(name.getText());
+                    ViewMenu.addPlayer(name.getText(), this.model.players.size());
+                    ViewMenu.updateLabel("");
+                }
+                else {
+                    ViewMenu.updateLabel("Il doit y avoir au moins 1 caractère");
+                }
+            }
+            else {
+                ViewMenu.updateLabel("Il ne doit pas dépasser 10 caractères");
+            }
         }
         else {
-            ViewMenu.updateLabel("Vous avez atteint la limite maximal de joue");
+            ViewMenu.updateLabel("Vous avez atteint la limite maximale");
         }
         frame.dispose();
     }

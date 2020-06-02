@@ -71,10 +71,10 @@ public class ViewItem extends JPanel implements Observer{
     @Override
     public void update() {
         for(Player p : this.model.players) {
-            tabJLabel[this.model.players.indexOf(p)][0].setText(String.valueOf(p.nbKeyElement(Cell.Element.FIRE)));
+            tabJLabel[this.model.players.indexOf(p)][0].setText(String.valueOf(p.nbKeyElement(Cell.Element.AIR)));
             tabJLabel[this.model.players.indexOf(p)][1].setText(String.valueOf(p.nbKeyElement(Cell.Element.WATER)));
-            tabJLabel[this.model.players.indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
-            tabJLabel[this.model.players.indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.AIR)));
+            tabJLabel[this.model.players.indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.FIRE)));
+            tabJLabel[this.model.players.indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
             this.tabName.get(this.model.players.indexOf(p)).setForeground(Color.gray);
         }
         //this.tabName.get(this.model.players.indexOf(this.model.playerCourant)).setForeground(Color.WHITE);

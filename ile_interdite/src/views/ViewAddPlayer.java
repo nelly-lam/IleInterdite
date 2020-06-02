@@ -6,7 +6,6 @@ import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -14,7 +13,7 @@ public class ViewAddPlayer extends JPanel {
     private final Island model;
     private JFrame addPlayer;
 
-    public ViewAddPlayer(Island model) throws IOException, FontFormatException {
+    public ViewAddPlayer(Island model) {
         this.model = model;
         this.addPlayer = new JFrame();
         this.addPlayer.setTitle("Ajouter un joueur");

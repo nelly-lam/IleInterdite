@@ -1,5 +1,6 @@
 package views;
 
+import controllers.ControllerAction;
 import model.Cell;
 import model.Island;
 
@@ -10,6 +11,7 @@ public class ViewIsland extends JPanel implements Observer {
     private final Island model;
     private final ViewPlayer player;
     public static final int SIZE = 35;
+    public static ControllerAction ctrl;
 
     public ViewIsland(Island model) {
         this.model = model;
@@ -17,6 +19,7 @@ public class ViewIsland extends JPanel implements Observer {
         this.player = new ViewPlayer(this.model);
         this.setBounds(400,100,SIZE * this.model.width,SIZE * this.model.height);
         this.setOpaque(false);
+        ctrl = new ControllerAction(this.model);
     }
 
     @Override
@@ -41,8 +44,10 @@ public class ViewIsland extends JPanel implements Observer {
                 break;
             case SUBMERGED:
                 g.setColor(new Color(31, 61, 87, 192));
+                break;
         }
         g.fillRect(x, y, SIZE -6, SIZE -6);
+
 
         if(c.hasArtifact()) {
             switch (c.getArtifact()) {
@@ -70,6 +75,10 @@ public class ViewIsland extends JPanel implements Observer {
             g.drawOval(x+2, y+2, SIZE - 12, SIZE - 12);
             g.drawString("H", x+9, y+17);
         }
+        JLabel label = new JLabel();
+        label.setBounds(x, y, SIZE-6, SIZE-6);
+        label.addMouseListener(ctrl);
+        this.add(label);
     }
 
     @Override

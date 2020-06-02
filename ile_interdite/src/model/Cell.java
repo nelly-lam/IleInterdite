@@ -57,16 +57,12 @@ public class Cell {
 
     @Override
     public boolean equals(Object obj) {
-        boolean status = false;
-        if (this.heliport == ((Cell) obj).heliport
+        return (this.heliport == ((Cell) obj).heliport
                 && this.key == ((Cell) obj).key
                 && this.artifact == ((Cell) obj).artifact
                 && this.state == ((Cell) obj).state
                 && this.x == ((Cell) obj).x
-                && this.y == ((Cell) obj).y) {
-            status = true;
-        }
-        return status;
+                && this.y == ((Cell) obj).y);
     }
 
     public String toString() { return x + ", " + y; }

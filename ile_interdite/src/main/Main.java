@@ -1,3 +1,5 @@
+package main;
+
 import model.Island;
 import views.ViewMenu;
 

@@ -37,10 +37,10 @@ public class ControllerSwapKey extends MouseAdapter {
             ViewGame.updateDisplay("Echange de la clé de TERRE : Veuillez choisir un joueur");
         }
 
-        if(this.model.currentPlayer.hasKey(this.el)) {
-            for(Player p : this.model.players) {
+        if(this.model.getCurrentPlayer().hasKey(this.el)) {
+            for(Player p : this.model.getPlayers()) {
                 if(p.getName() == text) {
-                    if (this.model.currentPlayer.isOnSameCell(p)) {
+                    if (this.model.getCurrentPlayer().isOnSameCell(p)) {
                         this.model.giveKey(p, this.el);
                         this.el = Cell.Element.NONE;
                     } else {

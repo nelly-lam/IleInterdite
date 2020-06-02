@@ -22,22 +22,10 @@ public class ControllerReplay implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand() == "Rejouer") {
+            Island model = new Island(12, 12);
             ViewGame.hidden();
-            ViewMenu.visible();
+            ViewMenu.visible(model);
             this.game.dispose();
-            // TODO
-            //Island model = new Island(12, 12);
-            /*try {
-                ViewMenu viewMenu = new ViewMenu(model);
-                viewMenu.requestFocus();
-                this.result.dispatchEvent(new WindowEvent(this.result, WindowEvent.WINDOW_CLOSING));
-                this.game.dispose();
-
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            } catch (FontFormatException fontFormatException) {
-                fontFormatException.printStackTrace();
-            }*/
         } else if (e.getActionCommand() == "Quitter"){
             System.exit(0);
         }

@@ -41,19 +41,19 @@ public class ControllerMovement implements KeyListener {
                 this.model.movePlayer(Player.Direction.RIGHT);
                 break;
             case KeyEvent.VK_Z:
-                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd()-1);
+                this.model.dry(this.model.getCurrentPlayer().getAbs(), this.model.getCurrentPlayer().getOrd()-1);
                 break;
-            case KeyEvent.VK_S:
-                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd());
+            case KeyEvent.VK_X:
+                this.model.dry(this.model.getCurrentPlayer().getAbs(), this.model.getCurrentPlayer().getOrd());
                 break;
             case KeyEvent.VK_D:
-                this.model.dry(this.model.currentPlayer.getAbs()+1, this.model.currentPlayer.getOrd());
+                this.model.dry(this.model.getCurrentPlayer().getAbs()+1, this.model.getCurrentPlayer().getOrd());
                 break;
             case KeyEvent.VK_Q:
-                this.model.dry(this.model.currentPlayer.getAbs()-1, this.model.currentPlayer.getOrd());
+                this.model.dry(this.model.getCurrentPlayer().getAbs()-1, this.model.getCurrentPlayer().getOrd());
                 break;
-            case KeyEvent.VK_W:
-                this.model.dry(this.model.currentPlayer.getAbs(), this.model.currentPlayer.getOrd()+1);
+            case KeyEvent.VK_S:
+                this.model.dry(this.model.getCurrentPlayer().getAbs(), this.model.getCurrentPlayer().getOrd()+1);
                 break;
             case KeyEvent.VK_ENTER:
                 this.model.searchKey();

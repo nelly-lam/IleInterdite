@@ -7,22 +7,20 @@ import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewMenu extends JPanel{
-    private final Island model;
+    private static Island model;
     private static JFrame menu = new JFrame();
     private static ArrayList<JLabel> players = new ArrayList<>();;
     private int coordy = 110;
     private static JLabel info;
 
-    public ViewMenu(Island model) {
-        this.model = model;
-        //TODO exception fichier
+    public ViewMenu(Island island) {
+        model = island;
 
         menu.setTitle("Menu");
         menu.setSize(875, 686);
@@ -61,7 +59,7 @@ public class ViewMenu extends JPanel{
         buttonPlay.setContentAreaFilled(false);
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
-        buttonPlay.addActionListener(new ControllerPlay(this.model, menu));
+        buttonPlay.addActionListener(new ControllerPlay(this.model));
         menu.add(buttonPlay);
 
         info = new JLabel();
@@ -117,7 +115,8 @@ public class ViewMenu extends JPanel{
         menu.setVisible(false);
     }
 
-    public static void visible() {
+    public static void visible(Island newModel) {
         menu.setVisible(true);
+        model = newModel;
     }
 }

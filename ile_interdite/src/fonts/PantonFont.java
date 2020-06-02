@@ -23,7 +23,7 @@ public class PantonFont {
             InputStream filePantonLight = new FileInputStream("src/fonts/Panton-Light.ttf");
             return Font.createFont(Font.TRUETYPE_FONT, filePantonLight);
         } catch (FontFormatException | IOException e) {
-            return Font.getFont("Arial");
+            return new Font("Arial", Font.PLAIN, 15);
         }
     }
 

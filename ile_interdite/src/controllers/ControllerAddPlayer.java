@@ -20,11 +20,11 @@ public class ControllerAddPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.model.players.size() < 8) {
+        if(this.model.getPlayers().size() < 8) {
             if(name.getText().length() <= 10) {
                 if(name.getText().length() > 0) {
                     this.model.addPlayer(name.getText());
-                    ViewMenu.addPlayer(name.getText(), this.model.players.size());
+                    ViewMenu.addPlayer(name.getText(), this.model.getPlayers().size());
                     ViewMenu.updateLabel("");
                 }
                 else {

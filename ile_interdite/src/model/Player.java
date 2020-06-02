@@ -1,7 +1,6 @@
 package model;
 
-import exceptions.ExceptionNbHits;
-import views.ViewGame;
+import exceptions.ExceptionNbEvents;
 import views.ViewNbHits;
 
 import java.awt.*;
@@ -42,7 +41,6 @@ public class Player {
     public String getName() { return this.name; }
     public Player getNext() { return this.next; }
     public Color getColor() { return this.color; }
-    public int getNbEvents() { return this.nbEvents; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
 
@@ -60,47 +58,14 @@ public class Player {
 
     public boolean isOnSameCell(Player p) { return this.ord == p.getOrd() && this.abs == p.getAbs(); }
 
-    public void move(Direction key) {
-        try {
-            switch(key) {
-                case UP:
-                    if((this.ord != 0) && !(this.model.getCell(this.abs, this.ord-1).isSubmerged())) {
-                        this.addEvents();
-                        this.ord--;
-                    }
-                    break;
-                case DOWN:
-                    if((this.ord != this.model.getHeight()-1) && !(this.model.getCell(this.abs, this.ord+1).isSubmerged())) {
-                        this.addEvents();
-                        this.ord++;
-                    }
-                    break;
-                case RIGHT:
-                    if((this.abs != this.model.getWidth()-1) && !(this.model.getCell(this.abs+1, this.ord).isSubmerged())) {
-                        this.addEvents();
-                        this.abs++;
-                    }
-                    break;
-                case LEFT:
-                    if((this.abs != 0) && !(this.model.getCell(this.abs-1, this.ord).isSubmerged())) {
-                        this.addEvents();
-                        this.abs--;
-                    }
-                    break;
-            }
-        } catch (ExceptionNbHits exceptionNbHits) {
-            ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour vous déplacer");
-        }
-    }
-
-    public void teleportPlayer(int x, int y) {
+    public void move(int x, int y) {
         this.abs = x;
         this.ord = y;
     }
 
-    public void addEvents() throws ExceptionNbHits {
+    public void addEvents() throws ExceptionNbEvents {
         if(this.nbEvents == 0) {
-            throw new ExceptionNbHits();
+            throw new ExceptionNbEvents();
         } else {
             this.nbEvents--;
             ViewNbHits.updateNbHits(this.nbEvents);

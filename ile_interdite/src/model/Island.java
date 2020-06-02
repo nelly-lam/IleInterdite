@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.ExceptionNbHits;
+import exceptions.ExceptionNbEvents;
 import views.ViewEndGame;
 import views.ViewGame;
 
@@ -92,7 +92,8 @@ public class Island extends Observable {
         }
         else {
             for(int i = 0; i < this.width; i++) {
-                for(int j = 0; j < this.height; j++) {
+                int j = 0;
+                while(j < this.height) {
                     if(!this.board[i][j].isSubmerged()) {
                         this.board[i][j].flood();
                         this.nbCellSafe--;
@@ -101,6 +102,7 @@ public class Island extends Observable {
                         j--;
                     }
                     if(this.nbCellSafe == 0) { break; }
+                    j++;
                 }
             }
         }
@@ -118,13 +120,50 @@ public class Island extends Observable {
     }
 
     public void movePlayer(Player.Direction key) {
-        this.currentPlayer.move(key);
+        try {
+            switch(key) {
+                case UP:
+                    if((this.currentPlayer.getOrd() != 0) && !(this.getCell(this.currentPlayer.getAbs(), this.currentPlayer.getOrd()-1).isSubmerged())) {
+                        this.currentPlayer.addEvents();
+                        this.currentPlayer.move(this.currentPlayer.getAbs(), this.currentPlayer.getOrd()-1);
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur la case supérieure");
+                    }
+                    break;
+                case DOWN:
+                    if((this.currentPlayer.getOrd() != this.height-1) && !(this.getCell(this.currentPlayer.getAbs(), this.currentPlayer.getOrd()+1).isSubmerged())) {
+                        this.currentPlayer.addEvents();
+                        this.currentPlayer.move(this.currentPlayer.getAbs(), this.currentPlayer.getOrd()+1);
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur la case inférieure");
+                    }
+                    break;
+                case RIGHT:
+                    if((this.currentPlayer.getAbs() != this.width-1) && !(this.getCell(this.currentPlayer.getAbs()+1, this.currentPlayer.getOrd()).isSubmerged())) {
+                        this.currentPlayer.addEvents();
+                        this.currentPlayer.move(this.currentPlayer.getAbs()+1, this.currentPlayer.getOrd());
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur la case de droite");
+                    }
+                    break;
+                case LEFT:
+                    if((this.currentPlayer.getAbs() != 0) && !(this.getCell(this.currentPlayer.getAbs()-1, this.currentPlayer.getOrd()).isSubmerged())) {
+                        this.currentPlayer.addEvents();
+                        this.currentPlayer.move(this.currentPlayer.getAbs()-1, this.currentPlayer.getOrd());
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur la case de gauche");
+                    }
+                    break;
+            }
+        } catch (ExceptionNbEvents exceptionNbEvents) {
+            ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour vous déplacer");
+        }
         notifyObservers();
     }
 
     public void dry(int x, int y) {
         try {
-            Cell cell = this.board[x][y];
+            Cell cell = this.getCell(x, y);
             if(cell.isFlooded()) {
                 this.currentPlayer.addEvents();
                 cell.dryCell();
@@ -135,7 +174,7 @@ public class Island extends Observable {
                 ViewGame.updateDisplay("Cette case est déjà sèche, vous ne pouvez pas l'assécher");
             }
             notifyObservers();
-        } catch(ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour assécher cette case");
         }
     }
@@ -145,8 +184,8 @@ public class Island extends Observable {
         if(cell.getState() != Cell.State.SUBMERGED){
             try {
                 this.currentPlayer.addEvents();
-                p.teleportPlayer(x, y);
-            } catch(ExceptionNbHits exceptionNbHits) {
+                p.move(x, y);
+            } catch(ExceptionNbEvents exceptionNbEvents) {
                 ViewGame.updateDisplay("Vous n'avez pas assez de coups pour vous téléporter");
             }
         } else {
@@ -172,7 +211,7 @@ public class Island extends Observable {
                 int hint = random.nextInt(2);
                 this.currentPlayer.addActions(ACTIONS[hint]);
             }
-        } catch(ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour chercher une clé");
         }
         notifyObservers();
@@ -196,7 +235,7 @@ public class Island extends Observable {
             } else {
                 ViewGame.updateDisplay("Il n'y a pas d'artefacts sur cette case");
             }
-        } catch(ExceptionNbHits exceptionNbHits) {
+        } catch(ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coups pour ramassez l'artefact");
         }
         notifyObservers();
@@ -208,7 +247,7 @@ public class Island extends Observable {
             p.addKey(element);
             this.currentPlayer.updateKey(element);
             ViewGame.updateDisplay("La clé a été transféré");
-        } catch (ExceptionNbHits exceptionNbHits) {
+        } catch (ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez de coup");
         }
         this.notifyObservers();
@@ -234,9 +273,9 @@ public class Island extends Observable {
             }
         }
         if(win && this.artifacts.isEmpty()) {
-            ViewEndGame endGame = new ViewEndGame(true, this);
+            new ViewEndGame(true, this);
         } else if(loose) {
-            ViewEndGame endGame = new ViewEndGame(false, this);
+            new ViewEndGame(false, this);
         }
     }
 }

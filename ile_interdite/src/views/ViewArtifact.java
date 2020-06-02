@@ -48,11 +48,11 @@ public class ViewArtifact extends JPanel implements Observer{
         int artiWater = 0;
         int artiFire = 0;
         int artiEarth = 0;
-        for (int i = 0; i < this.model.players.size(); i++){
-            artiAir += this.model.players.get(i).nbArtifactElement(Cell.Element.AIR);
-            artiWater += this.model.players.get(i).nbArtifactElement(Cell.Element.WATER);
-            artiFire += this.model.players.get(i).nbArtifactElement(Cell.Element.FIRE);
-            artiEarth += this.model.players.get(i).nbArtifactElement(Cell.Element.EARTH);
+        for (int i = 0; i < this.model.getPlayers().size(); i++){
+            artiAir += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.AIR);
+            artiWater += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.WATER);
+            artiFire += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.FIRE);
+            artiEarth += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.EARTH);
         }
 
         if (artiAir == 1 ){

@@ -36,8 +36,8 @@ public class TestIsland {
         Island board = new Island(10, 10);
         board.risingWater();
         int compteur = 0;
-        for (int i = 0; i < board.width; i++) {
-            for (int j = 0; j < board.height; j++) {
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getHeight(); j++) {
                 if (board.getCell(i, j).getState() == Cell.State.FLOODED) {
                     compteur++;
                 }

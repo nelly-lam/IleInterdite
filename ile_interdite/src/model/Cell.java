@@ -36,6 +36,7 @@ public class Cell {
     public boolean isHeliport() { return this.heliport; }
     public boolean isSubmerged() { return this.state == State.SUBMERGED; }
     public boolean isFlooded() { return this.state == State.FLOODED; }
+    public boolean isNormal() { return this.state == State.NORMAL; }
 
     public void updateKey() { this.key = Element.NONE; }
     public void updateArtifact() { this.artifact = Element.NONE; }
@@ -54,16 +55,6 @@ public class Cell {
     }
 
     public void dryCell() { this.state = State.NORMAL; }
-
-    @Override
-    public boolean equals(Object obj) {
-        return (this.heliport == ((Cell) obj).heliport
-                && this.key == ((Cell) obj).key
-                && this.artifact == ((Cell) obj).artifact
-                && this.state == ((Cell) obj).state
-                && this.x == ((Cell) obj).x
-                && this.y == ((Cell) obj).y);
-    }
 
     public String toString() { return x + ", " + y; }
 }

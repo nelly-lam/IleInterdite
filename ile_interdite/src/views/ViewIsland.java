@@ -17,7 +17,7 @@ public class ViewIsland extends JPanel implements Observer {
         this.model = model;
         this.model.addObserver(this);
         this.player = new ViewPlayer(this.model);
-        this.setBounds(400,100,SIZE * this.model.width,SIZE * this.model.height);
+        this.setBounds(400,100,SIZE * this.model.getWidth(),SIZE * this.model.getHeight());
         this.setOpaque(false);
         ctrl = new ControllerAction(this.model);
     }
@@ -26,8 +26,8 @@ public class ViewIsland extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         super.repaint();
-        for(int i = 0; i < this.model.width; i++) {
-            for(int j = 0; j < this.model.height; j++) {
+        for(int i = 0; i < this.model.getWidth(); i++) {
+            for(int j = 0; j < this.model.getHeight(); j++) {
                 paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
             }
         }

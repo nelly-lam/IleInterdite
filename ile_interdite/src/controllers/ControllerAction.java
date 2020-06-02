@@ -28,26 +28,26 @@ public class ControllerAction extends MouseAdapter {
             this.action = "Helicopter";
             ViewGame.updateDisplay("Téléportation : veuillez choisir une case");
         } else if(this.action.equals("Dry")) {
-            if(this.model.currentPlayer.hasAction(Player.SpecialAction.SAND)) {
+            if(this.model.getCurrentPlayer().hasAction(Player.SpecialAction.SAND)) {
                 this.model.dry(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
-                this.model.currentPlayer.updateAction(Player.SpecialAction.SAND);
+                this.model.getCurrentPlayer().updateAction(Player.SpecialAction.SAND);
                 ViewGame.updateDisplay("Assèchement effectué");
                 this.action = "";
             } else {
                 ViewGame.updateDisplay("Vous ne possédez pas cette action");
             }
         } else if(this.action.equals("Helicopter")) {
-            if(this.model.currentPlayer.hasAction(Player.SpecialAction.TELEPORTATION)) {
+            if(this.model.getCurrentPlayer().hasAction(Player.SpecialAction.TELEPORTATION)) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    this.model.teleportation(this.model.currentPlayer, label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
+                    this.model.teleportation(this.model.getCurrentPlayer(), label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
                 } else if(SwingUtilities.isRightMouseButton(e)) {
-                    for(Player p : this.model.players) {
-                        if(this.model.currentPlayer.isOnSameCell(p)) {
+                    for(Player p : this.model.getPlayers()) {
+                        if(this.model.getCurrentPlayer().isOnSameCell(p)) {
                             this.model.teleportation(p, label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
                         }
                     }
                 }
-                this.model.currentPlayer.updateAction(Player.SpecialAction.TELEPORTATION);
+                this.model.getCurrentPlayer().updateAction(Player.SpecialAction.TELEPORTATION);
                 ViewGame.updateDisplay("Téléportation effectuée");
                 this.action = "";
             } else {

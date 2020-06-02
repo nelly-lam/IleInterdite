@@ -27,13 +27,13 @@ public class ViewItem extends JPanel implements Observer{
     public ViewItem(Island model) {
         this.model = model;
         this.model.addObserver(this);
-        this.tabJLabel = new JLabel[this.model.players.size()][6];
+        this.tabJLabel = new JLabel[this.model.getPlayers().size()][6];
         this.tabName = new ArrayList<>();
         this.setLayout(null);
         this.setOpaque(false);
         ControllerSwapKey ctrl = new ControllerSwapKey(this.model);
 
-        for (Player p : this.model.players) {
+        for (Player p : this.model.getPlayers()) {
             //JLABEL FOR NAME PLAYERS
             JLabel name = new JLabel(p.getName());
             name.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
@@ -60,7 +60,7 @@ public class ViewItem extends JPanel implements Observer{
             nbDry.setFont(new Font("Panton", Font.PLAIN, 10));
             nbDry.setBounds(30, this.coordy + 18, 50, 50);
             nbDry.setForeground(Color.WHITE);
-            tabJLabel[this.model.players.indexOf(p)][0] = nbDry;
+            tabJLabel[this.model.getPlayers().indexOf(p)][0] = nbDry;
             this.add(nbDry);
 
             //JLABEL FOR ICON "TELEPORTATION"
@@ -76,7 +76,7 @@ public class ViewItem extends JPanel implements Observer{
             nbTeleportation.setFont(new Font("Panton", Font.PLAIN, 10));
             nbTeleportation.setBounds(60, this.coordy + 18, 50, 50);
             nbTeleportation.setForeground(Color.WHITE);
-            tabJLabel[this.model.players.indexOf(p)][1] = nbTeleportation;
+            tabJLabel[this.model.getPlayers().indexOf(p)][1] = nbTeleportation;
             this.add(nbTeleportation);
 
             //JLABEL FOR ICON "AIR"
@@ -93,7 +93,7 @@ public class ViewItem extends JPanel implements Observer{
             nbKeyAir.setBounds(87, this.coordy + 18, 50, 50);
             nbKeyAir.setForeground(Color.WHITE);
             this.add(nbKeyAir);
-            tabJLabel[this.model.players.indexOf(p)][2] = nbKeyAir;
+            tabJLabel[this.model.getPlayers().indexOf(p)][2] = nbKeyAir;
 
             //JLABEL FOR ICON "WATER"
             ImageIcon keyWater = new ImageIcon(new ImageIcon("./src/images/key_water.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
@@ -109,7 +109,7 @@ public class ViewItem extends JPanel implements Observer{
             nbKeyWater.setBounds(112, this.coordy + 18, 50, 50);
             nbKeyWater.setForeground(Color.WHITE);
             this.add(nbKeyWater);
-            tabJLabel[this.model.players.indexOf(p)][3] = nbKeyWater;
+            tabJLabel[this.model.getPlayers().indexOf(p)][3] = nbKeyWater;
 
             //JLABEL FOR ICON "FIRE"
             ImageIcon keyFire = new ImageIcon(new ImageIcon("./src/images/key_fire.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
@@ -125,7 +125,7 @@ public class ViewItem extends JPanel implements Observer{
             nbKeyFire.setBounds(137, this.coordy + 18, 50, 50);
             nbKeyFire.setForeground(Color.WHITE);
             this.add(nbKeyFire);
-            tabJLabel[this.model.players.indexOf(p)][4] = nbKeyFire;
+            tabJLabel[this.model.getPlayers().indexOf(p)][4] = nbKeyFire;
 
             //JLABEL FOR ICON "EARTH"
             ImageIcon keyEarth = new ImageIcon(new ImageIcon("./src/images/key_earth.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
@@ -141,7 +141,7 @@ public class ViewItem extends JPanel implements Observer{
             nbKeyEarth.setBounds(162, this.coordy + 18, 50, 50);
             nbKeyEarth.setForeground(Color.WHITE);
             this.add(nbKeyEarth);
-            tabJLabel[this.model.players.indexOf(p)][5] = nbKeyEarth;
+            tabJLabel[this.model.getPlayers().indexOf(p)][5] = nbKeyEarth;
 
             coordy += 56;
         }
@@ -152,8 +152,8 @@ public class ViewItem extends JPanel implements Observer{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int y = 12;
-        for (int i = 0; i < this.model.players.size(); i++) {
-            g.setColor(this.model.players.get(i).getColor());
+        for (int i = 0; i < this.model.getPlayers().size(); i++) {
+            g.setColor(this.model.getPlayers().get(i).getColor());
             g.fillOval(5, y, 8, 8);
             y += 56;
         }
@@ -161,15 +161,15 @@ public class ViewItem extends JPanel implements Observer{
 
     @Override
     public void update() {
-        for(Player p : this.model.players) {
-            tabJLabel[this.model.players.indexOf(p)][0].setText(String.valueOf(p.nbSpecialAction(Player.SpecialAction.SAND)));
-            tabJLabel[this.model.players.indexOf(p)][1].setText(String.valueOf(p.nbSpecialAction(Player.SpecialAction.TELEPORTATION)));
-            tabJLabel[this.model.players.indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.AIR)));
-            tabJLabel[this.model.players.indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.WATER)));
-            tabJLabel[this.model.players.indexOf(p)][4].setText(String.valueOf(p.nbKeyElement(Cell.Element.FIRE)));
-            tabJLabel[this.model.players.indexOf(p)][5].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
-            this.tabName.get(this.model.players.indexOf(p)).setForeground(new Color(80,80,80));
+        for(Player p : this.model.getPlayers()) {
+            tabJLabel[this.model.getPlayers().indexOf(p)][0].setText(String.valueOf(p.nbSpecialAction(Player.SpecialAction.SAND)));
+            tabJLabel[this.model.getPlayers().indexOf(p)][1].setText(String.valueOf(p.nbSpecialAction(Player.SpecialAction.TELEPORTATION)));
+            tabJLabel[this.model.getPlayers().indexOf(p)][2].setText(String.valueOf(p.nbKeyElement(Cell.Element.AIR)));
+            tabJLabel[this.model.getPlayers().indexOf(p)][3].setText(String.valueOf(p.nbKeyElement(Cell.Element.WATER)));
+            tabJLabel[this.model.getPlayers().indexOf(p)][4].setText(String.valueOf(p.nbKeyElement(Cell.Element.FIRE)));
+            tabJLabel[this.model.getPlayers().indexOf(p)][5].setText(String.valueOf(p.nbKeyElement(Cell.Element.EARTH)));
+            this.tabName.get(this.model.getPlayers().indexOf(p)).setForeground(new Color(80,80,80));
         }
-        this.tabName.get(this.model.players.indexOf(this.model.currentPlayer)).setForeground(Color.WHITE);
+        this.tabName.get(this.model.getPlayers().indexOf(this.model.getCurrentPlayer())).setForeground(Color.WHITE);
     }
 }

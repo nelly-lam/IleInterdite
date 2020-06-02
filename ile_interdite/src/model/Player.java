@@ -17,7 +17,7 @@ public class Player {
     private int nbHits;
     public ArrayList<Cell.Element> keys;
     private ArrayList<Cell.Element> artifacts;
-    private ArrayList<SpecialAction> actions;
+    public ArrayList<SpecialAction> actions;
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
     public enum SpecialAction {SAND, TELEPORTATION}
@@ -48,7 +48,9 @@ public class Player {
     public int getOrd() { return this.ord; }
 
     public void updateKey(Cell.Element key) { this.keys.remove(key); }
-    public boolean hasKey(Cell.Element key) { return this.artifacts.contains(key); }
+    public void updateAction(SpecialAction action) { this.actions.remove(action); }
+    public boolean hasKey(Cell.Element key) { return this.keys.contains(key); }
+    public boolean hasAction(SpecialAction action) { return this.actions.contains(action); }
     public void setNext(Player p) { this.next = p; }
 
     public void move(Direction key) {
@@ -199,52 +201,34 @@ public class Player {
         }
     }
 
-    //for ECHANGE DE CLES
-    public ArrayList<Player> isOnSameCell() {
-        ArrayList<Player> listPlayer = new ArrayList<>();
+    public ArrayList<Player> playersOnSameCell() {
+        ArrayList<Player> tabPlayers = new ArrayList<>();
         for(Player p : this.model.players) {
-            if(this.getAbs() == p.getAbs() && this.getOrd() == p.getOrd()){
-                listPlayer.add(p);
+            if(this.isOnSameCell(p)) {
+                tabPlayers.add(p);
             }
         }
-        return listPlayer;
+        return tabPlayers;
     }
 
-    public boolean isOnSameCell2(Player p) {
+    public boolean isOnSameCell(Player p) {
         return this.ord == p.getOrd() && this.abs == p.getAbs();
     }
 
+    public void addActions(Player.SpecialAction a) { this.actions.add(a); }
 
-    //ACTIONS SPECIALES PART 4
-    public void setAbs(int x){ this.abs = x; }
-    public void setOrd(int y){ this.ord = y; }
-    public void addActions(Player.SpecialAction a){ this.actions.add(a); }
-
-    public int nbActionSable(){
+    public int nbSpecialAction(SpecialAction a) {
         int counter = 0;
         for (Player.SpecialAction temp : this.actions) {
-            if(temp == SpecialAction.SAND){
+            if(temp == a){
                 counter++;
             }
         }
         return counter;
     }
 
-    public int nbActionTeleport(){
-        int counter = 0;
-        for (Player.SpecialAction temp : this.actions) {
-            if(temp == SpecialAction.TELEPORTATION){
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    public void teleportPlayer(int x, int y){
-        Cell cell = this.model.getCell(x, y);
-        if (cell.getState() == Cell.State.NORMAL){
-            this.setAbs(x);
-            this.setOrd(y);
-        }
+    public void teleportPlayer(int x, int y) {
+        this.abs = x;
+        this.ord = y;
     }
 }

@@ -15,7 +15,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewMenu extends JPanel{
     private final Island model;
-    private JFrame menu = new JFrame();
+    private static JFrame menu = new JFrame();
     private static ArrayList<JLabel> players = new ArrayList<>();;
     private int coordy = 110;
     private static JLabel info;
@@ -24,35 +24,35 @@ public class ViewMenu extends JPanel{
         this.model = model;
         //TODO exception fichier
 
-        this.menu.setTitle("Menu");
-        this.menu.setSize(875, 686);
-        this.menu.setLayout(null);
+        menu.setTitle("Menu");
+        menu.setSize(875, 686);
+        menu.setLayout(null);
 
         JLabel title = new JLabel("L'île interdite");
         title.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 32));
         title.setBounds(20,28,200,80);
         title.setForeground(Color.WHITE);
-        this.menu.add(title);
+        menu.add(title);
 
         JLabel operation = new JLabel("Fonctionnement");
         operation.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 23));
         operation.setBounds(25,108,200,80);
         operation.setForeground(Color.WHITE);
-        this.menu.add(operation);
+        menu.add(operation);
 
         JLabel instructions = new JLabel("Instructions");
         instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
         instructions.setBounds(70,170,160,35);
         instructions.setForeground(new Color(188, 199, 236));
         // Controller
-        this.menu.add(instructions);
+        menu.add(instructions);
 
         JLabel controles = new JLabel("Contrôles");
         controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
         controles.setBounds(70,210,160,35);
         controles.setForeground(new Color(188, 199, 236));
         // Controller
-        this.menu.add(controles);
+        menu.add(controles);
 
         JButton buttonPlay = new JButton("Jouer");
         buttonPlay.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 25));
@@ -62,13 +62,13 @@ public class ViewMenu extends JPanel{
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
         buttonPlay.addActionListener(new ControllerPlay(this.model, menu));
-        this.menu.add(buttonPlay);
+        menu.add(buttonPlay);
 
         info = new JLabel();
         info.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 10));
         info.setBounds(35,400,180,35);
         info.setForeground(Color.WHITE);
-        this.menu.add(info);
+        menu.add(info);
 
         JButton buttonAddPlayer = new JButton("Ajouter joueur");
         buttonAddPlayer.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 12));
@@ -78,7 +78,7 @@ public class ViewMenu extends JPanel{
         buttonAddPlayer.setBorderPainted(false);
         buttonAddPlayer.setFocusPainted(false);
         buttonAddPlayer.addActionListener(new ControllerPlayer(this.model));
-        this.menu.add(buttonAddPlayer);
+        menu.add(buttonAddPlayer);
 
         for(int i = 0; i < 8; i++) {
             JLabel player = new JLabel();
@@ -87,22 +87,22 @@ public class ViewMenu extends JPanel{
             player.setForeground(Color.WHITE);
             players.add(player);
             this.coordy += 30;
-            this.menu.add(player);
+            menu.add(player);
         }
 
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
         footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
         footer.setBounds(550,588,300,80);
         footer.setForeground(new Color(89, 97, 125));
-        this.menu.add(footer);
+        menu.add(footer);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, CENTER);
         background.setBounds(0,0,864,648);
-        this.menu.add(background);
+        menu.add(background);
 
-        this.menu.setVisible(true);
-        this.menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        menu.setVisible(true);
+        menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public static void addPlayer(String name, int joueur) {
@@ -111,5 +111,13 @@ public class ViewMenu extends JPanel{
 
     public static void updateLabel(String message) {
         info.setText(message);
+    }
+
+    public static void hidden() {
+        menu.setVisible(false);
+    }
+
+    public static void visible() {
+        menu.setVisible(true);
     }
 }

@@ -25,8 +25,8 @@ public class ControllerPlay implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.model.players.size() > 0) {
-            this.menu.dispose();
+        if(!this.model.players.isEmpty()) {
+            this.menu.setVisible(false);
             try {
                 ViewGame view = new ViewGame(this.model);
             } catch (IOException ioException) {

@@ -5,13 +5,10 @@ import model.Cell;
 import model.Island;
 import model.Player;
 import views.ViewGame;
-import views.ViewItem2;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class ControllerSwapKey extends MouseAdapter {
     private final Island model;
@@ -44,29 +41,18 @@ public class ControllerSwapKey extends MouseAdapter {
         if(this.model.currentPlayer.hasKey(this.el)) {
             for(Player p : this.model.players) {
                 if(p.getName() == text) {
-                    if (this.model.currentPlayer.isOnSameCell2(p)) {
-                        try {
-                            this.model.currentPlayer.addHits();
-                            p.addKey(this.el);
-                            this.model.currentPlayer.updateKey(this.el);
-                            this.el = Cell.Element.NONE;
-                            ViewGame.updateDisplay("La clé a été transféré");
-                        } catch (ExceptionNbHits exceptionNbHits) {
-                            ViewGame.updateDisplay("Vous n'avez pas assez de coup");
-                        }
-                        break;
+                    if (this.model.currentPlayer.isOnSameCell(p)) {
+                        this.model.giveKey(p, this.el);
+                        this.el = Cell.Element.NONE;
                     } else {
                         ViewGame.updateDisplay("Vous n'êtes pas sur la même cellule");
                     }
                 }
+                break;
             }
-            this.model.notifyObservers();
         }
         else {
             ViewGame.updateDisplay("Vous n'avez pas de clés à donner");
         }
     }
 }
-
-
-

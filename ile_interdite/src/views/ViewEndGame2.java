@@ -2,34 +2,22 @@ package views;
 
 import controllers.ControllerReplay;
 import fonts.PantonFont;
+import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.*;
 
 public class ViewEndGame2{
-    private JFrame result;
-    //private static JDialog endGame;
-    //private JPanel panel;
-    private boolean isWinning;
+    private Island model;
 
-    public ViewEndGame2(boolean isWinning){
-        this.isWinning = isWinning;
-        this.result = new JFrame("RESULT");
-        //this.result.setPreferredSize(new Dimension(600, 300));
-        //JDialog endGame = new JDialog(this.result, "", Dialog.ModalityType.DOCUMENT_MODAL);
-        JDialog endGame = new JDialog(this.result, "RESULT", true);
-        this.result.setLayout(null);
+    public ViewEndGame2(boolean isWinning, Island model){
+        JFrame result = new JFrame();
+        JDialog endGame = new JDialog(result, "result", true);
+        endGame.setLayout(null);
         endGame.setSize(610, 330);
-        //this.endGame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-        /*JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout());
-        this.result.add(panel, BorderLayout.SOUTH);
-         */
 
         JButton restart = new JButton("Rejouer");
         restart.setFont(new Font("Panton", Font.PLAIN, 15));
@@ -39,7 +27,7 @@ public class ViewEndGame2{
         restart.setBorderPainted(false);
         restart.setFocusPainted(false);
         endGame.add(restart);
-        restart.addActionListener(new ControllerReplay(this.result, endGame));
+        restart.addActionListener(new ControllerReplay(result, endGame, this.model));
 
         JButton close = new JButton("Quitter");
         close.setFont(new Font("Panton", Font.PLAIN, 15));
@@ -49,34 +37,25 @@ public class ViewEndGame2{
         close.setBorderPainted(false);
         close.setFocusPainted(false);
         endGame.add(close);
-        close.addActionListener(new ControllerReplay(this.result, endGame));
+        close.addActionListener(new ControllerReplay(result, endGame, this.model));
 
-
-        if(this.isWinning) {
-            ImageIcon icon = new ImageIcon(new ImageIcon("./ile_interdite/src/images/win.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
+        if(isWinning) {
+            endGame.setTitle("Vous avez GAGNE");
+            ImageIcon icon = new ImageIcon(new ImageIcon("./src/images/win.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
             JLabel background = new JLabel("", icon, CENTER);
             background.setBounds(0,0,600,300);
             endGame.add(background);
-            //JOptionPane.showMessageDialog(this.endGame, "", "VOUS AVEZ GAGNE", JOptionPane.PLAIN_MESSAGE, icon);
-            //JOptionPane.showOptionDialog(endGame, "", "VOUS AVEZ GAGNE", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[] {}, null);
-            //this.result.add(new JLabel("", icon, CENTER));
         }
         else {
-            ImageIcon icon = new ImageIcon(new ImageIcon("./ile_interdite/src/images/loose.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
+            endGame.setTitle("Vous avez PERDU");
+            ImageIcon icon = new ImageIcon(new ImageIcon("./src/images/loose.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
             JLabel background = new JLabel("", icon, CENTER);
             background.setBounds(0,0,600,300);
             endGame.add(background);
-            //this.panel.add(background);
-            //JOptionPane.showMessageDialog(this.endGame, "", "VOUS AVEZ PERDU", JOptionPane.PLAIN_MESSAGE, icon);
-            //JOptionPane.showOptionDialog(endGame, "", "VOUS AVEZ PERDU", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[] {}, null);
-
         }
 
         endGame.setVisible(true);
-
-        this.result.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //this.result.setVisible(true);
-        this.result.pack();
-
+        endGame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        endGame.pack();
     }
 }

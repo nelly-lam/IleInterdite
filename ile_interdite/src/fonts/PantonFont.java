@@ -7,6 +7,8 @@ import java.io.InputStream;
 
 public class PantonFont {
 
+    private PantonFont() { }
+
     public static Font getPanton() throws IOException, FontFormatException {
         InputStream filePanton = new FileInputStream("src/fonts/Panton-Regular.ttf");
         return Font.createFont(Font.TRUETYPE_FONT, filePanton);

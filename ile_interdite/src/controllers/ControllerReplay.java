@@ -1,18 +1,12 @@
 package controllers;
 
 import model.Island;
-import views.ViewEndGame2;
 import views.ViewGame;
 import views.ViewMenu;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ControllerReplay implements ActionListener {
     private JDialog game;
@@ -31,6 +25,7 @@ public class ControllerReplay implements ActionListener {
             ViewGame.hidden();
             ViewMenu.visible();
             this.game.dispose();
+            // TODO
             //Island model = new Island(12, 12);
             /*try {
                 ViewMenu viewMenu = new ViewMenu(model);

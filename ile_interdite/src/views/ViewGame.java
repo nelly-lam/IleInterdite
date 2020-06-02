@@ -22,7 +22,7 @@ public class ViewGame {
     private ViewArtifact artifact;
     private static JLabel display = new JLabel();
 
-    public ViewGame(Island model) throws IOException, FontFormatException {
+    public ViewGame(Island model) {
         this.model = model;
         game.setTitle("L'île interdite");
         game.setSize(875, 686);
@@ -54,7 +54,7 @@ public class ViewGame {
         game.add(display);
 
         this.nbHits = new ViewNbHits(this.model);
-        this.nbHits.setBounds(800,110,50,50);
+        this.nbHits.setBounds(800,116,50,50);
         game.add(this.nbHits);
 
         this.item = new ViewItem(this.model);

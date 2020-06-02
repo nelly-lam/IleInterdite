@@ -27,13 +27,7 @@ public class ControllerPlay implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(!this.model.players.isEmpty()) {
             this.menu.setVisible(false);
-            try {
-                ViewGame view = new ViewGame(this.model);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            } catch (FontFormatException fontFormatException) {
-                fontFormatException.printStackTrace();
-            }
+            ViewGame view = new ViewGame(this.model);
         }
         else {
             ViewMenu.updateLabel("Vous devez ajouter au moins 1 joueur");

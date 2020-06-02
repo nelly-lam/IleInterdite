@@ -9,18 +9,30 @@ public class PantonFont {
 
     private PantonFont() { }
 
-    public static Font getPanton() throws IOException, FontFormatException {
-        InputStream filePanton = new FileInputStream("src/fonts/Panton-Regular.ttf");
-        return Font.createFont(Font.TRUETYPE_FONT, filePanton);
+    public static Font getPanton() {
+        try {
+            FileInputStream filePanton = new FileInputStream("src/fonts/Panton-Regular.ttf");
+            return Font.createFont(Font.TRUETYPE_FONT, filePanton);
+        } catch (FontFormatException | IOException e) {
+            return new Font("Arial", Font.PLAIN, 15);
+        }
     }
 
-    public static Font getPantonLight() throws IOException, FontFormatException {
-        InputStream filePantonLight = new FileInputStream("src/fonts/Panton-Light.ttf");
-        return Font.createFont(Font.TRUETYPE_FONT, filePantonLight);
+    public static Font getPantonLight() {
+        try {
+            InputStream filePantonLight = new FileInputStream("src/fonts/Panton-Light.ttf");
+            return Font.createFont(Font.TRUETYPE_FONT, filePantonLight);
+        } catch (FontFormatException | IOException e) {
+            return Font.getFont("Arial");
+        }
     }
 
-    public static Font getPantonBold() throws IOException, FontFormatException {
-        InputStream filePantonBold = new FileInputStream("src/fonts/Panton-Bold.ttf");
-        return Font.createFont(Font.TRUETYPE_FONT, filePantonBold);
+    public static Font getPantonBold() {
+        try {
+            FileInputStream filePantonBold = new FileInputStream("src/fonts/Panton-Bold.ttf");
+            return Font.createFont(Font.TRUETYPE_FONT, filePantonBold);
+        } catch (FontFormatException | IOException e) {
+            return new Font("Arial", Font.BOLD, 15);
+        }
     }
 }

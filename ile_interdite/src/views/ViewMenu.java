@@ -20,7 +20,7 @@ public class ViewMenu extends JPanel{
     private int coordy = 110;
     private static JLabel info;
 
-    public ViewMenu(Island model) throws IOException, FontFormatException {
+    public ViewMenu(Island model) {
         this.model = model;
         //TODO exception fichier
 

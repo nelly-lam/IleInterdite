@@ -8,7 +8,6 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.CENTER;
@@ -25,7 +24,7 @@ public class ViewItem extends JPanel implements Observer{
     private JLabel[][] tabJLabel;
     private ArrayList<JLabel> tabName;
 
-    public ViewItem(Island model) throws IOException, FontFormatException {
+    public ViewItem(Island model) {
         this.model = model;
         this.model.addObserver(this);
         this.tabJLabel = new JLabel[this.model.players.size()][6];

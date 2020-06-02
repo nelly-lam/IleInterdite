@@ -1,6 +1,5 @@
 package controllers;
 
-import exceptions.ExceptionNbHits;
 import model.Cell;
 import model.Island;
 import model.Player;
@@ -50,8 +49,7 @@ public class ControllerSwapKey extends MouseAdapter {
                 }
                 break;
             }
-        }
-        else {
+        } else {
             ViewGame.updateDisplay("Vous n'avez pas de clés à donner");
         }
     }

@@ -1,7 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbHits;
-import views.ViewEndGame2;
+import views.ViewEndGame;
 import views.ViewGame;
 
 import java.util.ArrayList;
@@ -134,12 +134,12 @@ public class Island extends Observable {
         }
     }
 
-    public void teleportation(int x, int y) {
+    public void teleportation(Player p, int x, int y) {
         Cell cell = this.getCell(x, y);
         if (cell.getState() != Cell.State.SUBMERGED){
             try {
                 this.currentPlayer.addHits();
-                this.currentPlayer.teleportPlayer(x, y);
+                p.teleportPlayer(x, y);
             } catch (ExceptionNbHits exceptionNbHits) {
                 ViewGame.updateDisplay("Vous n'avez pas assez de coups pour vous téléporter");
             }
@@ -215,25 +215,28 @@ public class Island extends Observable {
     }
 
     public void stateGame() {
+        boolean win = true;
+        boolean loose = false;
         if(this.heliport.isSubmerged()) {
-            ViewEndGame2 endGame = new ViewEndGame2(false, this);
+            loose = true;
         }
         for(Cell artifact : this.artifacts) {
             if(artifact.isSubmerged()) {
-                ViewEndGame2 endGame = new ViewEndGame2(false, this);
+                loose = true;
             }
         }
-        boolean win = true;
         for(Player p : this.players) {
             if(p.isDead()) {
-                ViewEndGame2 endGame = new ViewEndGame2(false, this);
+                loose = true;
             }
             if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 win = false;
             }
         }
         if(win && this.artifacts.isEmpty()) {
-            ViewEndGame2 endGame = new ViewEndGame2(false, this);
+            ViewEndGame endGame = new ViewEndGame(true, this);
+        } else if(loose) {
+            ViewEndGame endGame = new ViewEndGame(false, this);
         }
     }
 }

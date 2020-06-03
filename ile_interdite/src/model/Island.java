@@ -2,13 +2,14 @@ package model;
 
 import exceptions.ExceptionNbEvents;
 import exceptions.ExceptionSpecialEvent;
+import interfaces.InterfaceIsland;
 import views.ViewEndGame;
 import views.ViewGame;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Island extends Observable {
+public class Island extends Observable implements InterfaceIsland {
     private final Cell[][] board;
     private final int width;
     private final int height;

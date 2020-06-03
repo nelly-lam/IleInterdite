@@ -128,8 +128,8 @@ public class TestPlayer {
     void addKey() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.addKey(Cell.Element.AIR);
-        assert(p.hasKey(Cell.Element.AIR));
+        p.addKey(Cell.Element.EARTH);
+        assert(p.hasKey(Cell.Element.EARTH));
         assert(!p.hasKey(Cell.Element.FIRE));
     }
 
@@ -137,8 +137,8 @@ public class TestPlayer {
     void addArtifact() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.addArtifact(Cell.Element.AIR);
-        assert(p.hasArtifact(Cell.Element.AIR));
+        p.addArtifact(Cell.Element.WATER);
+        assert(p.hasArtifact(Cell.Element.WATER));
         assert(!p.hasArtifact(Cell.Element.FIRE));
     }
 
@@ -146,9 +146,9 @@ public class TestPlayer {
     void addActions() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.addActions(Player.SpecialAction.SAND);
-        assert(p.hasAction(Player.SpecialAction.SAND));
-        assert(!p.hasAction(Player.SpecialAction.TELEPORTATION));
+        p.addActions(Player.SpecialAction.TELEPORTATION);
+        assert(!p.hasAction(Player.SpecialAction.SAND));
+        assert(p.hasAction(Player.SpecialAction.TELEPORTATION));
     }
 
     @Test
@@ -184,32 +184,26 @@ public class TestPlayer {
 
     @Test
     void teleportPlayer() {
-
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.teleportPlayer(2,2);
+        assert(p.getAbs() == 2);
+        assert(p.getOrd() == 2);
     }
 
     @Test
     void recoverArtifactPlayer() throws ExceptionNbEvents {
         Island island = new Island(5,5);
         ArrayList<Cell> arti = island.getArtifacts();
-
         Player p = new Player(island, "titi", arti.get(0).getAbs(), arti.get(0).getAbs());
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.recoverArtifactPlayer(arti.get(0));
+        for (int i = 0; i < 5; i++) {
+            p.addKey(arti.get(0).getArtifact());
+        }
+        assert(p.hasKey(arti.get(0).getArtifact()));
+        assert(p.nbKeyElement(arti.get(0).getArtifact()) == 5);
+        Cell.Element el = arti.get(0).getArtifact();
+        assert(p.recoverArtifactPlayer(arti.get(0)));
+        assert(p.hasKey(el));
     }
 
     @Test
@@ -246,11 +240,13 @@ public class TestPlayer {
     }
 
     @Test
-    void restoreSpecialEvent() {
+    void restoreSpecialEvent() throws ExceptionSpecialEvent {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.restoreSpecialEvent();
+        p.useSpecialEvent();
         assert(!p.getSpecialEvent());
+        p.restoreSpecialEvent();
+        assert(p.getSpecialEvent());
     }
 
     @Test
@@ -303,13 +299,13 @@ public class TestPlayer {
         island.addPlayer("titi");
         island.addPlayer("tata");
         island.addPlayer("tutu");
-        ArrayList<Player> players = new ArrayList<Player>();
-        for (Player p4 : island.getPlayers().get(0).playersOnSameCell()) {
-            players.add(p4);
-        }
-        assert(p.isOnSameCell(p2)); //ok
-        assert(players.size() == 2);
-        assert(players.contains(p2));
+        ArrayList<Player> players = new ArrayList<>(island.getCurrentPlayer().playersOnSameCell());
+        assert(p.isOnSameCell(p2));
+        assert(p.isOnSameCell(p3));
+        assert(players.size() == 3);
+        assert(players.get(0).getName().equals("titi"));
+        assert(players.get(1).getName().equals("tata"));
+        assert(players.get(2).getName().equals("tutu"));
     }
 
 }

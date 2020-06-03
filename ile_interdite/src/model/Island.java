@@ -67,6 +67,7 @@ public class Island extends Observable implements InterfaceIsland {
 
     public int getHeight() { return this.height; }
     public int getWidth() { return this.width; }
+    public ArrayList<Cell> getArtifacts() { return this.artifacts; }
     public Cell getCell(int x, int y) { return this.board[x][y]; }
     public Player getCurrentPlayer() { return this.currentPlayer; }
     public ArrayList<Player> getPlayers() { return this.players; }

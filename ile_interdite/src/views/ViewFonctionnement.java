@@ -22,14 +22,14 @@ public class ViewFonctionnement extends JFrame {
 
         if (this.fct) {
             this.setTitle("Instructions");
-            BufferedImage image = ImageIO.read(new File("./ile_interdite/src/images/instructions.jpg"));
+            BufferedImage image = ImageIO.read(new File("./src/images/instructions.jpg"));
             Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(dimg);
             background = new JLabel("Instructions", img, CENTER);
 
         } else {
             this.setTitle("Contrôles");
-            BufferedImage image = ImageIO.read(new File("./ile_interdite/src/images/Controles.jpg"));
+            BufferedImage image = ImageIO.read(new File("./src/images/Controles.jpg"));
             Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(dimg);
             background = new JLabel("Contrôles", img, CENTER);

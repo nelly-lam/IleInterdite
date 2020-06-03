@@ -30,7 +30,7 @@ public class ViewItem extends JPanel implements Observer{
         for (Player p : this.model.getPlayers()) {
             //JLABEL FOR NAME PLAYERS
             JLabel name = new JLabel(p.getName());
-            name.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
+            name.setFont(PantonFont.getPanton().deriveFont(20));
             name.setBounds(20, coordy, 150, 30);
             name.setHorizontalAlignment(SwingConstants.LEFT);
             name.addMouseListener(ctrl);
@@ -50,7 +50,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "DRY"
             JLabel nbDry = new JLabel();
-            nbDry.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbDry.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbDry.setBounds(30, coordy + 18, 20, 40);
             nbDry.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][0] = nbDry;
@@ -66,7 +66,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "TELEPORTATION"
             JLabel nbTeleportation = new JLabel();
-            nbTeleportation.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbTeleportation.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbTeleportation.setBounds(60, coordy + 18, 20, 40);
             nbTeleportation.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][1] = nbTeleportation;
@@ -82,7 +82,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "AIR"
             JLabel nbKeyAir = new JLabel();
-            nbKeyAir.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyAir.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbKeyAir.setBounds(87, coordy + 18, 20, 40);
             nbKeyAir.setForeground(Color.WHITE);
             this.add(nbKeyAir);
@@ -98,7 +98,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "WATER"
             JLabel nbKeyWater = new JLabel();
-            nbKeyWater.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyWater.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbKeyWater.setBounds(112, coordy + 18, 20, 40);
             nbKeyWater.setForeground(Color.WHITE);
             this.add(nbKeyWater);
@@ -114,7 +114,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "FIRE"
             JLabel nbKeyFire = new JLabel();
-            nbKeyFire.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyFire.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbKeyFire.setBounds(137, coordy + 18, 20, 40);
             nbKeyFire.setForeground(Color.WHITE);
             this.add(nbKeyFire);
@@ -130,7 +130,7 @@ public class ViewItem extends JPanel implements Observer{
 
             //JLABEL FOR NUMBER KEY "EARTH"
             JLabel nbKeyEarth = new JLabel();
-            nbKeyEarth.setFont(new Font("Panton", Font.PLAIN, 10));
+            nbKeyEarth.setFont(PantonFont.getPantonLight().deriveFont(10));
             nbKeyEarth.setBounds(162, coordy + 18, 20, 40);
             nbKeyEarth.setForeground(Color.WHITE);
             this.add(nbKeyEarth);

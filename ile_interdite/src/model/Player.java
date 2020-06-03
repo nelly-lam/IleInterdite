@@ -39,24 +39,34 @@ public class Player implements InterfacePlayer {
     }
 
     public String getName() { return this.name; }
+
     public Player getNext() { return this.next; }
+
     public Color getColor() { return this.color; }
+
     public int getAbs() { return this.abs; }
+
     public int getOrd() { return this.ord; }
+
     public int getNbEvents() { return this.nbEvents; }
     public boolean getSpecialEvent() { return this.specialEvent; }
 
     public void setNext(Player p) { this.next = p; }
 
     public void updateKey(Cell.Element key) { this.keys.remove(key); }
+
     public void updateAction(SpecialAction action) { this.actions.remove(action); }
 
     public boolean hasKey(Cell.Element key) { return this.keys.contains(key); }
+
     public boolean hasAction(SpecialAction action) { return this.actions.contains(action); }
+
     public boolean hasArtifact(Cell.Element artifact) { return this.artifacts.contains(artifact); }
 
     public void addKey(Cell.Element e) { this.keys.add(e); }
+
     public void addArtifact(Cell.Element e) { this.artifacts.add(e); }
+
     public void addActions(Player.SpecialAction a) { this.actions.add(a); }
 
     public boolean isOnSameCell(Player p) { return this.ord == p.getOrd() && this.abs == p.getAbs(); }

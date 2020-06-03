@@ -1,8 +1,9 @@
 package model;
 
+import interfaces.InterfaceCell;
 import views.ViewGame;
 
-public class Cell {
+public class Cell implements InterfaceCell {
 
     public enum State{ NORMAL, FLOODED, SUBMERGED }
     public enum Element{ AIR, WATER, FIRE, EARTH, NONE }
@@ -69,4 +70,5 @@ public class Cell {
     }
 
     public String toString() { return x + ", " + y; }
+
 }

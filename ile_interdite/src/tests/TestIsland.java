@@ -1,13 +1,10 @@
 package tests;
 
 import exceptions.ExceptionNbEvents;
-import exceptions.ExceptionSpecialEvent;
 import model.Cell;
 import model.Island;
 import model.Player;
 import org.junit.jupiter.api.Test;
-import views.ViewGame;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -61,7 +58,7 @@ public class TestIsland {
     }
 
     @Test
-    void sandBag() throws ExceptionSpecialEvent {
+    void sandBag() {
         Island island = new Island(5, 5);
         island.addPlayer("toto");
         island.getCurrentPlayer().addActions(Player.SpecialAction.SAND);
@@ -150,24 +147,14 @@ public class TestIsland {
             fail("Vous n'avez pas assez d'actions pour chercher une clé");
         }
 
+        p.restoreNbEvents();
+
         //teste le cas ou la case possede une cle
         Cell c = island.getCell(p.getAbs(), p.getOrd());
         c.setKey(Cell.Element.AIR);
+        island.searchKey();
         assert(p.hasKey(Cell.Element.AIR));
         assert(!c.hasKey());
-
-        p.restoreNbEvents();
-        p.updateKey(Cell.Element.AIR);
-
-        //on teste le cas ou la case n'as pas de cle
-        //tester lignes 217 -228 dans island
-
-
-        //OBTIENT ACTION SPECIALE
-        Island island3 = new Island(5, 5);
-        island3.addPlayer("tata");
-        island3.getCurrentPlayer().teleportPlayer(2, 2);
-
     }
 
     @Test
@@ -185,9 +172,4 @@ public class TestIsland {
         assert(island.getArtifacts().size() == 3);
     }
 
-    @Test
-    void stateGame() {
-        Island i = new Island (5, 5);
-
-    }
 }

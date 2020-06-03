@@ -18,7 +18,7 @@ public class Island extends Observable {
     private ArrayList<Cell> artifacts;
     private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
     private final static Player.SpecialAction[] ACTIONS = {Player.SpecialAction.SAND, Player.SpecialAction.TELEPORTATION};
-    private ArrayList<Cell> nbCellSafe;
+    private ArrayList<Cell> cellsSafe;
     public static Random random = new Random();
 
     public Island(int width, int height) {
@@ -27,7 +27,7 @@ public class Island extends Observable {
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<>();
         this.artifacts = new ArrayList<>();
-        this.nbCellSafe = new ArrayList<>();
+        this.cellsSafe = new ArrayList<>();
 
         int heliportX = random.nextInt(this.width / 2) + this.width / 4;
         int heliportY = random.nextInt(this.height / 2) + this.height / 4;
@@ -35,7 +35,7 @@ public class Island extends Observable {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 this.board[i][j] = new Cell(i, j, heliportX == i && heliportY == j);
-                this.nbCellSafe.add(this.board[i][j]);
+                this.cellsSafe.add(this.board[i][j]);
             }
         }
         this.heliport = this.board[heliportX][heliportY];
@@ -86,13 +86,13 @@ public class Island extends Observable {
         int nbcell = 0;
         while (nbcell < 3) {
             try {
-                int indice = random.nextInt(this.nbCellSafe.size());
-                Cell cell = this.nbCellSafe.get(indice);
+                int indice = random.nextInt(this.cellsSafe.size());
+                Cell cell = this.cellsSafe.get(indice);
                 if (!cell.isSubmerged()) {
                     cell.flood();
                     nbcell++;
                 } else {
-                    this.nbCellSafe.remove(cell);
+                    this.cellsSafe.remove(cell);
                 }
             } catch (IllegalArgumentException e) {
                 this.stateGame();
@@ -106,6 +106,7 @@ public class Island extends Observable {
         }
 
         this.currentPlayer.restoreNbEvents();
+        this.currentPlayer.restoreSpecialEvent();
         this.currentPlayer = this.currentPlayer.getNext();
         this.notifyObservers();
         this.stateGame();

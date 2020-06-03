@@ -42,6 +42,7 @@ public class Player {
     public Color getColor() { return this.color; }
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
+    public int getNbEvents() { return this.nbEvents; }
 
     public void setNext(Player p) { this.next = p; }
 
@@ -50,6 +51,7 @@ public class Player {
 
     public boolean hasKey(Cell.Element key) { return this.keys.contains(key); }
     public boolean hasAction(SpecialAction action) { return this.actions.contains(action); }
+    public boolean hasArtifact(Cell.Element key) { return this.actions.contains(key); }
 
     public void addKey(Cell.Element e) { this.keys.add(e); }
     public void addArtifact(Cell.Element e) { this.artifacts.add(e); }
@@ -134,7 +136,6 @@ public class Player {
             throw new ExceptionNbEvents();
         } else {
             this.nbEvents--;
-            ViewNbHits.updateNbHits(this.nbEvents);
         }
     }
 
@@ -148,7 +149,6 @@ public class Player {
 
     public void restoreNbEvents() {
         this.nbEvents = 3;
-        ViewNbHits.updateNbHits(this.nbEvents);
     }
 
     public void restoreSpecialEvent() {

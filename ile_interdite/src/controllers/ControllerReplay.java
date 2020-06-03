@@ -10,13 +10,9 @@ import java.awt.event.ActionListener;
 
 public class ControllerReplay implements ActionListener {
     private JDialog game;
-    private JFrame result;
-    private Island model;
 
     public ControllerReplay(JFrame frame, JDialog dialog, Island model){
-        this.result = frame;
         this.game = dialog;
-        this.model = model;
     }
 
     @Override

@@ -26,16 +26,13 @@ public class ControllerAddPlayer implements ActionListener {
                     this.model.addPlayer(name.getText());
                     ViewMenu.addPlayer(name.getText(), this.model.getPlayers().size());
                     ViewMenu.updateLabel("");
-                }
-                else {
+                } else {
                     ViewMenu.updateLabel("Il doit y avoir au moins 1 caractère");
                 }
-            }
-            else {
+            } else {
                 ViewMenu.updateLabel("Il ne doit pas dépasser 10 caractères");
             }
-        }
-        else {
+        } else {
             ViewMenu.updateLabel("Vous avez atteint la limite maximale");
         }
         frame.dispose();

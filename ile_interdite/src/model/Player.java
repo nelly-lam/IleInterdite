@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbEvents;
+import views.ViewGame;
 import views.ViewNbHits;
 
 import java.awt.*;
@@ -31,11 +32,6 @@ public class Player {
         this.keys = new ArrayList<>();
         this.artifacts = new ArrayList<>();
         this.actions = new ArrayList<>();
-        if(this.model.getPlayers().isEmpty()) {
-            this.next = this;
-        } else {
-            this.next = this.model.getPlayers().get(0);
-        }
     }
 
     public String getName() { return this.name; }
@@ -58,9 +54,76 @@ public class Player {
 
     public boolean isOnSameCell(Player p) { return this.ord == p.getOrd() && this.abs == p.getAbs(); }
 
-    public void move(int x, int y) {
-        this.abs = x;
-        this.ord = y;
+    public void move(Direction key) {
+        try {
+            switch(key) {
+                case UP:
+                    if((this.ord != 0) && !(this.model.getCell(this.abs, this.ord-1).isSubmerged())) {
+                        this.addEvents();
+                        this.ord--;
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case supérieure");
+                    }
+                    break;
+                case DOWN:
+                    if((this.ord != this.model.getHeight()-1) && !(this.model.getCell(this.abs, this.ord+1).isSubmerged())) {
+                        this.addEvents();
+                        this.ord++;
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case inférieur");
+                    }
+                    break;
+                case RIGHT:
+                    if((this.abs != this.model.getWidth()-1) && !(this.model.getCell(this.abs+1, this.ord).isSubmerged())) {
+                        this.addEvents();
+                        this.abs++;
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case de droite");
+                    }
+                    break;
+                case LEFT:
+                    if((this.abs != 0) && !(this.model.getCell(this.abs-1, this.ord).isSubmerged())) {
+                        this.addEvents();
+                        this.abs--;
+                    } else {
+                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case de gauche");
+                    }
+                    break;
+            }
+        } catch (ExceptionNbEvents exceptionNbEvents) {
+            ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour vous déplacer");
+        }
+    }
+
+    public void teleportPlayer(int x, int y) {
+        Cell cell = this.model.getCell(x, y);
+        if(!cell.isSubmerged()){
+            try {
+                this.addEvents();
+                this.abs = x;
+                this.ord = y;
+            } catch(ExceptionNbEvents exceptionNbEvents) {
+                ViewGame.updateDisplay("Vous n'avez pas assez de coups pour vous téléporter");
+            }
+        } else {
+            ViewGame.updateDisplay("Cette case n'est pas safe");
+        }
+
+    }
+
+    public boolean recoverArtifactPlayer(Cell cell) throws ExceptionNbEvents {
+        if (this.nbKeyElement(cell.getArtifact()) >= 4) {
+            this.addEvents();
+            this.addArtifact(cell.getArtifact());
+            for (int i = 0; i < 4; i++) {
+                this.updateKey(cell.getArtifact());
+            }
+            cell.updateArtifact();
+            return true;
+        } else {
+            ViewGame.updateDisplay("Il vous manque " + (4 - this.nbKeyElement(cell.getArtifact())) + " clés pour récupérer cet artefact");
+        }
+        return false;
     }
 
     public void addEvents() throws ExceptionNbEvents {
@@ -123,14 +186,14 @@ public class Player {
     public int nbSpecialAction(SpecialAction a) {
         int count = 0;
         for (Player.SpecialAction temp : this.actions) {
-            if(temp == a){
+            if(temp == a) {
                 count++;
             }
         }
         return count;
     }
 
-    public Color randomColor() {
+    private Color randomColor() {
         float r = (Island.random.nextFloat());
         float g = (Island.random.nextFloat());
         float b = (Island.random.nextFloat());

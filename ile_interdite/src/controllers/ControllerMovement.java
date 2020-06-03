@@ -17,12 +17,12 @@ public class ControllerMovement implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        //Empty
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        //Empty
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ControllerMovement implements KeyListener {
                 this.model.recoverArtifact();
                 break;
             default:
-                ViewGame.updateDisplay("Cette commande n'a pas besoin d'être utilisé pour jouer");
+                ViewGame.updateDisplay("Cette commande n'a pas besoin d'être utilisée pour jouer");
         }
     }
 }

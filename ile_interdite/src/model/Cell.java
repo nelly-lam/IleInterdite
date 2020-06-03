@@ -1,5 +1,7 @@
 package model;
 
+import views.ViewGame;
+
 public class Cell {
 
     public enum State{ NORMAL, FLOODED, SUBMERGED }
@@ -54,7 +56,17 @@ public class Cell {
         }
     }
 
-    public void dryCell() { this.state = State.NORMAL; }
+    public boolean dryCell() {
+        if(this.isFlooded()) {
+            this.state = State.NORMAL;
+            return true;
+        } else if(this.isSubmerged()) {
+            ViewGame.updateDisplay("Cette case est submergée, vous ne pouvez pas l'assécher");
+        } else if(this.isNormal()) {
+            ViewGame.updateDisplay("Cette case est déjà sèche, vous ne pouvez pas l'assécher");
+        }
+        return false;
+    }
 
     public String toString() { return x + ", " + y; }
 }

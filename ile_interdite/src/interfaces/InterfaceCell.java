@@ -1,109 +1,74 @@
 package interfaces;
 
-// Je te laisse faire Antoine, comme tu le sentais
-
 public interface InterfaceCell {
 
     /**
-     * Donne la cle associee a la cellule
-     * @return
-     */
-    public model.Cell.Element getKey();
-
-    /**
-     * Donne l'artifact associee a la cellule
-     * @return
-     */
-    public model.Cell.Element getArtifact();
-
-    /**
-     *
-     * @return
-     */
-    public int getAbs();
-
-    /**
-     *
-     * @return
-     */
-    public int getOrd();
-
-    /**
-     *
-     * @return
-     */
-    public model.Cell.State getState();
-
-    /**
-     *
+     * Attribut une cle a une cellule
      * @param key
+     *      un Element
      */
-    public void setKey(model.Cell.Element key);
+    void setKey(model.Cell.Element key);
 
     /**
-     *
+     * Attribut un artefact a une cellule
      * @param element
+     *          un Element
      */
-    public void setArtifact(model.Cell.Element element);
+    void setArtifact(model.Cell.Element element);
 
     /**
-     * Teste si la cell possede une cle
+     * Indique si une cellule possede une cle
+     * @return true si elle en possede une, false sinon
      */
-    public boolean hasKey();
+    boolean hasKey();
 
     /**
-     * Teste si la cell possede un artifact
+     * Indique si une cellule possede un artefact
+     * @return true si elle en possede une, false sinon
      */
-    public boolean hasArtifact();
+    boolean hasArtifact();
 
     /**
-     * Teste si la cell est une case helicoptere
+     * Indique si une cellule possede un heliport
+     * @return true si elle en possede une, false sinon
      */
-    public boolean isHeliport();
+    boolean isHeliport();
 
     /**
-     * Teste si une cellule est submergee
+     * Indique si une cellule est submergee
+     * @return true si elle est SUBMERGED, false sinon
      */
-    public boolean isSubmerged();
+    boolean isSubmerged();
 
      /**
-      *
-      * @return
+      * Indique si une cellule est inondee
+      * @return true si elle est FLOODED, false sinon
       */
-     public boolean isFlooded();
+     boolean isFlooded();
 
      /**
       * Enleve la cle d'une case apres qu'elle soit prise
       */
-     public void updateKey();
+     void updateKey();
 
      /**
       * Enleve l'artefact d'une case apres qu'il soit pris
       */
-     public void updateArtifact();
+     void updateArtifact();
 
      /**
       * Permet d'inonder puis submerger la cellule
       */
-     public void flood();
+     void flood();
 
      /**
-      *
+      * Permet d'assecher une cellule inondee
       */
-     public void dryCell();
+     void dryCell();
 
      /**
-      * méthode equals() : de la classe junit.Assert
-      * ICI réécriture : compare deux objets Cell, vrai si les attributs sont identiques et faux sinon
-      * @param : Object obj
-      * @return un boolean
+      * Affiche les coordonnees d'une cellule
+      * @return les cordonnees sous la forme x,y
       */
-     @Override
-     public boolean equals(Object obj);
-
-     /**
-      *
-      * @return
-      */
-     public String toString();
+     String toString();
 }

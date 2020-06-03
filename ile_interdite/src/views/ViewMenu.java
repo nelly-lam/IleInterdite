@@ -1,5 +1,6 @@
 package views;
 
+import controllers.ControllerFonctionnement;
 import controllers.ControllerPlay;
 import controllers.ControllerPlayer;
 import fonts.PantonFont;
@@ -38,18 +39,24 @@ public class ViewMenu extends JPanel{
         operation.setForeground(Color.WHITE);
         menu.add(operation);
 
-        JLabel instructions = new JLabel("Instructions");
-        instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
-        instructions.setBounds(70,170,160,35);
+        JButton instructions = new JButton("Instructions");
+        instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
+        instructions.setBounds(55,170,160,35);
         instructions.setForeground(new Color(188, 199, 236));
-        // Controller
+        instructions.setContentAreaFilled(false);
+        instructions.setBorderPainted(false);
+        instructions.setFocusPainted(false);
+        instructions.addActionListener(new ControllerFonctionnement());
         menu.add(instructions);
 
-        JLabel controles = new JLabel("Contrôles");
-        controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 22));
-        controles.setBounds(70,210,160,35);
+        JButton controles = new JButton("Contrôles");
+        controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
+        controles.setBounds(62,205,160,35);
         controles.setForeground(new Color(188, 199, 236));
-        // Controller
+        controles.setContentAreaFilled(false);
+        controles.setBorderPainted(false);
+        controles.setFocusPainted(false);
+        controles.addActionListener(new ControllerFonctionnement());
         menu.add(controles);
 
         JButton buttonPlay = new JButton("Jouer");
@@ -94,7 +101,7 @@ public class ViewMenu extends JPanel{
         footer.setForeground(new Color(89, 97, 125));
         menu.add(footer);
 
-        ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
+        ImageIcon img = new ImageIcon(new ImageIcon("./ile_interdite/src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, CENTER);
         background.setBounds(0,0,864,648);
         menu.add(background);

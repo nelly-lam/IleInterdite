@@ -40,31 +40,23 @@ public class Player implements InterfacePlayer {
     }
 
     public String getName() { return this.name; }
-
     public Player getNext() { return this.next; }
-
     public Color getColor() { return this.color; }
-
     public int getAbs() { return this.abs; }
-
     public int getOrd() { return this.ord; }
     public int getNbEvents() { return this.nbEvents; }
 
     public void setNext(Player p) { this.next = p; }
 
     public void updateKey(Cell.Element key) { this.keys.remove(key); }
-
     public void updateAction(SpecialAction action) { this.actions.remove(action); }
 
     public boolean hasKey(Cell.Element key) { return this.keys.contains(key); }
-
     public boolean hasAction(SpecialAction action) { return this.actions.contains(action); }
-    public boolean hasArtifact(Cell.Element key) { return this.actions.contains(key); }
+    public boolean hasArtifact(Cell.Element artifact) { return this.artifacts.contains(artifact); }
 
     public void addKey(Cell.Element e) { this.keys.add(e); }
-
     public void addArtifact(Cell.Element e) { this.artifacts.add(e); }
-
     public void addActions(Player.SpecialAction a) { this.actions.add(a); }
 
     public boolean isOnSameCell(Player p) { return this.ord == p.getOrd() && this.abs == p.getAbs(); }
@@ -113,13 +105,8 @@ public class Player implements InterfacePlayer {
     public void teleportPlayer(int x, int y) {
         Cell cell = this.model.getCell(x, y);
         if(!cell.isSubmerged()){
-            try {
-                this.useSpecialEvent();
-                this.abs = x;
-                this.ord = y;
-            } catch(ExceptionSpecialEvent exceptionSpecialEvent) {
-                ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
-            }
+            this.abs = x;
+            this.ord = y;
         } else {
             ViewGame.updateDisplay("Cette case n'est pas safe");
         }
@@ -127,10 +114,10 @@ public class Player implements InterfacePlayer {
     }
 
     public boolean recoverArtifactPlayer(Cell cell) throws ExceptionNbEvents {
-        if (this.nbKeyElement(cell.getArtifact()) >= 4) {
+        if (this.nbKeyElement(cell.getArtifact()) >= 2) {
             this.addEvents();
             this.addArtifact(cell.getArtifact());
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 2; i++) {
                 this.updateKey(cell.getArtifact());
             }
             cell.updateArtifact();
@@ -162,7 +149,7 @@ public class Player implements InterfacePlayer {
     }
 
     public void restoreSpecialEvent() {
-        this.specialEvent = false;
+        this.specialEvent = true;
     }
 
     public boolean isDead(){
@@ -191,16 +178,6 @@ public class Player implements InterfacePlayer {
     public int nbKeyElement(Cell.Element e) {
         int count = 0;
         for (Cell.Element temp : this.keys) {
-            if(temp == e) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int nbArtifactElement(Cell.Element e) {
-        int count = 0;
-        for (Cell.Element temp : this.artifacts) {
             if(temp == e) {
                 count++;
             }

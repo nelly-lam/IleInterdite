@@ -19,8 +19,8 @@ public class ViewMenu extends JPanel{
     private static ArrayList<JLabel> players = new ArrayList<>();
     private static JLabel info = new JLabel();
 
-    public ViewMenu(Island island) {
-        this.model = island;
+    public ViewMenu(Island model) {
+        this.model = model;
 
         menu.setTitle("Menu");
         menu.setSize(875, 686);
@@ -119,10 +119,6 @@ public class ViewMenu extends JPanel{
     }
 
     public static void hidden() {
-        menu.setVisible(false);
-    }
-
-    public static void visible(Island newModel) {
-        menu.setVisible(true);
+        menu.dispose();
     }
 }

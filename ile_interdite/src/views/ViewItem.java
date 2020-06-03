@@ -44,14 +44,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon dry = new ImageIcon(new ImageIcon("./src/images/sand.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labeldry = new JLabel("Dry", dry, CENTER);
             labeldry.setFont(new Font("Panton", Font.PLAIN, 0));
-            labeldry.setBounds(0, coordy + 12, 50, 50);
+            labeldry.setBounds(15, coordy + 12, 20, 40);
             labeldry.addMouseListener(ViewIsland.ctrl);
             this.add(labeldry);
 
             //JLABEL FOR NUMBER KEY "DRY"
             JLabel nbDry = new JLabel();
             nbDry.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbDry.setBounds(30, coordy + 18, 50, 50);
+            nbDry.setBounds(30, coordy + 18, 20, 40);
             nbDry.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][0] = nbDry;
             this.add(nbDry);
@@ -60,14 +60,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon teleportation = new ImageIcon(new ImageIcon("./src/images/helicopter.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             JLabel labelteleportation = new JLabel("Helicopter", teleportation, CENTER);
             labelteleportation.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelteleportation.setBounds(28, coordy + 12, 50, 50);
+            labelteleportation.setBounds(42, coordy + 12, 20, 40);
             labelteleportation.addMouseListener(ViewIsland.ctrl);
             this.add(labelteleportation);
 
             //JLABEL FOR NUMBER KEY "TELEPORTATION"
             JLabel nbTeleportation = new JLabel();
             nbTeleportation.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbTeleportation.setBounds(60, coordy + 18, 50, 50);
+            nbTeleportation.setBounds(60, coordy + 18, 20, 40);
             nbTeleportation.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][1] = nbTeleportation;
             this.add(nbTeleportation);
@@ -76,14 +76,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyAir = new ImageIcon(new ImageIcon("./src/images/key_air.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyAir = new JLabel("A", keyAir, CENTER);
             labelKeyAir.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyAir.setBounds(60, coordy + 12, 50, 50);
+            labelKeyAir.setBounds(75, coordy + 12, 20, 40);
             this.add(labelKeyAir);
             labelKeyAir.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "AIR"
             JLabel nbKeyAir = new JLabel();
             nbKeyAir.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyAir.setBounds(87, coordy + 18, 50, 50);
+            nbKeyAir.setBounds(87, coordy + 18, 20, 40);
             nbKeyAir.setForeground(Color.WHITE);
             this.add(nbKeyAir);
             tabJLabel[this.model.getPlayers().indexOf(p)][2] = nbKeyAir;
@@ -92,14 +92,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyWater = new ImageIcon(new ImageIcon("./src/images/key_water.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyWater = new JLabel("W", keyWater, CENTER);
             labelKeyWater.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyWater.setBounds(85, coordy + 12, 50, 50);
+            labelKeyWater.setBounds(100, coordy + 12, 20, 40);
             this.add(labelKeyWater);
             labelKeyWater.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "WATER"
             JLabel nbKeyWater = new JLabel();
             nbKeyWater.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyWater.setBounds(112, coordy + 18, 50, 50);
+            nbKeyWater.setBounds(112, coordy + 18, 20, 40);
             nbKeyWater.setForeground(Color.WHITE);
             this.add(nbKeyWater);
             tabJLabel[this.model.getPlayers().indexOf(p)][3] = nbKeyWater;
@@ -108,14 +108,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyFire = new ImageIcon(new ImageIcon("./src/images/key_fire.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyFire = new JLabel("F", keyFire, CENTER);
             labelKeyFire.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyFire.setBounds(110, coordy + 12, 50, 50);
+            labelKeyFire.setBounds(125, coordy + 12, 20, 40);
             this.add(labelKeyFire);
             labelKeyFire.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "FIRE"
             JLabel nbKeyFire = new JLabel();
             nbKeyFire.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyFire.setBounds(137, coordy + 18, 50, 50);
+            nbKeyFire.setBounds(137, coordy + 18, 20, 40);
             nbKeyFire.setForeground(Color.WHITE);
             this.add(nbKeyFire);
             tabJLabel[this.model.getPlayers().indexOf(p)][4] = nbKeyFire;
@@ -124,14 +124,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyEarth = new ImageIcon(new ImageIcon("./src/images/key_earth.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyEarth = new JLabel("E", keyEarth, CENTER);
             labelKeyEarth.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyEarth.setBounds(135, coordy + 12, 50, 50);
+            labelKeyEarth.setBounds(150, coordy + 12, 20, 40);
             this.add(labelKeyEarth);
             labelKeyEarth.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "EARTH"
             JLabel nbKeyEarth = new JLabel();
             nbKeyEarth.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyEarth.setBounds(162, coordy + 18, 50, 50);
+            nbKeyEarth.setBounds(162, coordy + 18, 20, 40);
             nbKeyEarth.setForeground(Color.WHITE);
             this.add(nbKeyEarth);
             tabJLabel[this.model.getPlayers().indexOf(p)][5] = nbKeyEarth;

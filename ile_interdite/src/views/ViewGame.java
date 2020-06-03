@@ -45,7 +45,7 @@ public class ViewGame {
         game.add(button);
 
         display.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
-        display.setBounds(360,12,400,30);
+        display.setBounds(370,12,400,30);
         display.setHorizontalAlignment(CENTER);
         display.setForeground(Color.WHITE);
         game.add(display);

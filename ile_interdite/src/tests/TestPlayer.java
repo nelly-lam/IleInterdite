@@ -1,216 +1,279 @@
 package tests;
 
+import exceptions.ExceptionNbEvents;
+import exceptions.ExceptionSpecialEvent;
 import model.Cell;
 import model.Island;
 import model.Player;
 import org.junit.jupiter.api.Test;
-//import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 
-/*public class TestPlayer {
+public class TestPlayer {
 
     @Test
-    void getNameTest() {
+    void getName() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 10, 10);
         assert (p.getName().equals("Joueur"));
     }
 
     @Test
-    void getNextTest(){
-
+    void getNext() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 4, 3);
-        Player p2 = new Player(island, "tutu", p, 4, 3);
-        Player p3 = new Player(island, "tata", p2, 4, 3);
-        assert(p.getNext().getName().equals("titi"));
-        assert(p2.getNext().getName().equals("titi"));
-        assert(p3.getNext().getName().equals("tutu"));
+        Player p2 = new Player(island, "tutu", 4, 3);
+        Player p3 = new Player(island, "tata", 4, 3);
+        p.setNext(p2);
+        p2.setNext(p3);
+        assert(p.getNext().getName().equals("tutu"));
+        assert(p2.getNext().getName().equals("tata"));
     }
 
     @Test
-    void getNbHits(){
-        //TODO
+    void getColor() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 4, 3);
+        assert(p.getColor() != null);
     }
 
     @Test
-    void getAbsTest() {
+    void getAbs() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
         assert (p.getAbs() == 1);
     }
 
     @Test
-    void getOrdTest() {
+    void getOrd() {
         Island island = new Island(20,20);
         Player p = new Player(island, "Joueur", 1, 2);
         assert (p.getOrd() == 2);
     }
 
     @Test
-    void getIsDeadTest(){
+    void getNbEvents() {
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 4, 3);
-        assert(!p.getIsDead());
-    }
-    
-
-    @Test
-    void getArtifactArray(){
-        Island island = new Island(5,5);
-        Player p = new Player(island, "Joueur", 4, 3);
-        p.addArtifact(Cell.Element.WATER);
-        p.addArtifact(Cell.Element.FIRE);
-        p.addArtifact(Cell.Element.FIRE);
-        assert(p.getArtifactArray().size() == 3);
-        assert(p.getArtifactArray().get(0) == Cell.Element.WATER);
-        assert(p.getArtifactArray().get(1) == Cell.Element.FIRE);
-        assert(p.getArtifactArray().get(2) == Cell.Element.FIRE);
+        assert(p.getNbEvents() == 3);
     }
 
     @Test
-    void setNextTest(){
+    void setNext() {
         Island island = new Island(5,5);
         Player p = new Player(island, "Joueur", 4, 3);
         Player p2 = new Player(island, "Joueur2", 3, 4);
         p.setNext(p2);
         p2.setNext(p);
-        assert(p.getNext().getName() == "Joueur2");
-        assert(p2.getNext().getName() == "Joueur");
-    }
-
-    //@Test
-    void addHitsTest(){
-        //TODO
-    }
-
-
-    //@Test
-    void restoreNbHitsTest(){
-        //TODO
+        assert(p.getNext().getName().equals("Joueur2"));
+        assert(p2.getNext().getName().equals("Joueur"));
     }
 
     @Test
-    void addArtifactTest() {
-        Island island = new Island(20,20);
-        Player p = new Player(island, "Joueur", 1, 2);
-        p.addArtifact(Cell.Element.FIRE);
-        ArrayList<Cell.Element> e = p.getArtifactArray();
-        boolean hasFireElement = false;
-        for(int i = 0; i < e.size() ; i++){
-            if(e.get(i) == Cell.Element.FIRE) {
-                hasFireElement = true;
-            }
-        }
-        assert (hasFireElement);
-    }
-
-    //@Test
-    void nearbyCellsTest() {
-        //up down right left
-/**
-        Island island = new Island(6,6);
-
-        Player p = new Player(island, "Joueur", 3, 3);
-        ArrayList<Cell> a1 = p.nearbyCells();
-        assert(a1.size() == 4);
-        Cell up1 = new Cell(island, 3, 2);
-        Cell down1 = new Cell(island, 3, 4);
-        Cell right1 = new Cell(island, 4, 3);
-        Cell left1 = new Cell(island, 2, 3);
-        System.out.println(a1.get(0).toString());
-        System.out.println(a1.get(1).toString());
-        System.out.println(a1.get(2).toString());
-        System.out.println(a1.get(3).toString());
-
-        assertEquals(up1, a1.get(0));
-        assertEquals(down1, a1.get(1));
-        assertEquals(right1, a1.get(2));
-        assertEquals(left1, a1.get(3));
-
-        Player p2 = new Player(island, "Joueur2", 0, 0);
-        ArrayList<Cell> a2 = p2.nearbyCells();
-        assert (a2.size() == 2);
-        Cell down2 = new Cell(island, 0, 1);
-        Cell right2 = new Cell(island, 1, 0);
-        System.out.println(a2.get(0).toString());
-        System.out.println(a2.get(1).toString());
-        assertEquals(down2, a2.get(0));
-        assertEquals(right2, a2.get(1));
-
-        Player p3 = new Player(island, "Joueur3", 0, 5);
-        ArrayList<Cell> a3 = p3.nearbyCells();
-        assert(a3.size() == 2);
-        Cell up3 = new Cell(island, 0, 4);
-        Cell right3= new Cell(island, 1, 5);
-        System.out.println(a3.get(0).toString());
-        System.out.println(a3.get(1).toString());
-        assertEquals(up3, a3.get(0));
-        assertEquals(right3, a3.get(1));
-
-        Player p4 = new Player(island, "Joueur4", 5, 0);
-        ArrayList<Cell> a4 = p4.nearbyCells();
-        assert(a4.size() == 2);
-        Cell down4 = new Cell(island, 5, 1);
-        Cell left4 = new Cell(island, 4, 0);
-        assertEquals(down4, a4.get(0));
-        assertEquals(left4, a4.get(1));
-
-        Player p5 = new Player(island, "Joueur5", 5, 5);
-        ArrayList<Cell> a5 = p5.nearbyCells();
-        assert(a5.size() == 2);
-        Cell up5 = new Cell(island, 5, 4);
-        Cell left5 = new Cell(island, 4, 5);
-        assertEquals(up5, a5.get(0));
-        assertEquals(left5, a5.get(1));
- **/
-
-    /*}
-
-    @Test
-    void dieTest() {
-        //Cell du player submergée
+    void updateKey() {
         Island island = new Island(5,5);
-        Player p = new Player(island, "Joueur", 1, 2);
-        island.board[p.getAbs()][p.getOrd()].flood();
-        island.board[p.getAbs()][p.getOrd()].flood();
-        p.die();
-        assert (p.getIsDead());
-
-        //Cells autour du player submergées
-        ArrayList<Cell> cap = p.nearbyCells();
-        int compteur = 0;
-        for (int i = 0; i < cap.size(); i++){
-            cap.get(i).flood();
-            cap.get(i).flood();
-            if(cap.get(i).getState() == Cell.State.SUBMERGED){
-                compteur++;
-            }
-        }
-        System.out.println(cap.get(0).getState());
-        System.out.println(cap.size());
-        System.out.println(compteur);
-        assert(compteur == 4);
-
-        //Toutes les Cells submergées
-        Island island2 = new Island(5,5);
-        int compteur2 = 0;
-        for (int i = 0; i < 5; i++){
-            for (int j = 0; j < 5; j++){
-                island2.getCell(i,j).flood();
-                island2.getCell(i,j).flood();
-                if (island2.board[i][j].getState() == Cell.State.SUBMERGED){
-                    compteur2++;
-                }
-            }
-        }
-        System.out.println(island2.getCell(0,4).getState());
-        System.out.println(compteur2);
-        assert(compteur2 == island2.width * island2.height);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.AIR);
+        p.updateKey(Cell.Element.AIR);
+        p.updateKey(Cell.Element.WATER);
+        assert(p.nbKeyElement(Cell.Element.AIR) == 2);
+        assert(p.nbKeyElement(Cell.Element.WATER) == 0);
     }
 
-    //@Test
-    void nbKeyElementTest(){
+    @Test
+    void updateAction() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addActions(Player.SpecialAction.SAND);
+        p.addActions(Player.SpecialAction.SAND);
+        p.addActions(Player.SpecialAction.SAND);
+        p.addActions(Player.SpecialAction.TELEPORTATION);
+        p.updateAction(Player.SpecialAction.SAND);
+        p.updateAction(Player.SpecialAction.TELEPORTATION);
+        assert(p.nbSpecialAction(Player.SpecialAction.TELEPORTATION) == 0);
+        assert(p.nbSpecialAction(Player.SpecialAction.SAND) == 2);
+    }
+
+    @Test
+    void hasKey() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addKey(Cell.Element.AIR);
+        assert(p.hasKey(Cell.Element.AIR));
+        assert(!p.hasKey(Cell.Element.FIRE));
+    }
+
+    @Test
+    void hasAction() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addActions(Player.SpecialAction.SAND);
+        assert(p.hasAction(Player.SpecialAction.SAND));
+        assert(!p.hasAction(Player.SpecialAction.TELEPORTATION));
+    }
+
+    @Test
+    void hasArtifact() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addArtifact(Cell.Element.AIR);
+        assert(p.hasArtifact(Cell.Element.AIR));
+        assert(!p.hasArtifact(Cell.Element.FIRE));
+    }
+
+    @Test
+    void addKey() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addKey(Cell.Element.AIR);
+        assert(p.hasKey(Cell.Element.AIR));
+        assert(!p.hasKey(Cell.Element.FIRE));
+    }
+
+    @Test
+    void addArtifact() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addArtifact(Cell.Element.AIR);
+        assert(p.hasArtifact(Cell.Element.AIR));
+        assert(!p.hasArtifact(Cell.Element.FIRE));
+    }
+
+    @Test
+    void addActions() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addActions(Player.SpecialAction.SAND);
+        assert(p.hasAction(Player.SpecialAction.SAND));
+        assert(!p.hasAction(Player.SpecialAction.TELEPORTATION));
+    }
+
+    @Test
+    void isOnSameCell() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        Player p2 = new Player(island, "titi", 3, 3);
+        assert(p.isOnSameCell(p2));
+    }
+
+    @Test
+    void move() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.move(Player.Direction.DOWN);
+        assert(p.getAbs() == 3);
+        assert(p.getOrd() == 4);
+        p.move(Player.Direction.LEFT);
+        assert(p.getAbs() == 2);
+        assert(p.getOrd() == 4);
+        p.move(Player.Direction.UP);
+        assert(p.getAbs() == 2);
+        assert(p.getOrd() == 3);
+        p.restoreNbEvents();
+        p.move(Player.Direction.RIGHT);
+        assert(p.getAbs() == 3);
+        assert(p.getOrd() == 3);
+        Player p2 = new Player(island, "titi", 2, 3);
+        p2.move(Player.Direction.RIGHT);
+        assert(p2.getAbs() == 3);
+        assert(p2.getOrd() == 3);
+    }
+
+    @Test
+    void teleportPlayer() {
+
+    }
+
+    @Test
+    void recoverArtifactPlayer() throws ExceptionNbEvents {
+        Island island = new Island(5,5);
+        ArrayList<Cell> arti = island.getArtifacts();
+
+        Player p = new Player(island, "titi", arti.get(0).getAbs(), arti.get(0).getAbs());
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.WATER);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.AIR);
+        p.addKey(Cell.Element.FIRE);
+        p.addKey(Cell.Element.FIRE);
+        p.addKey(Cell.Element.FIRE);
+        p.addKey(Cell.Element.FIRE);
+        p.addKey(Cell.Element.EARTH);
+        p.addKey(Cell.Element.EARTH);
+        p.addKey(Cell.Element.EARTH);
+        p.addKey(Cell.Element.EARTH);
+        p.recoverArtifactPlayer(arti.get(0));
+    }
+
+    @Test
+    void addEvents() throws ExceptionNbEvents {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addEvents();
+        assert(p.getNbEvents() == 2);
+
+    }
+
+    @Test
+    void useSpecialEvent() throws ExceptionSpecialEvent {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.addActions(Player.SpecialAction.SAND);
+        p.useSpecialEvent();
+        assert(!p.getSpecialEvent());
+    }
+
+    @Test
+    void restoreNbEvents() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.move(Player.Direction.DOWN);
+        p.move(Player.Direction.LEFT);
+        assert(p.getNbEvents() == 1);
+        p.move(Player.Direction.UP);
+        p.restoreNbEvents();
+        assert(p.getNbEvents() == 3);
+        p.move(Player.Direction.RIGHT);
+        assert(p.getNbEvents() == 2);
+
+    }
+
+    @Test
+    void restoreSpecialEvent() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.restoreSpecialEvent();
+        assert(!p.getSpecialEvent());
+    }
+
+    @Test
+    void isDead() {
+        Island island = new Island(5,5);
+        Player p2 = new Player(island, "titi", 1, 1);
+        island.getCell(1,1).flood();
+        island.getCell(1,1).flood();
+        assert(p2.isDead());
+        Player p = new Player(island, "titi", 3, 3);
+        island.getCell(3,2).flood();
+        island.getCell(3,4).flood();
+        island.getCell(2,3).flood();
+        island.getCell(4,3).flood();
+        island.getCell(3,2).flood();
+        island.getCell(3,4).flood();
+        island.getCell(2,3).flood();
+        island.getCell(4,3).flood();
+        assert(p.isDead());
+    }
+
+    @Test
+    void nbKeyElement() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
         p.addKey(Cell.Element.AIR);
@@ -222,16 +285,31 @@ import java.util.ArrayList;
         assert(p.nbKeyElement(Cell.Element.EARTH) == 0);
     }
 
-    //@Test
-    void nbArtifactElementTest(){
+    @Test
+    void nbSpecialAction() {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.addArtifact(Cell.Element.AIR);
-        p.addArtifact(Cell.Element.EARTH);
-        p.addArtifact(Cell.Element.WATER);
-        p.addArtifact(Cell.Element.AIR);
-        assert(p.nbArtifactElement(Cell.Element.AIR) == 2);
-        assert(p.nbArtifactElement(Cell.Element.WATER) == 1);
-        assert(p.nbArtifactElement(Cell.Element.FIRE) == 0);
+        p.addActions(Player.SpecialAction.SAND);
+        assert(p.nbSpecialAction(Player.SpecialAction.SAND) == 1);
+        assert(p.nbSpecialAction(Player.SpecialAction.TELEPORTATION) == 0);
     }
-}*/
+
+    @Test
+    void playersOnSameCell() {
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        Player p2 = new Player(island, "tata", 3, 3);
+        Player p3 = new Player(island, "tutu", 3, 3);
+        island.addPlayer("titi");
+        island.addPlayer("tata");
+        island.addPlayer("tutu");
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Player p4 : island.getPlayers().get(0).playersOnSameCell()) {
+            players.add(p4);
+        }
+        assert(p.isOnSameCell(p2)); //ok
+        assert(players.size() == 2);
+        assert(players.contains(p2));
+    }
+
+}

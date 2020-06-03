@@ -25,33 +25,23 @@ public class Cell implements InterfaceCell {
     }
 
     public Element getKey() { return this.key; }
-
     public Element getArtifact() { return this.artifact; }
-
     public int getAbs() { return this.x; }
-
     public int getOrd() { return this.y; }
-
     public State getState() { return this.state; }
 
     public void setKey(Element key) { this.key = key; }
-
     public void setArtifact(Element element) { this.artifact = element; }
 
     public boolean hasKey() { return this.key != Element.NONE; }
-
     public boolean hasArtifact() { return this.artifact != Element.NONE; }
 
     public boolean isHeliport() { return this.heliport; }
-
     public boolean isSubmerged() { return this.state == State.SUBMERGED; }
-
     public boolean isFlooded() { return this.state == State.FLOODED; }
-
     public boolean isNormal() { return this.state == State.NORMAL; }
 
     public void updateKey() { this.key = Element.NONE; }
-
     public void updateArtifact() { this.artifact = Element.NONE; }
 
     public void flood() {

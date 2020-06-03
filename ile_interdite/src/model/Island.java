@@ -84,6 +84,10 @@ public class Island extends Observable implements InterfaceIsland {
         this.players.add(p);
     }
 
+    public void removePlayer(Player p) {
+        this.players.remove(p);
+    }
+
     public void risingWater() {
         int nbcell = 0;
         while (nbcell < 3) {

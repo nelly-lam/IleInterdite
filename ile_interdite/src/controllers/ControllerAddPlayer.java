@@ -24,7 +24,7 @@ public class ControllerAddPlayer implements ActionListener {
             if(name.getText().length() <= 10) {
                 if(name.getText().length() > 0) {
                     this.model.addPlayer(name.getText());
-                    ViewMenu.addPlayer(name.getText(), this.model.getPlayers().size());
+                    ViewMenu.addPlayer(name.getText(), this.model.getPlayers().size()-1);
                     ViewMenu.updateLabel("");
                 } else {
                     ViewMenu.updateLabel("Il doit y avoir au moins 1 caractère");

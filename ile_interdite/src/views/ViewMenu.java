@@ -1,5 +1,6 @@
 package views;
 
+import controllers.ControllerDelPlayer;
 import controllers.ControllerFonctionnement;
 import controllers.ControllerPlay;
 import controllers.ControllerPlayer;
@@ -90,6 +91,7 @@ public class ViewMenu extends JPanel{
             player.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 14));
             player.setBounds(740,coordy,100,35);
             player.setForeground(Color.WHITE);
+            player.addMouseListener(new ControllerDelPlayer(this.model));
             players.add(player);
             coordy += 30;
             menu.add(player);
@@ -111,7 +113,11 @@ public class ViewMenu extends JPanel{
     }
 
     public static void addPlayer(String name, int joueur) {
-        players.get(joueur-1).setText(name);
+        players.get(joueur).setText(name);
+    }
+
+    public static void delPlayer(int joueur) {
+        players.get(joueur).setText("");
     }
 
     public static void updateLabel(String message) {

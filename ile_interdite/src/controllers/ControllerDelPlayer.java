@@ -25,5 +25,10 @@ public class ControllerDelPlayer extends MouseAdapter {
                 break;
             }
         }
+
+        for(Player p : this.model.getPlayers()) {
+            ViewMenu.addPlayer(p.getName(), this.model.getPlayers().indexOf(p));
+        }
+        ViewMenu.delPlayer(this.model.getPlayers().size());
     }
 }

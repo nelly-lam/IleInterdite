@@ -1,23 +1,48 @@
 package views;
 
+import controllers.ControllerEndGame;
+import fonts.PantonFont;
 import model.Island;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class ViewEndGame {
-    private Island model;
+    private final Island model;
     private static JDialog endGame;
 
     public ViewEndGame(boolean isWinning, Island model){
+        this.model = model;
+
         JFrame result = new JFrame();
         endGame = new JDialog(result, "result", true);
         endGame.setResizable(false);
         endGame.setLayout(null);
         endGame.setSize(610, 330);
+
+        JButton restart = new JButton("Rejouer");
+        restart.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
+        restart.setBounds(150, 240, 100, 30);
+        restart.setForeground(Color.WHITE);
+        restart.setContentAreaFilled(false);
+        restart.setBorderPainted(false);
+        restart.setFocusPainted(false);
+        endGame.add(restart);
+        restart.addActionListener(new ControllerEndGame(this.model));
+
+        JButton close = new JButton("Quitter");
+        close.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
+        close.setBounds(350, 240, 100, 30);
+        close.setForeground(Color.WHITE);
+        close.setContentAreaFilled(false);
+        close.setBorderPainted(false);
+        close.setFocusPainted(false);
+        endGame.add(close);
+        close.addActionListener(new ControllerEndGame(this.model));
+
 
         if(isWinning) {
             endGame.setTitle("Vous avez GAGNE");
@@ -36,6 +61,10 @@ public class ViewEndGame {
 
         endGame.setVisible(true);
         endGame.pack();
-        result.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        endGame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public static void hidden() {
+        endGame.dispose();
     }
 }

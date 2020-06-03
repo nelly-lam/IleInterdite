@@ -1,5 +1,6 @@
 package views;
 
+import controllers.ControllerEndGame;
 import controllers.ControllerEndTurn;
 import controllers.ControllerMovement;
 import fonts.PantonFont;
@@ -14,7 +15,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewGame {
     private final Island model;
-    private static final JFrame game = new JFrame();
+    private final JFrame game = new JFrame();
     private static JLabel display = new JLabel();
 
     public ViewGame(Island model) {
@@ -85,13 +86,12 @@ public class ViewGame {
         );
         game.setDefaultCloseOperation(EXIT_ON_CLOSE);
         game.setVisible(true);
+
+        ControllerEndGame.updateGame(game);
     }
 
     public static void updateDisplay(String string) {
         display.setText(string);
     }
 
-    public static void hidden() {
-        game.dispose();
-    }
 }

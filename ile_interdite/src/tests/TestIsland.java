@@ -18,7 +18,7 @@ public class TestIsland {
         assert (i.getCurrentPlayer().getName().equals("test"));
         assert (i.getPlayers().size() == 1);
         i.addPlayer("test2");
-        assert (i.getCurrentPlayer().getName().equals("test2"));
+        assert (i.getPlayers().get(1).getName().equals("test2"));
         assert (i.getPlayers().size() == 2);
     }
 
@@ -171,5 +171,7 @@ public class TestIsland {
         island.recoverArtifact();
         assert(island.getArtifacts().size() == 3);
     }
+
+
 
 }

@@ -14,39 +14,32 @@ public class ViewFonctionnement extends JFrame {
 
     public ViewFonctionnement(boolean fct) throws IOException {
         this.fct = fct;
-        this.setTitle("Instructions");
-        this.setSize(1000, 680);
+        this.setSize(1000, 700);
         this.setLayout(new BorderLayout());
 
-        if (this.fct == true) {
+        JLabel background = new JLabel();
+        background.setSize(1000, 700);
+
+        if (this.fct) {
+            this.setTitle("Instructions");
             BufferedImage image = ImageIO.read(new File("./ile_interdite/src/images/instructions.jpg"));
-            ImageIcon img = new ImageIcon(image);
-            //ImageIcon img = new ImageIcon(new ImageIcon("./ile_interdite/src/images/instructions.jpg").getImage().getScaledInstance(1000, 680, Image.SCALE_DEFAULT));
-            JLabel background = new JLabel("", img, CENTER);
-            background.setBounds(0, 0, 1000, 680);
-            this.add(background, BorderLayout.CENTER);
+            Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon img = new ImageIcon(dimg);
+            background = new JLabel("Instructions", img, CENTER);
 
-        } else if (this.fct == false) {
+        } else {
+            this.setTitle("Contrôles");
             BufferedImage image = ImageIO.read(new File("./ile_interdite/src/images/Controles.jpg"));
-            ImageIcon img = new ImageIcon(image);
-            //ImageIcon img = new ImageIcon(new ImageIcon("./ile_interdite/src/images/Controles.jpg").getImage().getScaledInstance(1000, 680, Image.SCALE_DEFAULT));
-            JLabel background = new JLabel("", img, CENTER);
-            background.setBounds(0,0,1000,680);
-            this.add(background, BorderLayout.CENTER);
-        }
+            Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon img = new ImageIcon(dimg);
+            background = new JLabel("Contrôles", img, CENTER);
 
+        }
+        this.add(background, BorderLayout.CENTER);
         this.setVisible(true);
     }
 
-    /*public class ImagePanel extends JPanel{
-        private BufferedImage image;
-        public ImagePanel() {
-            image = ImageIO.read(new File(monFichierImage));
-        }
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(image, 0, 0, null);
-        }
-    }
-     */
 }
+
+
+

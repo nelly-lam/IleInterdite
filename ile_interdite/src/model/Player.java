@@ -2,13 +2,15 @@ package model;
 
 import exceptions.ExceptionNbEvents;
 import exceptions.ExceptionSpecialEvent;
+import interfaces.InterfacePlayer;
 import views.ViewGame;
 import views.ViewNbHits;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements InterfacePlayer {
+
     private final Island model;
     private final String name;
     private final Color color;
@@ -38,21 +40,29 @@ public class Player {
     }
 
     public String getName() { return this.name; }
+
     public Player getNext() { return this.next; }
+
     public Color getColor() { return this.color; }
+
     public int getAbs() { return this.abs; }
+
     public int getOrd() { return this.ord; }
 
     public void setNext(Player p) { this.next = p; }
 
     public void updateKey(Cell.Element key) { this.keys.remove(key); }
+
     public void updateAction(SpecialAction action) { this.actions.remove(action); }
 
     public boolean hasKey(Cell.Element key) { return this.keys.contains(key); }
+
     public boolean hasAction(SpecialAction action) { return this.actions.contains(action); }
 
     public void addKey(Cell.Element e) { this.keys.add(e); }
+
     public void addArtifact(Cell.Element e) { this.artifacts.add(e); }
+
     public void addActions(Player.SpecialAction a) { this.actions.add(a); }
 
     public boolean isOnSameCell(Player p) { return this.ord == p.getOrd() && this.abs == p.getAbs(); }

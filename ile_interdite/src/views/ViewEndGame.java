@@ -16,6 +16,7 @@ public class ViewEndGame {
     public ViewEndGame(boolean isWinning, Island model){
         JFrame result = new JFrame();
         JDialog endGame = new JDialog(result, "result", true);
+        endGame.setResizable(false);
         endGame.setLayout(null);
         endGame.setSize(610, 330);
 

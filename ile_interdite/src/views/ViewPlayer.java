@@ -19,8 +19,8 @@ public class ViewPlayer extends JPanel {
         super.repaint();
         ArrayList<Player> tabPlayers = this.model.getPlayers();
         for(Player player : tabPlayers) {
-            ArrayList<Player> tab = player.playersOnSameCell();
-            paint(g, tab, player.getAbs()*ViewIsland.SIZE, player.getOrd()*ViewIsland.SIZE);
+            ArrayList<Player> tabPlayerOSC = player.playersOnSameCell();
+            paint(g, tabPlayerOSC, player.getAbs()*ViewIsland.SIZE, player.getOrd()*ViewIsland.SIZE);
         }
     }
 

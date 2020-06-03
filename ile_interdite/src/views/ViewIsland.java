@@ -31,7 +31,7 @@ public class ViewIsland extends JPanel implements Observer {
                 paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
             }
         }
-        player.paintComponent(g);
+        this.player.paintComponent(g);
     }
 
     private void paint(Graphics g, Cell c, int x, int y) {

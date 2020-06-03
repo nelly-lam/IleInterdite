@@ -15,6 +15,7 @@ public class ViewFonctionnement extends JFrame {
     public ViewFonctionnement(boolean fct) throws IOException {
         this.fct = fct;
         this.setSize(1000, 700);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
 
         JLabel background = new JLabel();
@@ -38,7 +39,6 @@ public class ViewFonctionnement extends JFrame {
         this.add(background, BorderLayout.CENTER);
         this.setVisible(true);
     }
-
 }
 
 

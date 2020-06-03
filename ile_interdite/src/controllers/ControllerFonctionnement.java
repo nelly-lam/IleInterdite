@@ -12,13 +12,13 @@ public class ControllerFonctionnement implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand() == "Instructions"){
             try {
-                ViewFonctionnement fct = new ViewFonctionnement(true);
+                new ViewFonctionnement(true);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         } else if (e.getActionCommand() == "Contrôles"){
             try {
-                ViewFonctionnement fct = new ViewFonctionnement(false);
+                new ViewFonctionnement(false);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

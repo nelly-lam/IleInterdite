@@ -18,12 +18,14 @@ public class ViewAddPlayer extends JPanel {
         this.addPlayer = new JFrame();
         this.addPlayer.setTitle("Ajouter un joueur");
         this.addPlayer.setSize(512, 305);
+        this.addPlayer.setResizable(false);
         this.addPlayer.setLayout(null);
 
         JTextField name = new JTextField();
         name.setBounds(120,105,268,50);
         name.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 30));
         name.setForeground(Color.WHITE);
+        name.setCaretColor(Color.WHITE);
         name.setOpaque(false);
         name.setBorder(null);
         this.addPlayer.add(name);

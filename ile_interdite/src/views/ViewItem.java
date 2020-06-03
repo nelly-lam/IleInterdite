@@ -14,13 +14,6 @@ import static javax.swing.SwingConstants.CENTER;
 
 public class ViewItem extends JPanel implements Observer{
     private final Island model;
-    private static JLabel nbKeyAir;
-    private static JLabel nbKeyWater;
-    private static JLabel nbKeyFire;
-    private static JLabel nbKeyEarth;
-    private static JLabel nbDry;
-    private static JLabel nbTeleportation;
-    private int coordy = 5;
     private JLabel[][] tabJLabel;
     private ArrayList<JLabel> tabName;
 
@@ -33,13 +26,13 @@ public class ViewItem extends JPanel implements Observer{
         this.setOpaque(false);
         ControllerSwapKey ctrl = new ControllerSwapKey(this.model);
 
+        int coordy = 5;
         for (Player p : this.model.getPlayers()) {
             //JLABEL FOR NAME PLAYERS
             JLabel name = new JLabel(p.getName());
             name.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
-            name.setBounds(20, this.coordy, 150, 30);
+            name.setBounds(20, coordy, 150, 30);
             name.setHorizontalAlignment(SwingConstants.LEFT);
-            name.setForeground(Color.GRAY);
             name.addMouseListener(ctrl);
             this.tabName.add(name);
             this.add(name);
@@ -51,14 +44,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon dry = new ImageIcon(new ImageIcon("./src/images/sand.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labeldry = new JLabel("Dry", dry, CENTER);
             labeldry.setFont(new Font("Panton", Font.PLAIN, 0));
-            labeldry.setBounds(0, this.coordy + 12, 50, 50);
+            labeldry.setBounds(0, coordy + 12, 50, 50);
             labeldry.addMouseListener(ViewIsland.ctrl);
             this.add(labeldry);
 
             //JLABEL FOR NUMBER KEY "DRY"
-            nbDry = new JLabel("0");
+            JLabel nbDry = new JLabel();
             nbDry.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbDry.setBounds(30, this.coordy + 18, 50, 50);
+            nbDry.setBounds(30, coordy + 18, 50, 50);
             nbDry.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][0] = nbDry;
             this.add(nbDry);
@@ -67,14 +60,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon teleportation = new ImageIcon(new ImageIcon("./src/images/helicopter.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             JLabel labelteleportation = new JLabel("Helicopter", teleportation, CENTER);
             labelteleportation.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelteleportation.setBounds(28, this.coordy + 12, 50, 50);
+            labelteleportation.setBounds(28, coordy + 12, 50, 50);
             labelteleportation.addMouseListener(ViewIsland.ctrl);
             this.add(labelteleportation);
 
             //JLABEL FOR NUMBER KEY "TELEPORTATION"
-            nbTeleportation = new JLabel("0");
+            JLabel nbTeleportation = new JLabel();
             nbTeleportation.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbTeleportation.setBounds(60, this.coordy + 18, 50, 50);
+            nbTeleportation.setBounds(60, coordy + 18, 50, 50);
             nbTeleportation.setForeground(Color.WHITE);
             tabJLabel[this.model.getPlayers().indexOf(p)][1] = nbTeleportation;
             this.add(nbTeleportation);
@@ -83,14 +76,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyAir = new ImageIcon(new ImageIcon("./src/images/key_air.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyAir = new JLabel("A", keyAir, CENTER);
             labelKeyAir.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyAir.setBounds(60, this.coordy + 12, 50, 50);
+            labelKeyAir.setBounds(60, coordy + 12, 50, 50);
             this.add(labelKeyAir);
             labelKeyAir.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "AIR"
-            nbKeyAir = new JLabel();
+            JLabel nbKeyAir = new JLabel();
             nbKeyAir.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyAir.setBounds(87, this.coordy + 18, 50, 50);
+            nbKeyAir.setBounds(87, coordy + 18, 50, 50);
             nbKeyAir.setForeground(Color.WHITE);
             this.add(nbKeyAir);
             tabJLabel[this.model.getPlayers().indexOf(p)][2] = nbKeyAir;
@@ -99,14 +92,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyWater = new ImageIcon(new ImageIcon("./src/images/key_water.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyWater = new JLabel("W", keyWater, CENTER);
             labelKeyWater.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyWater.setBounds(85, this.coordy + 12, 50, 50);
+            labelKeyWater.setBounds(85, coordy + 12, 50, 50);
             this.add(labelKeyWater);
             labelKeyWater.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "WATER"
-            nbKeyWater = new JLabel();
+            JLabel nbKeyWater = new JLabel();
             nbKeyWater.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyWater.setBounds(112, this.coordy + 18, 50, 50);
+            nbKeyWater.setBounds(112, coordy + 18, 50, 50);
             nbKeyWater.setForeground(Color.WHITE);
             this.add(nbKeyWater);
             tabJLabel[this.model.getPlayers().indexOf(p)][3] = nbKeyWater;
@@ -115,14 +108,14 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyFire = new ImageIcon(new ImageIcon("./src/images/key_fire.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyFire = new JLabel("F", keyFire, CENTER);
             labelKeyFire.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyFire.setBounds(110, this.coordy + 12, 50, 50);
+            labelKeyFire.setBounds(110, coordy + 12, 50, 50);
             this.add(labelKeyFire);
             labelKeyFire.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "FIRE"
-            nbKeyFire = new JLabel();
+            JLabel nbKeyFire = new JLabel();
             nbKeyFire.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyFire.setBounds(137, this.coordy + 18, 50, 50);
+            nbKeyFire.setBounds(137, coordy + 18, 50, 50);
             nbKeyFire.setForeground(Color.WHITE);
             this.add(nbKeyFire);
             tabJLabel[this.model.getPlayers().indexOf(p)][4] = nbKeyFire;
@@ -131,21 +124,21 @@ public class ViewItem extends JPanel implements Observer{
             ImageIcon keyEarth = new ImageIcon(new ImageIcon("./src/images/key_earth.png").getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
             JLabel labelKeyEarth = new JLabel("E", keyEarth, CENTER);
             labelKeyEarth.setFont(new Font("Panton", Font.PLAIN, 0));
-            labelKeyEarth.setBounds(135, this.coordy + 12, 50, 50);
+            labelKeyEarth.setBounds(135, coordy + 12, 50, 50);
             this.add(labelKeyEarth);
             labelKeyEarth.addMouseListener(ctrl);
 
             //JLABEL FOR NUMBER KEY "EARTH"
-            nbKeyEarth = new JLabel();
+            JLabel nbKeyEarth = new JLabel();
             nbKeyEarth.setFont(new Font("Panton", Font.PLAIN, 10));
-            nbKeyEarth.setBounds(162, this.coordy + 18, 50, 50);
+            nbKeyEarth.setBounds(162, coordy + 18, 50, 50);
             nbKeyEarth.setForeground(Color.WHITE);
             this.add(nbKeyEarth);
             tabJLabel[this.model.getPlayers().indexOf(p)][5] = nbKeyEarth;
 
             coordy += 56;
         }
-        update();
+        this.update();
     }
 
     @Override

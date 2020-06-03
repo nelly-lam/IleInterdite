@@ -16,12 +16,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class ViewMenu extends JPanel{
     private final Island model;
     private static JFrame menu = new JFrame();
-    private static ArrayList<JLabel> players = new ArrayList<>();;
-    private int coordy = 110;
-    private static JLabel info;
+    private static ArrayList<JLabel> players = new ArrayList<>();
+    private static JLabel info = new JLabel();
 
     public ViewMenu(Island island) {
-        model = island;
+        this.model = island;
 
         menu.setTitle("Menu");
         menu.setSize(875, 686);
@@ -70,7 +69,6 @@ public class ViewMenu extends JPanel{
         buttonPlay.addActionListener(new ControllerPlay(this.model));
         menu.add(buttonPlay);
 
-        info = new JLabel();
         info.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 10));
         info.setBounds(35,400,180,35);
         info.setForeground(Color.WHITE);
@@ -86,13 +84,14 @@ public class ViewMenu extends JPanel{
         buttonAddPlayer.addActionListener(new ControllerPlayer(this.model));
         menu.add(buttonAddPlayer);
 
+        int coordy = 110;
         for(int i = 0; i < 8; i++) {
             JLabel player = new JLabel();
             player.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 14));
             player.setBounds(740,coordy,100,35);
             player.setForeground(Color.WHITE);
             players.add(player);
-            this.coordy += 30;
+            coordy += 30;
             menu.add(player);
         }
 

@@ -6,20 +6,23 @@ import model.Island;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewNbHits extends JPanel {
+public class ViewNbHits extends JPanel implements Observer {
     private final Island model;
-    private static JLabel nbHits = new JLabel("3");
+    private JLabel nbHits;
 
     public ViewNbHits (Island model) {
         this.model = model;
+        this.model.addObserver(this);
 
-        nbHits.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 20));
-        nbHits.setForeground(Color.WHITE);
+        this.nbHits = new JLabel("3");
+        this.nbHits.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 20));
+        this.nbHits.setForeground(Color.WHITE);
         this.setOpaque(false);
-        this.add(nbHits);
+        this.add(this.nbHits);
     }
 
-    public static void updateNbHits(int nb) {
-        nbHits.setText(String.valueOf(nb));
+    @Override
+    public void update() {
+        nbHits.setText(String.valueOf(this.model.getCurrentPlayer().getNbEvents()));
     }
 }

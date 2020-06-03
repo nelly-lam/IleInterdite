@@ -2,70 +2,49 @@ package views;
 
 import model.Cell;
 import model.Island;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.CENTER;
 
 public class ViewArtifact extends JPanel implements Observer{
     private final Island model;
-    private JLabel artifactAir;
-    private JLabel artifactWater;
-    private JLabel artifactFire;
-    private JLabel artifactEarth;
+    private String[] fileName = {"wind", "water", "fire", "earth"};
+    private ArrayList<JLabel> images;
 
     public ViewArtifact(Island model) {
         this.model = model;
         this.model.addObserver(this);
         this.setLayout(null);
         this.setOpaque(false);
+        this.images = new ArrayList<>();
 
-        artifactAir = new JLabel("", new ImageIcon(new ImageIcon("./src/images/wind.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
-        artifactAir.setBounds(0,0,50,50);
-        artifactAir.setVisible(false);
-        this.add(artifactAir);
-
-        artifactWater = new JLabel("", new ImageIcon(new ImageIcon("./src/images/water.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
-        artifactWater.setBounds(0,50,50,50);
-        artifactWater.setVisible(false);
-        this.add(artifactWater);
-
-        artifactFire = new JLabel("", new ImageIcon(new ImageIcon("./src/images/fire.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
-        artifactFire.setBounds(0,100,50,50);
-        artifactFire.setVisible(false);
-        this.add(artifactFire);
-
-        artifactEarth = new JLabel("", new ImageIcon(new ImageIcon("./src/images/earth.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
-        artifactEarth.setBounds(0,150,50,50);
-        artifactEarth.setVisible(false);
-        this.add(artifactEarth);
+        int coordy = 0;
+        for(int i = 0; i < 4; i++) {
+            JLabel artifact = new JLabel("", new ImageIcon(new ImageIcon("./src/images/"+fileName[i]+".png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
+            artifact.setBounds(0,coordy,50,50);
+            artifact.setVisible(false);
+            this.add(artifact);
+            this.images.add(artifact);
+            coordy += 50;
+        }
     }
 
     @Override
     public void update() {
-        int artiAir = 0;
-        int artiWater = 0;
-        int artiFire = 0;
-        int artiEarth = 0;
-        for (int i = 0; i < this.model.getPlayers().size(); i++){
-            artiAir += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.AIR);
-            artiWater += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.WATER);
-            artiFire += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.FIRE);
-            artiEarth += this.model.getPlayers().get(i).nbArtifactElement(Cell.Element.EARTH);
-        }
-
-        if (artiAir == 1 ){
-            artifactAir.setVisible(true);
-        }
-        if (artiWater == 1){
-             artifactWater.setVisible(true);
-        }
-        if (artiFire == 1){
-            artifactFire.setVisible(true);
-        }
-        if (artiEarth == 1){
-            artifactEarth.setVisible(true);
+        for (Player p : this.model.getPlayers()) {
+            if (p.hasArtifact(Cell.Element.AIR)) {
+                this.images.get(0).setVisible(true);
+            } else if (p.hasArtifact(Cell.Element.WATER)) {
+                this.images.get(1).setVisible(true);
+            } else if (p.hasArtifact(Cell.Element.FIRE)) {
+                this.images.get(2).setVisible(true);
+            } else if (p.hasArtifact(Cell.Element.EARTH)) {
+                this.images.get(3).setVisible(true);
+            }
         }
     }
 }

@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.IOException;
 
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -16,16 +15,13 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class ViewGame {
     private final Island model;
     private static final JFrame game = new JFrame();
-    private ViewIsland island;
-    private ViewNbHits nbHits;
-    private ViewItem item;
-    private ViewArtifact artifact;
     private static JLabel display = new JLabel();
 
     public ViewGame(Island model) {
         this.model = model;
         game.setTitle("L'île interdite");
         game.setSize(875, 686);
+        game.setResizable(false);
         game.setLayout(null);
 
         JLabel title = new JLabel("L'île interdite");
@@ -34,9 +30,9 @@ public class ViewGame {
         title.setForeground(Color.WHITE);
         game.add(title);
 
-        this.island = new ViewIsland(this.model);
-        this.island.setBounds(336,84,420,420);
-        game.add(this.island);
+        ViewIsland island = new ViewIsland(this.model);
+        island.setBounds(336,84,420,420);
+        game.add(island);
 
         JButton button = new JButton("FIN DE TOUR");
         button.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
@@ -49,21 +45,22 @@ public class ViewGame {
         game.add(button);
 
         display.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
-        display.setBounds(380,12,400,30);
+        display.setBounds(360,12,400,30);
+        display.setHorizontalAlignment(CENTER);
         display.setForeground(Color.WHITE);
         game.add(display);
 
-        this.nbHits = new ViewNbHits(this.model);
-        this.nbHits.setBounds(800,116,50,50);
-        game.add(this.nbHits);
+        ViewNbHits nbHits = new ViewNbHits(this.model);
+        nbHits.setBounds(800,116,50,50);
+        game.add(nbHits);
 
-        this.item = new ViewItem(this.model);
-        this.item.setBounds(30,135,178,452);
-        game.add(this.item);
+        ViewItem item = new ViewItem(this.model);
+        item.setBounds(30,135,178,452);
+        game.add(item);
 
-        this.artifact = new ViewArtifact(this.model);
-        this.artifact.setBounds(800,160,60,200);
-        game.add(this.artifact);
+        ViewArtifact artifact = new ViewArtifact(this.model);
+        artifact.setBounds(800,160,60,200);
+        game.add(artifact);
 
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
         footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));

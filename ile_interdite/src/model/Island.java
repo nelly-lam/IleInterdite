@@ -47,7 +47,11 @@ public class Island extends Observable implements InterfaceIsland {
             boolean isArtefactPlaced = false;
             while (!isArtefactPlaced) {
                 Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
-                if (cell.getAbs() < this.width / 4 || cell.getAbs() > (this.width / 4) * 3 && cell.getOrd() < this.height / 4 || cell.getOrd() > (this.height / 4) * 3 && !cell.isHeliport() && !cell.hasArtifact()) {
+                if (cell.getAbs() < this.width / 4 || cell.getAbs() > (this.width / 4) * 3
+                                                    && cell.getOrd() < this.height / 4
+                                                    || cell.getOrd() > (this.height / 4) * 3
+                                                    && !cell.isHeliport()
+                                                    && !cell.hasArtifact()) {
                     cell.setArtifact(ELEMENTS[i]);
                     this.artifacts.add(cell);
                     isArtefactPlaced = true;
@@ -66,11 +70,18 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public int getHeight() { return this.height; }
+
     public int getWidth() { return this.width; }
+
     public ArrayList<Cell> getArtifacts() { return this.artifacts; }
+
     public Cell getCell(int x, int y) { return this.board[x][y]; }
+
     public Player getCurrentPlayer() { return this.currentPlayer; }
+
     public ArrayList<Player> getPlayers() { return this.players; }
+
+    public Cell getHeliport() { return this.heliport; }
 
     public void addPlayer(String name) {
         Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
@@ -239,27 +250,27 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public void stateGame() {
-        boolean win = true;
-        boolean loose = false;
+        boolean won = true;
+        boolean lost = false;
         if(this.heliport.isSubmerged()) {
-            loose = true;
+            lost = true;
         }
         for(Cell artifact : this.artifacts) {
             if(artifact.isSubmerged()) {
-                loose = true;
+                lost = true;
             }
         }
         for(Player p : this.players) {
             if(p.isDead()) {
-                loose = true;
+                lost = true;
             }
             if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
-                win = false;
+                won = false;
             }
         }
-        if(win && this.artifacts.isEmpty()) {
+        if(won && this.artifacts.isEmpty()) {
             new ViewEndGame(true, this);
-        } else if(loose) {
+        } else if(lost) {
             new ViewEndGame(false, this);
         }
     }

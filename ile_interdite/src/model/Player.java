@@ -45,6 +45,7 @@ public class Player implements InterfacePlayer {
     public int getAbs() { return this.abs; }
     public int getOrd() { return this.ord; }
     public int getNbEvents() { return this.nbEvents; }
+    public boolean getSpecialEvent() { return this.specialEvent; }
 
     public void setNext(Player p) { this.next = p; }
 

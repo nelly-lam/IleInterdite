@@ -184,32 +184,29 @@ public class TestPlayer {
 
     @Test
     void teleportPlayer() {
-
+        Island island = new Island(5,5);
+        Player p = new Player(island, "titi", 3, 3);
+        p.teleportPlayer(2,2);
+        assert(p.getAbs() == 2);
+        assert(p.getOrd() == 2);
     }
 
     @Test
     void recoverArtifactPlayer() throws ExceptionNbEvents {
         Island island = new Island(5,5);
         ArrayList<Cell> arti = island.getArtifacts();
-
         Player p = new Player(island, "titi", arti.get(0).getAbs(), arti.get(0).getAbs());
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.WATER);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.AIR);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.FIRE);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.addKey(Cell.Element.EARTH);
-        p.recoverArtifactPlayer(arti.get(0));
+        System.out.println(arti.get(0).getArtifact());
+        for (int i = 0; i < 5; i++) {
+            p.addKey(arti.get(0).getArtifact());
+        }
+        assert(p.hasKey(arti.get(0).getArtifact()));
+        assert(p.nbKeyElement(arti.get(0).getArtifact()) == 5);
+        Cell.Element el = arti.get(0).getArtifact();
+        System.out.println(p.nbKeyElement(arti.get(0).getArtifact()));
+        assert(p.recoverArtifactPlayer(arti.get(0)));
+        System.out.println(p.nbKeyElement(el));
+        assert(p.hasKey(el));
     }
 
     @Test
@@ -246,11 +243,13 @@ public class TestPlayer {
     }
 
     @Test
-    void restoreSpecialEvent() {
+    void restoreSpecialEvent() throws ExceptionSpecialEvent {
         Island island = new Island(5,5);
         Player p = new Player(island, "titi", 3, 3);
-        p.restoreSpecialEvent();
+        p.useSpecialEvent();
         assert(!p.getSpecialEvent());
+        p.restoreSpecialEvent();
+        assert(p.getSpecialEvent());
     }
 
     @Test
@@ -304,12 +303,14 @@ public class TestPlayer {
         island.addPlayer("tata");
         island.addPlayer("tutu");
         ArrayList<Player> players = new ArrayList<Player>();
-        for (Player p4 : island.getPlayers().get(0).playersOnSameCell()) {
+        for (Player p4 : island.getCurrentPlayer().playersOnSameCell()) {
             players.add(p4);
         }
         assert(p.isOnSameCell(p2)); //ok
-        assert(players.size() == 2);
-        assert(players.contains(p2));
+        assert(players.size() == 3); //ok
+        assert(players.get(0).getName().equals("titi"));
+        assert(players.get(1).getName().equals("tata"));
+        assert(players.get(2).getName().equals("tutu"));
     }
 
 }

@@ -61,10 +61,12 @@ public interface InterfaceCell {
       */
      void flood();
 
-     /**
-      * Permet d'assecher une cellule inondee
-      */
-     void dryCell();
+    /**
+     * Indique si une cellule FLOODED a bien ete assechee et remet son etat en NORMAL,
+     * sinon montre un message d'erreur sur l'interface
+     * @return true si elle a ete assechee, false sinon
+     */
+     boolean dryCell();
 
      /**
       * Affiche les coordonnees d'une cellule

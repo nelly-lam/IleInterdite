@@ -4,7 +4,6 @@ import exceptions.ExceptionNbEvents;
 import exceptions.ExceptionSpecialEvent;
 import interfaces.InterfacePlayer;
 import views.ViewGame;
-import views.ViewNbHits;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -197,9 +196,9 @@ public class Player implements InterfacePlayer {
     }
 
     private Color randomColor() {
-        float r = (Island.random.nextFloat());
-        float g = (Island.random.nextFloat());
-        float b = (Island.random.nextFloat());
+        float r = (Island.RANDOM.nextFloat());
+        float g = (Island.RANDOM.nextFloat());
+        float b = (Island.RANDOM.nextFloat());
         return new Color(r,g,b);
     }
 

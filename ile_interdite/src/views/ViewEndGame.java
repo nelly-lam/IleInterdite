@@ -11,11 +11,9 @@ import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class ViewEndGame {
-    private final Island model;
     private static JDialog endGame;
 
     public ViewEndGame(boolean isWinning, Island model){
-        this.model = model;
 
         JFrame result = new JFrame();
         endGame = new JDialog(result, "result", true);
@@ -31,7 +29,7 @@ public class ViewEndGame {
         restart.setBorderPainted(false);
         restart.setFocusPainted(false);
         endGame.add(restart);
-        restart.addActionListener(new ControllerEndGame(this.model));
+        restart.addActionListener(new ControllerEndGame(model));
 
         JButton close = new JButton("Quitter");
         close.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 15));
@@ -41,7 +39,7 @@ public class ViewEndGame {
         close.setBorderPainted(false);
         close.setFocusPainted(false);
         endGame.add(close);
-        close.addActionListener(new ControllerEndGame(this.model));
+        close.addActionListener(new ControllerEndGame(model));
 
 
         if(isWinning) {

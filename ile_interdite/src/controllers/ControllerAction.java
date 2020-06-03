@@ -26,7 +26,7 @@ public class ControllerAction extends MouseAdapter {
         } else if (label.getText().equals("Helicopter")) {
             this.action = "Helicopter";
             ViewGame.updateDisplay("Téléportation : veuillez choisir une case");
-        } else if (action.equals("Dry")) {
+        } else if (this.action.equals("Dry")) {
             this.model.sandBag(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
             this.action = "";
         } else if (this.action.equals("Helicopter")) {

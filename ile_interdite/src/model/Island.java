@@ -7,6 +7,7 @@ import views.ViewEndGame;
 import views.ViewGame;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Island extends Observable implements InterfaceIsland {
@@ -17,10 +18,10 @@ public class Island extends Observable implements InterfaceIsland {
     private Player currentPlayer;
     private final Cell heliport;
     private ArrayList<Cell> artifacts;
-    private final static Cell.Element[] ELEMENTS = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
-    private final static Player.SpecialAction[] ACTIONS = {Player.SpecialAction.SAND, Player.SpecialAction.TELEPORTATION};
+    private final Cell.Element[] elements = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
+    private final Player.SpecialAction[] actions = {Player.SpecialAction.SAND, Player.SpecialAction.TELEPORTATION};
     private ArrayList<Cell> cellsSafe;
-    public static Random random = new Random();
+    public static final Random RANDOM = new Random();
 
     public Island(int width, int height) {
         this.width = width;
@@ -30,8 +31,8 @@ public class Island extends Observable implements InterfaceIsland {
         this.artifacts = new ArrayList<>();
         this.cellsSafe = new ArrayList<>();
 
-        int heliportX = random.nextInt(this.width / 2) + this.width / 4;
-        int heliportY = random.nextInt(this.height / 2) + this.height / 4;
+        int heliportX = RANDOM.nextInt(this.width / 2) + this.width / 4;
+        int heliportY = RANDOM.nextInt(this.height / 2) + this.height / 4;
 
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
@@ -46,9 +47,9 @@ public class Island extends Observable implements InterfaceIsland {
         for (int i = 0; i < 4; i++) {
             boolean isArtefactPlaced = false;
             while (!isArtefactPlaced) {
-                Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
+                Cell cell = this.board[RANDOM.nextInt(this.width)][RANDOM.nextInt(this.height)];
                 if (cell.getAbs() < this.width / 4 || cell.getAbs() > (this.width / 4) * 3 && cell.getOrd() < this.height / 4 || cell.getOrd() > (this.height / 4) * 3 && !cell.isHeliport() && !cell.hasArtifact()) {
-                    cell.setArtifact(ELEMENTS[i]);
+                    cell.setArtifact(elements[i]);
                     this.artifacts.add(cell);
                     isArtefactPlaced = true;
                 }
@@ -56,9 +57,9 @@ public class Island extends Observable implements InterfaceIsland {
 
             int j = 0;
             while (j < nbKey / 4) {
-                Cell cell = this.board[random.nextInt(this.width)][random.nextInt(this.height)];
+                Cell cell = this.board[RANDOM.nextInt(this.width)][RANDOM.nextInt(this.height)];
                 if (!cell.hasKey() && !cell.isHeliport() && !cell.hasArtifact()) {
-                    cell.setKey(ELEMENTS[i]);
+                    cell.setKey(elements[i]);
                     j++;
                 }
             }
@@ -67,10 +68,10 @@ public class Island extends Observable implements InterfaceIsland {
 
     public int getHeight() { return this.height; }
     public int getWidth() { return this.width; }
-    public ArrayList<Cell> getArtifacts() { return this.artifacts; }
+    public List<Cell> getArtifacts() { return this.artifacts; }
     public Cell getCell(int x, int y) { return this.board[x][y]; }
     public Player getCurrentPlayer() { return this.currentPlayer; }
-    public ArrayList<Player> getPlayers() { return this.players; }
+    public List<Player> getPlayers() { return this.players; }
 
     public void addPlayer(String name) {
         Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
@@ -98,7 +99,7 @@ public class Island extends Observable implements InterfaceIsland {
         int nbcell = 0;
         while (nbcell < 3) {
             try {
-                int indice = random.nextInt(this.cellsSafe.size());
+                int indice = RANDOM.nextInt(this.cellsSafe.size());
                 Cell cell = this.cellsSafe.get(indice);
                 if (!cell.isSubmerged()) {
                     cell.flood();
@@ -113,8 +114,8 @@ public class Island extends Observable implements InterfaceIsland {
 
         double nb = Math.random();
         if (nb < 0.2) {
-            int indice = random.nextInt(4);
-            this.currentPlayer.addKey(ELEMENTS[indice]);
+            int indice = RANDOM.nextInt(4);
+            this.currentPlayer.addKey(elements[indice]);
         }
 
         this.currentPlayer.restoreNbEvents();
@@ -207,7 +208,7 @@ public class Island extends Observable implements InterfaceIsland {
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
             if(cell.hasKey()) {
                 this.currentPlayer.addKey(cell.getKey());
-                ViewGame.updateDisplay("Vous avez récupéré une clé" + cell.getKey() + "!");
+                ViewGame.updateDisplay("Vous avez récupéré une clé " + cell.getKey() + " !");
                 cell.updateKey();
             } else {
                 double nb = Math.random();
@@ -217,8 +218,8 @@ public class Island extends Observable implements InterfaceIsland {
             }
             double nb = Math.random();
             if(nb < 0.15) {
-                int hint = random.nextInt(2);
-                this.currentPlayer.addActions(ACTIONS[hint]);
+                int hint = RANDOM.nextInt(2);
+                this.currentPlayer.addActions(actions[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");
             }
         } catch(ExceptionNbEvents exceptionNbEvents) {

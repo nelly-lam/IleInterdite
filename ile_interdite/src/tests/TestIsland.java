@@ -90,13 +90,16 @@ public class TestIsland {
         Island island2 = new Island(5, 5);
         island2.addPlayer("toto");
         island2.addPlayer("tutu");
+        assert(island2.getCurrentPlayer().isOnSameCell(island2.getPlayers().get(1)));
         island2.getCurrentPlayer().addActions(Player.SpecialAction.TELEPORTATION);
         island2.teleportation(1, 2, false);
         assert (island2.getCurrentPlayer().getAbs() == 1);
         assert (island2.getCurrentPlayer().getOrd() == 2);
         assert (island2.getPlayers().size() == 2);
-        assert (island2.getPlayers().get(1).getAbs() == 1);
-        assert (island2.getPlayers().get(1).getOrd() == 2);
+        System.out.println(island2.getPlayers().get(1).getAbs());
+        System.out.println(island2.getHeliport().getAbs());
+        assert (island2.getPlayers().get(1).getAbs() == island2.getHeliport().getAbs());
+        assert (island2.getPlayers().get(1).getOrd() == island2.getHeliport().getOrd());
     }
 
 
@@ -172,6 +175,15 @@ public class TestIsland {
         assert(island.getArtifacts().size() == 3);
     }
 
-
+    @Test
+    void removePlayer(){
+        Island island = new Island(5, 5);
+        island.addPlayer("taratata");
+        island.addPlayer("trotro");
+        island.addPlayer("trotinette");
+        island.removePlayer(island.getPlayers().get(1));
+        assert(island.getPlayers().size() == 2);
+        assert(island.getPlayers().get(0).getNext().getName().equals("trotinette"));
+    }
 
 }

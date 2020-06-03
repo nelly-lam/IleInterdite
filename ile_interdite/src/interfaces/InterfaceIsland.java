@@ -13,6 +13,13 @@ public interface InterfaceIsland{
     void addPlayer(String name);
 
     /**
+     * Retire un joueur de la liste des joueurs de Island et met a jour le joueur courant
+     * @param p
+     *      le Player a retirer
+     */
+    void removePlayer(Player p);
+
+    /**
      * Inonde trois cellules au hasard, si la cellule est normale ou inondee elle devient submergee
      */
     void risingWater();

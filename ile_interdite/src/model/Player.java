@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbEvents;
+import exceptions.ExceptionSpecialEvent;
 import views.ViewGame;
 import views.ViewNbHits;
 
@@ -15,6 +16,7 @@ public class Player {
     private int abs;
     private int ord;
     private int nbEvents;
+    private boolean specialEvent;
     private ArrayList<Cell.Element> keys;
     private ArrayList<Cell.Element> artifacts;
     private ArrayList<SpecialAction> actions;
@@ -32,6 +34,7 @@ public class Player {
         this.keys = new ArrayList<>();
         this.artifacts = new ArrayList<>();
         this.actions = new ArrayList<>();
+        this.specialEvent = true;
     }
 
     public String getName() { return this.name; }
@@ -99,11 +102,11 @@ public class Player {
         Cell cell = this.model.getCell(x, y);
         if(!cell.isSubmerged()){
             try {
-                this.addEvents();
+                this.useSpecialEvent();
                 this.abs = x;
                 this.ord = y;
-            } catch(ExceptionNbEvents exceptionNbEvents) {
-                ViewGame.updateDisplay("Vous n'avez pas assez de coups pour vous téléporter");
+            } catch(ExceptionSpecialEvent exceptionSpecialEvent) {
+                ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
             }
         } else {
             ViewGame.updateDisplay("Cette case n'est pas safe");
@@ -135,9 +138,21 @@ public class Player {
         }
     }
 
+    public void useSpecialEvent() throws ExceptionSpecialEvent {
+        if(!this.specialEvent) {
+            throw new ExceptionSpecialEvent();
+        } else {
+            this.specialEvent = false;
+        }
+    }
+
     public void restoreNbEvents() {
         this.nbEvents = 3;
         ViewNbHits.updateNbHits(this.nbEvents);
+    }
+
+    public void restoreSpecialEvent() {
+        this.specialEvent = false;
     }
 
     public boolean isDead(){

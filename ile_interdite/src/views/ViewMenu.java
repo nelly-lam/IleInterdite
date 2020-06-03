@@ -14,7 +14,7 @@ import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewMenu extends JPanel{
-    private static Island model;
+    private final Island model;
     private static JFrame menu = new JFrame();
     private static ArrayList<JLabel> players = new ArrayList<>();;
     private int coordy = 110;
@@ -26,6 +26,7 @@ public class ViewMenu extends JPanel{
         menu.setTitle("Menu");
         menu.setSize(875, 686);
         menu.setLayout(null);
+        menu.setResizable(false);
 
         JLabel title = new JLabel("L'île interdite");
         title.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 32));
@@ -101,7 +102,7 @@ public class ViewMenu extends JPanel{
         footer.setForeground(new Color(89, 97, 125));
         menu.add(footer);
 
-        ImageIcon img = new ImageIcon(new ImageIcon("./ile_interdite/src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
+        ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, CENTER);
         background.setBounds(0,0,864,648);
         menu.add(background);
@@ -124,6 +125,5 @@ public class ViewMenu extends JPanel{
 
     public static void visible(Island newModel) {
         menu.setVisible(true);
-        model = newModel;
     }
 }

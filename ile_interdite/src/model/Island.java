@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ExceptionNbEvents;
+import exceptions.ExceptionSpecialEvent;
 import views.ViewEndGame;
 import views.ViewGame;
 
@@ -117,9 +118,14 @@ public class Island extends Observable {
 
     public void sandBag(int x, int y) {
         if (this.currentPlayer.hasAction(Player.SpecialAction.SAND)) {
-            this.dry(x, y);
-            this.currentPlayer.updateAction(Player.SpecialAction.SAND);
-            ViewGame.updateDisplay("Assèchement effectué");
+            try {
+                this.currentPlayer.useSpecialEvent();
+                this.dry(x, y);
+                this.currentPlayer.updateAction(Player.SpecialAction.SAND);
+                ViewGame.updateDisplay("Assèchement effectué");
+            } catch(ExceptionSpecialEvent exceptionSpecialEvent){
+                ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
+            }
         } else {
             ViewGame.updateDisplay("Vous ne possédez pas cette action");
         }

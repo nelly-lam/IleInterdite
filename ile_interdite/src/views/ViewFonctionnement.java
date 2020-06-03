@@ -12,7 +12,7 @@ import static javax.swing.SwingConstants.CENTER;
 public class ViewFonctionnement extends JFrame {
     private final boolean fct;
 
-    public ViewFonctionnement(boolean fct) throws IOException {
+    public ViewFonctionnement(boolean fct) {
         this.fct = fct;
         this.setSize(1000, 700);
         this.setResizable(false);
@@ -21,16 +21,26 @@ public class ViewFonctionnement extends JFrame {
         JLabel background = new JLabel();
         background.setSize(1000, 700);
 
-        if (this.fct) {
+        if(this.fct) {
             this.setTitle("Instructions");
-            BufferedImage image = ImageIO.read(new File("./src/images/instructions.jpg"));
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new File("./src/images/instructions.jpg"));
+            } catch(IOException e) {
+                System.out.println("Problème lors de la lecture du fichier \"instructions\"");
+            }
             Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(dimg);
             background = new JLabel("Instructions", img, CENTER);
 
         } else {
             this.setTitle("Contrôles");
-            BufferedImage image = ImageIO.read(new File("./src/images/Controles.jpg"));
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new File("./src/images/Controles.jpg"));
+            } catch (IOException e) {
+                System.out.println("Problème lors de la lecture du fichier \"Contrôles\"");
+            }
             Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(dimg);
             background = new JLabel("Contrôles", img, CENTER);

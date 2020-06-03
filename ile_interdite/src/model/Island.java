@@ -96,6 +96,12 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public void removePlayer(Player p) {
+        if(this.currentPlayer == p) {
+            this.players.get(this.players.size()-1).setNext(p.getNext());
+            this.currentPlayer = this.players.get(1);
+        } else {
+            this.players.get(this.players.indexOf(p)-1).setNext(p.getNext());
+        }
         this.players.remove(p);
     }
 
@@ -221,7 +227,7 @@ public class Island extends Observable implements InterfaceIsland {
                 }
             }
             double nb = Math.random();
-            if(nb < 1) {
+            if(nb < 0.15) {
                 int hint = random.nextInt(2);
                 this.currentPlayer.addActions(ACTIONS[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");

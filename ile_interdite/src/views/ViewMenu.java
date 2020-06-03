@@ -1,11 +1,9 @@
 package views;
 
-import controllers.ControllerDelPlayer;
-import controllers.ControllerFonctionnement;
-import controllers.ControllerPlay;
-import controllers.ControllerPlayer;
+import controllers.*;
 import fonts.PantonFont;
 import model.Island;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +14,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ViewMenu extends JPanel{
     private final Island model;
-    private static JFrame menu = new JFrame();
+    private JFrame menu = new JFrame();
     private static ArrayList<JLabel> players = new ArrayList<>();
     private static JLabel info = new JLabel();
 
@@ -67,7 +65,7 @@ public class ViewMenu extends JPanel{
         buttonPlay.setContentAreaFilled(false);
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
-        buttonPlay.addActionListener(new ControllerPlay(this.model));
+        buttonPlay.addActionListener(new ControllerPlay(this.model, this.menu));
         menu.add(buttonPlay);
 
         info.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 10));
@@ -97,6 +95,10 @@ public class ViewMenu extends JPanel{
             menu.add(player);
         }
 
+        for(Player p : this.model.getPlayers()) {
+            addPlayer(p.getName(), this.model.getPlayers().indexOf(p));
+        }
+
         JLabel footer = new JLabel("Projet POGL - Antoine BARBANNAUD - Nelly LAM - Antonin PAOLI");
         footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
         footer.setBounds(550,588,300,80);
@@ -120,11 +122,11 @@ public class ViewMenu extends JPanel{
         players.get(joueur).setText("");
     }
 
-    public static void updateLabel(String message) {
-        info.setText(message);
+    public static void restorePlayers() {
+        players.clear();
     }
 
-    public static void hidden() {
-        menu.dispose();
+    public static void updateLabel(String message) {
+        info.setText(message);
     }
 }

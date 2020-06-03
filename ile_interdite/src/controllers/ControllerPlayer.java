@@ -15,6 +15,6 @@ public class ControllerPlayer implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewAddPlayer viewAddPlayer = new ViewAddPlayer(this.model);
+        new ViewAddPlayer(this.model);
     }
 }

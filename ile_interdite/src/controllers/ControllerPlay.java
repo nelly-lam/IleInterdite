@@ -14,17 +14,12 @@ public class ControllerPlay implements ActionListener {
         this.model = model;
     }
 
-    /**
-     * Invoked when an action occurs.
-     * @param e the event to be processed
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(!this.model.getPlayers().isEmpty()) {
             ViewMenu.hidden();
             new ViewGame(this.model);
-        }
-        else {
+        } else {
             ViewMenu.updateLabel("Vous devez ajouter au moins 1 joueur");
         }
     }

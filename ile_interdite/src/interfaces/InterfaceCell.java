@@ -3,7 +3,7 @@ package interfaces;
 public interface InterfaceCell {
 
     /**
-     * Attribut une cle a une cellule
+     * Attribue une cle a une cellule
      * @param key
      *      un Element
      */

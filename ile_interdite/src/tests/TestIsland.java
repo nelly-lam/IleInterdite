@@ -4,7 +4,46 @@ import model.Cell;
 import model.Island;
 import org.junit.jupiter.api.Test;
 
-public class TestIsland {/**
+public class TestIsland {
+    @Test
+    void addPlayer() {
+    }
+
+    @Test
+    void risingWater() {
+    }
+
+    @Test
+    void movePlayer() {
+    }
+
+    @Test
+    void sandBag() {
+    }
+
+    @Test
+    void teleportation() {
+    }
+
+    @Test
+    void giveKey() {
+    }
+
+    @Test
+    void dry() {
+    }
+
+    @Test
+    void searchKey() {
+    }
+
+    @Test
+    void recoverArtifact() {
+    }
+
+    @Test
+    void stateGame() {
+    } /**
 
     @Test
     void getCellTest() {

@@ -7,7 +7,6 @@ import views.ViewEndGame;
 import views.ViewGame;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Island extends Observable implements InterfaceIsland {
@@ -127,9 +126,9 @@ public class Island extends Observable implements InterfaceIsland {
 
         this.currentPlayer.restoreNbEvents();
         this.currentPlayer.restoreSpecialEvent();
+        this.stateGame();
         this.currentPlayer = this.currentPlayer.getNext();
         this.notifyObservers();
-        this.stateGame();
     }
 
     public void movePlayer(Player.Direction key) {
@@ -224,7 +223,7 @@ public class Island extends Observable implements InterfaceIsland {
                 }
             }
             double nb = Math.random();
-            if(nb < 0.15) {
+            if(nb < 1) {
                 int hint = RANDOM.nextInt(2);
                 this.currentPlayer.addActions(actions[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");
@@ -255,7 +254,7 @@ public class Island extends Observable implements InterfaceIsland {
     public void stateGame() {
         boolean won = true;
         boolean lost = false;
-        if(this.heliport.isSubmerged()) {
+        if(this.heliport.isSubmerged() || this.currentPlayer.isDead()) {
             lost = true;
         }
         for(Cell artifact : this.artifacts) {
@@ -264,9 +263,6 @@ public class Island extends Observable implements InterfaceIsland {
             }
         }
         for(Player p : this.players) {
-            if(p.isDead()) {
-                lost = true;
-            }
             if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 won = false;
             }

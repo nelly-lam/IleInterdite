@@ -156,28 +156,25 @@ public class Island extends Observable implements InterfaceIsland {
     public void teleportation(int x, int y, boolean leftClick) {
         if (this.currentPlayer.hasAction(Player.SpecialAction.TELEPORTATION)) {
             try {
-                if((x != this.currentPlayer.getAbs()) && (y != this.currentPlayer.getOrd())) {
-                    this.currentPlayer.useSpecialEvent();
-                    if (leftClick) {
-                        this.currentPlayer.teleportPlayer(x, y);
-                    } else {
-                        for (Player p : this.players) {
-                            if (this.currentPlayer.isOnSameCell(p)) {
-                                p.teleportPlayer(x, y);
-                            }
+                this.currentPlayer.useSpecialEvent();
+                if (leftClick) {
+                    this.currentPlayer.teleportPlayer(x, y);
+                } else {
+                    for (Player p : this.players) {
+                        if (this.currentPlayer.isOnSameCell(p)) {
+                            p.teleportPlayer(x, y);
                         }
                     }
-                    this.currentPlayer.updateAction(Player.SpecialAction.TELEPORTATION);
-                    ViewGame.updateDisplay("Téléportation effectuée");
-                } else {
-                    ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur votre propre case");
                 }
+                this.currentPlayer.updateAction(Player.SpecialAction.TELEPORTATION);
+                ViewGame.updateDisplay("Téléportation effectuée");
             } catch (ExceptionSpecialEvent exceptionSpecialEvent) {
                 ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
             }
         } else {
             ViewGame.updateDisplay("Vous ne possédez pas cette action");
         }
+        this.notifyObservers();
     }
 
     public boolean giveKey(Player p, Cell.Element element) {
@@ -228,7 +225,7 @@ public class Island extends Observable implements InterfaceIsland {
                 }
             }
             double nb = Math.random();
-            if (nb < 0.2) {
+            if (nb < 0.8) {
                 int hint = RANDOM.nextInt(2);
                 this.currentPlayer.addActions(actions[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");

@@ -114,20 +114,19 @@ public class Player implements InterfacePlayer {
         } else {
             ViewGame.updateDisplay("Cette case n'est pas safe");
         }
-        this.model.notifyObservers();
     }
 
     public boolean recoverArtifactPlayer(Cell cell) throws ExceptionNbEvents {
-        if (this.nbKeyElement(cell.getArtifact()) >= 4) {
+        if (this.nbKeyElement(cell.getArtifact()) >= 1) {
             this.addEvents();
             this.addArtifact(cell.getArtifact());
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 1; i++) {
                 this.updateKey(cell.getArtifact());
             }
             cell.updateArtifact();
             return true;
         } else {
-            ViewGame.updateDisplay("Il vous manque " + (4 - this.nbKeyElement(cell.getArtifact())) + " clés pour récupérer cet artefact");
+            ViewGame.updateDisplay("Il vous manque " + (1 - this.nbKeyElement(cell.getArtifact())) + " clés pour récupérer cet artefact");
         }
         return false;
     }

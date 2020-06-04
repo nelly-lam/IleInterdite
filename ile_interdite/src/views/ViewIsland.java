@@ -26,8 +26,8 @@ public class ViewIsland extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         super.repaint();
-        for(int i = 0; i < this.model.getWidth(); i++) {
-            for(int j = 0; j < this.model.getHeight(); j++) {
+        for (int i = 0; i < this.model.getWidth(); i++) {
+            for (int j = 0; j < this.model.getHeight(); j++) {
                 paint(g, model.getCell(i, j), i*SIZE, j*SIZE);
             }
         }
@@ -35,7 +35,7 @@ public class ViewIsland extends JPanel implements Observer {
     }
 
     private void paint(Graphics g, Cell c, int x, int y) {
-        switch(c.getState()) {
+        switch (c.getState()) {
             case NORMAL:
                 g.setColor(new Color(252, 210, 133, 192));
                 break;
@@ -49,7 +49,7 @@ public class ViewIsland extends JPanel implements Observer {
         g.fillRect(x, y, SIZE -6, SIZE -6);
 
 
-        if(c.hasArtifact()) {
+        if (c.hasArtifact()) {
             switch (c.getArtifact()) {
                 case FIRE:
                     g.setColor(new Color(195, 42, 47));

@@ -19,7 +19,7 @@ public class ControllerPlay implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(!this.model.getPlayers().isEmpty()) {
+        if (!this.model.getPlayers().isEmpty()) {
             this.menu.dispose();
             new ViewGame(this.model);
         } else {

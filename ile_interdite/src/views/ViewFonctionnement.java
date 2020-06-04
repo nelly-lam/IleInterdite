@@ -21,12 +21,12 @@ public class ViewFonctionnement extends JFrame {
         JLabel background = new JLabel();
         background.setSize(1000, 700);
 
-        if(this.fct) {
+        if (this.fct) {
             this.setTitle("Instructions");
             BufferedImage image = null;
             try {
                 image = ImageIO.read(new File("./src/images/instructions.jpg"));
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("Problème lors de la lecture du fichier \"instructions\"");
             }
             Image dimg = image.getScaledInstance(background.getWidth(), background.getHeight(), Image.SCALE_SMOOTH);

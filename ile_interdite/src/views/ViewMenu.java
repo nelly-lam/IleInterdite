@@ -21,22 +21,22 @@ public class ViewMenu extends JPanel{
     public ViewMenu(Island model) {
         this.model = model;
 
-        menu.setTitle("Menu");
-        menu.setSize(875, 686);
-        menu.setLayout(null);
-        menu.setResizable(false);
+        this.menu.setTitle("Menu");
+        this.menu.setSize(875, 686);
+        this.menu.setLayout(null);
+        this.menu.setResizable(false);
 
         JLabel title = new JLabel("L'île interdite");
         title.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 32));
         title.setBounds(20,28,200,80);
         title.setForeground(Color.WHITE);
-        menu.add(title);
+        this.menu.add(title);
 
         JLabel operation = new JLabel("Fonctionnement");
         operation.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 23));
         operation.setBounds(25,108,200,80);
         operation.setForeground(Color.WHITE);
-        menu.add(operation);
+        this.menu.add(operation);
 
         JButton instructions = new JButton("Instructions");
         instructions.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
@@ -46,7 +46,7 @@ public class ViewMenu extends JPanel{
         instructions.setBorderPainted(false);
         instructions.setFocusPainted(false);
         instructions.addActionListener(new ControllerFonctionnement());
-        menu.add(instructions);
+        this.menu.add(instructions);
 
         JButton controles = new JButton("Contrôles");
         controles.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 20));
@@ -56,7 +56,7 @@ public class ViewMenu extends JPanel{
         controles.setBorderPainted(false);
         controles.setFocusPainted(false);
         controles.addActionListener(new ControllerFonctionnement());
-        menu.add(controles);
+        this.menu.add(controles);
 
         JButton buttonPlay = new JButton("Jouer");
         buttonPlay.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 25));
@@ -66,12 +66,12 @@ public class ViewMenu extends JPanel{
         buttonPlay.setBorderPainted(false);
         buttonPlay.setFocusPainted(false);
         buttonPlay.addActionListener(new ControllerPlay(this.model, this.menu));
-        menu.add(buttonPlay);
+        this.menu.add(buttonPlay);
 
         info.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 10));
         info.setBounds(35,400,180,35);
         info.setForeground(Color.WHITE);
-        menu.add(info);
+        this.menu.add(info);
 
         JButton buttonAddPlayer = new JButton("Ajouter joueur");
         buttonAddPlayer.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 12));
@@ -81,7 +81,7 @@ public class ViewMenu extends JPanel{
         buttonAddPlayer.setBorderPainted(false);
         buttonAddPlayer.setFocusPainted(false);
         buttonAddPlayer.addActionListener(new ControllerPlayer(this.model));
-        menu.add(buttonAddPlayer);
+        this.menu.add(buttonAddPlayer);
 
         int coordy = 110;
         for(int i = 0; i < 8; i++) {
@@ -92,7 +92,7 @@ public class ViewMenu extends JPanel{
             player.addMouseListener(new ControllerDelPlayer(this.model));
             players.add(player);
             coordy += 30;
-            menu.add(player);
+            this.menu.add(player);
         }
 
         for(Player p : this.model.getPlayers()) {
@@ -103,15 +103,15 @@ public class ViewMenu extends JPanel{
         footer.setFont(PantonFont.getPantonLight().deriveFont(Font.PLAIN, 10));
         footer.setBounds(550,588,300,80);
         footer.setForeground(new Color(89, 97, 125));
-        menu.add(footer);
+        this.menu.add(footer);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/background_menu.jpg").getImage().getScaledInstance(864, 648, Image.SCALE_DEFAULT));
         JLabel background = new JLabel("", img, CENTER);
         background.setBounds(0,0,864,648);
-        menu.add(background);
+        this.menu.add(background);
 
-        menu.setVisible(true);
-        menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.menu.setVisible(true);
+        this.menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public static void addPlayer(String name, int joueur) {

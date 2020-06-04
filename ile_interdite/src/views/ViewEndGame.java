@@ -14,7 +14,6 @@ public class ViewEndGame {
     private static JDialog endGame;
 
     public ViewEndGame(boolean isWinning, Island model){
-
         JFrame result = new JFrame();
         endGame = new JDialog(result, "result", true);
         endGame.setResizable(false);
@@ -41,15 +40,13 @@ public class ViewEndGame {
         endGame.add(close);
         close.addActionListener(new ControllerEndGame(model));
 
-
-        if(isWinning) {
+        if (isWinning) {
             endGame.setTitle("Vous avez GAGNE");
             ImageIcon icon = new ImageIcon(new ImageIcon("./src/images/win.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
             JLabel background = new JLabel("", icon, CENTER);
             background.setBounds(0,0,600,300);
             endGame.add(background);
-        }
-        else {
+        } else {
             endGame.setTitle("Vous avez PERDU");
             ImageIcon icon = new ImageIcon(new ImageIcon("./src/images/loose.jpg").getImage().getScaledInstance(600,300, Image.SCALE_DEFAULT));
             JLabel background = new JLabel("", icon, CENTER);

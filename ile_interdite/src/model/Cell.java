@@ -45,7 +45,7 @@ public class Cell implements InterfaceCell {
     public void updateArtifact() { this.artifact = Element.NONE; }
 
     public void flood() {
-        switch(this.state) {
+        switch (this.state) {
             case NORMAL:
                 this.state = State.FLOODED;
                 break;
@@ -58,17 +58,18 @@ public class Cell implements InterfaceCell {
     }
 
     public boolean dryCell() {
-        if(this.isFlooded()) {
+        if (this.isFlooded()) {
             this.state = State.NORMAL;
             return true;
-        } else if(this.isSubmerged()) {
+        } else if (this.isSubmerged()) {
             ViewGame.updateDisplay("Cette case est submergée, vous ne pouvez pas l'assécher");
-        } else if(this.isNormal()) {
+        } else if (this.isNormal()) {
             ViewGame.updateDisplay("Cette case est déjà sèche, vous ne pouvez pas l'assécher");
         }
         return false;
     }
 
-    public String toString() { return x + ", " + y; }
-
+    public String toString() {
+        return x + ", " + y;
+    }
 }

@@ -19,16 +19,16 @@ public class ControllerEndGame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Rejouer")) {
+        if (e.getActionCommand().equals("Rejouer")) {
             ViewEndGame.hidden();
             frameGame.dispose();
             Island newIsland = new Island(12, 12);
-            for(Player p : this.model.getPlayers()) {
+            for (Player p : this.model.getPlayers()) {
                 newIsland.addPlayer(p.getName(), p.getRole());
             }
             ViewMenu.restorePlayers();
             new ViewMenu(newIsland);
-        } else if(e.getActionCommand().equals("Quitter")) {
+        } else if (e.getActionCommand().equals("Quitter")) {
             System.exit(0);
         }
     }

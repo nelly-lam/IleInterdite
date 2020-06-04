@@ -23,7 +23,7 @@ public class ViewArtifact extends JPanel implements Observer{
         this.images = new ArrayList<>();
 
         int coordy = 0;
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             JLabel artifact = new JLabel("", new ImageIcon(new ImageIcon("./src/images/"+fileName[i]+".png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)), CENTER);
             artifact.setBounds(0,coordy,50,50);
             artifact.setVisible(false);

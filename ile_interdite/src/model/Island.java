@@ -67,17 +67,11 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public int getHeight() { return this.height; }
-
     public int getWidth() { return this.width; }
-
     public ArrayList<Cell> getArtifacts() { return this.artifacts; }
-
     public Cell getCell(int x, int y) { return this.board[x][y]; }
-
     public Player getCurrentPlayer() { return this.currentPlayer; }
-
     public ArrayList<Player> getPlayers() { return this.players; }
-
     public Cell getHeliport() { return this.heliport; }
 
     public void addPlayer(String name, Player.Role role) {
@@ -93,13 +87,13 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public void removePlayer(Player p) {
-        if(this.currentPlayer == p) {
+        if (this.currentPlayer == p) {
             this.players.get(this.players.size()-1).setNext(p.getNext());
         } else {
             this.players.get(this.players.indexOf(p)-1).setNext(p.getNext());
         }
         this.players.remove(p);
-        if(!this.players.isEmpty()) {
+        if (!this.players.isEmpty()) {
             this.currentPlayer = this.players.get(0);
         }
     }
@@ -144,12 +138,12 @@ public class Island extends Observable implements InterfaceIsland {
         if (this.currentPlayer.hasAction(Player.SpecialAction.SAND)) {
             try {
                 Cell cell = this.getCell(x, y);
-                if(cell.dryCell()) {
+                if (cell.dryCell()) {
                     this.currentPlayer.useSpecialEvent();
                     this.currentPlayer.updateAction(Player.SpecialAction.SAND);
                     ViewGame.updateDisplay("Assèchement effectué");
                 }
-            } catch(ExceptionSpecialEvent exceptionSpecialEvent){
+            } catch (ExceptionSpecialEvent exceptionSpecialEvent){
                 ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
             }
         } else {
@@ -173,7 +167,7 @@ public class Island extends Observable implements InterfaceIsland {
                 }
                 this.currentPlayer.updateAction(Player.SpecialAction.TELEPORTATION);
                 ViewGame.updateDisplay("Téléportation effectuée");
-            } catch(ExceptionSpecialEvent exceptionSpecialEvent) {
+            } catch (ExceptionSpecialEvent exceptionSpecialEvent) {
                 ViewGame.updateDisplay("Vous ne pouvez plus utiliser d'actions spéciales pour ce tour");
             }
         } else {
@@ -183,7 +177,7 @@ public class Island extends Observable implements InterfaceIsland {
     }
 
     public boolean giveKey(Player p, Cell.Element element) {
-        if(this.currentPlayer.hasKey(element)) {
+        if (this.currentPlayer.hasKey(element)) {
             try {
                 this.currentPlayer.addEvents();
                 p.addKey(element);
@@ -201,16 +195,16 @@ public class Island extends Observable implements InterfaceIsland {
     public void dry(int x, int y) {
         try {
             Cell cell = this.getCell(x, y);
-            if(cell.dryCell()) {
-                if(this.currentPlayer.getRole() != Player.Role.ENGINEER || this.ingineerEvent) {
+            if (cell.dryCell()) {
+                if (this.currentPlayer.getRole() != Player.Role.ENGINEER || this.ingineerEvent) {
                     this.currentPlayer.addEvents();
                     this.ingineerEvent = false;
-                } else if(this.currentPlayer.getRole() == Player.Role.ENGINEER && !this.ingineerEvent) {
+                } else if (this.currentPlayer.getRole() == Player.Role.ENGINEER && !this.ingineerEvent) {
                     this.ingineerEvent = true;
                 }
             }
             notifyObservers();
-        } catch(ExceptionNbEvents exceptionNbEvents) {
+        } catch (ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour assécher cette case");
         }
     }
@@ -219,23 +213,23 @@ public class Island extends Observable implements InterfaceIsland {
         try {
             this.currentPlayer.addEvents();
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if(cell.hasKey()) {
+            if (cell.hasKey()) {
                 this.currentPlayer.addKey(cell.getKey());
                 ViewGame.updateDisplay("Vous avez récupéré une clé " + cell.getKey() + " !");
                 cell.updateKey();
             } else {
                 double nb = Math.random();
-                if(nb < 0.65) {
+                if (nb < 0.6) {
                     cell.flood();
                 }
             }
             double nb = Math.random();
-            if(nb < 1) {
+            if (nb < 0.2) {
                 int hint = RANDOM.nextInt(2);
                 this.currentPlayer.addActions(actions[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");
             }
-        } catch(ExceptionNbEvents exceptionNbEvents) {
+        } catch (ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour chercher une clé");
         }
         notifyObservers();
@@ -244,15 +238,15 @@ public class Island extends Observable implements InterfaceIsland {
     public void recoverArtifact() {
         try {
             Cell cell = this.board[this.currentPlayer.getAbs()][this.currentPlayer.getOrd()];
-            if(cell.hasArtifact()) {
-                if(this.currentPlayer.recoverArtifactPlayer(cell)) {
+            if (cell.hasArtifact()) {
+                if (this.currentPlayer.recoverArtifactPlayer(cell)) {
                     this.artifacts.remove(cell);
                     ViewGame.updateDisplay("Vous avez récupéré un artefact !");
                 }
             } else {
                 ViewGame.updateDisplay("Il n'y a pas d'artefacts sur cette case");
             }
-        } catch(ExceptionNbEvents exceptionNbEvents) {
+        } catch (ExceptionNbEvents exceptionNbEvents) {
             ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour ramassez l'artefact");
         }
         notifyObservers();
@@ -261,22 +255,22 @@ public class Island extends Observable implements InterfaceIsland {
     public void stateGame() {
         boolean won = true;
         boolean lost = false;
-        if(this.heliport.isSubmerged() || this.currentPlayer.isDead()) {
+        if (this.heliport.isSubmerged() || this.currentPlayer.isDead()) {
             lost = true;
         }
-        for(Cell artifact : this.artifacts) {
-            if(artifact.isSubmerged()) {
+        for (Cell artifact : this.artifacts) {
+            if (artifact.isSubmerged()) {
                 lost = true;
             }
         }
-        for(Player p : this.players) {
-            if(p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
+        for (Player p : this.players) {
+            if (p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
                 won = false;
             }
         }
-        if(won && this.artifacts.isEmpty()) {
+        if (won && this.artifacts.isEmpty()) {
             new ViewEndGame(true, this);
-        } else if(lost) {
+        } else if (lost) {
             new ViewEndGame(false, this);
         }
     }

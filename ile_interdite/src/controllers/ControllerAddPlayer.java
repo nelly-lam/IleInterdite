@@ -27,7 +27,7 @@ public class ControllerAddPlayer implements ActionListener {
             if (name.getText().length() <= 10) {
                 if (name.getText().length() > 0) {
                     boolean validateRole = true;
-                    for(Player p : this.model.getPlayers()) {
+                    for (Player p : this.model.getPlayers()) {
                         if (p.getRole() == this.role.getSelectedItem() && this.role.getSelectedItem() != Player.Role.NONE) {
                             validateRole = false;
                         }

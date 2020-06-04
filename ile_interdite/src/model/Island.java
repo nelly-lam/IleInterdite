@@ -173,7 +173,6 @@ public class Island extends Observable implements InterfaceIsland {
         } else {
             ViewGame.updateDisplay("Vous ne possédez pas cette action");
         }
-        this.notifyObservers();
     }
 
     public boolean giveKey(Player p, Cell.Element element) {
@@ -264,7 +263,7 @@ public class Island extends Observable implements InterfaceIsland {
             }
         }
         for (Player p : this.players) {
-            if (p.getOrd() != this.heliport.getOrd() && p.getAbs() != this.heliport.getOrd()) {
+            if ((p.getOrd() != this.heliport.getOrd()) && (p.getAbs() != this.heliport.getAbs())) {
                 won = false;
             }
         }

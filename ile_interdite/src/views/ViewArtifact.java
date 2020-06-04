@@ -38,11 +38,14 @@ public class ViewArtifact extends JPanel implements Observer{
         for (Player p : this.model.getPlayers()) {
             if (p.hasArtifact(Cell.Element.AIR)) {
                 this.images.get(0).setVisible(true);
-            } else if (p.hasArtifact(Cell.Element.WATER)) {
+            }
+            if (p.hasArtifact(Cell.Element.WATER)) {
                 this.images.get(1).setVisible(true);
-            } else if (p.hasArtifact(Cell.Element.FIRE)) {
+            }
+            if (p.hasArtifact(Cell.Element.FIRE)) {
                 this.images.get(2).setVisible(true);
-            } else if (p.hasArtifact(Cell.Element.EARTH)) {
+            }
+            if (p.hasArtifact(Cell.Element.EARTH)) {
                 this.images.get(3).setVisible(true);
             }
         }

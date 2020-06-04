@@ -7,6 +7,7 @@ import model.Player;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestIsland {
@@ -55,6 +56,15 @@ public class TestIsland {
         island.movePlayer(Player.Direction.LEFT);
         assert (island.getCurrentPlayer().getAbs() == island.getHeliport().getAbs());
         assert (island.getCurrentPlayer().getOrd() == island.getHeliport().getOrd());
+
+        Island island2 = new Island(5, 5);
+        island2.addPlayer("Plongeur", Player.Role.DIVER);
+        island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).flood();
+        island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).flood();
+        assert (island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).isSubmerged());
+        island2.getCurrentPlayer().move(Player.Direction.LEFT);
+        assert (island2.getCurrentPlayer().getAbs() != island2.getHeliport().getAbs());
+        assert (island2.getCurrentPlayer().getNbEvents() == 2);
     }
 
     @Test
@@ -100,6 +110,13 @@ public class TestIsland {
         System.out.println(island2.getHeliport().getAbs());
         assert (island2.getPlayers().get(1).getAbs() == island2.getHeliport().getAbs());
         assert (island2.getPlayers().get(1).getOrd() == island2.getHeliport().getOrd());
+
+        Island island3 = new Island(5, 5);
+        island3.addPlayer("Pilote", Player.Role.DRIVER);
+        assert (!island.getCurrentPlayer().getSpecialEvent());
+        island3.getCurrentPlayer().teleportPlayer(3, 2);
+        assert (island3.getCurrentPlayer().getAbs() == 3);
+        assert (island3.getCurrentPlayer().getOrd() == 2);
     }
 
 
@@ -107,13 +124,23 @@ public class TestIsland {
     void giveKey() {
         Island i = new Island(10, 10);
         i.addPlayer("test", Player.Role.NONE);
+        i.addPlayer("Messenger", Player.Role.MESSENGER);
         i.addPlayer("test2", Player.Role.NONE);
+        i.getPlayers().get(1).addKey(Cell.Element.FIRE);
+        i.getPlayers().get(1).teleportPlayer(6, 8);
         i.getPlayers().get(0).addKey(Cell.Element.AIR);
-        i.giveKey(i.getPlayers().get(1), Cell.Element.AIR);
+        i.giveKey(i.getPlayers().get(2), Cell.Element.AIR);
+        i.risingWater();
+        i.giveKey(i.getPlayers().get(0), Cell.Element.FIRE);
 
-        assert (i.getPlayers().get(1).hasKey(Cell.Element.AIR));
+
+        assert (i.getPlayers().get(2).hasKey(Cell.Element.AIR));
         assert (!i.getPlayers().get(0).hasKey((Cell.Element.AIR)));
-        assert (i.getPlayers().get(0).getNbEvents() == 2);
+        assert (!i.getPlayers().get(1).isOnSameCell(i.getPlayers().get(0)));
+        assert (!i.getPlayers().get(1).isOnSameCell(i.getPlayers().get(2)));
+        assert (i.getPlayers().get(0).hasKey(Cell.Element.FIRE));
+        assert (!i.getPlayers().get(1).hasKey((Cell.Element.FIRE)));
+        assert (i.getPlayers().get(1).getNbEvents() == 2);
 
         try {
             i.getPlayers().get(0).addEvents();
@@ -126,12 +153,24 @@ public class TestIsland {
 
     @Test
     void dry() {
-        Island i = new Island(10, 10);
-        i.addPlayer("test", Player.Role.NONE);
-        i.getCell(0, 0).flood();
-        assert (i.getCell(0, 0).isFlooded());
-        i.dry(0, 0);
-        assert (!i.getCell(0, 0).isFlooded());
+        Island island1 = new Island(10, 10);
+        island1.addPlayer("test", Player.Role.NONE);
+        island1.getCell(0, 0).flood();
+        assert (island1.getCell(0, 0).isFlooded());
+        island1.dry(0, 0);
+        assert (!island1.getCell(0, 0).isFlooded());
+
+        Island island2 = new Island(5, 5);
+        island2.addPlayer("Ingénieur", Player.Role.ENGINEER);
+        island2.getCell(2, 2).flood();
+        assert (island2.getCell(2, 2).isFlooded());
+        island2.getCell(3, 4).flood();
+        assert (island2.getCell(3, 4).isFlooded());
+        island2.dry(2, 2);
+        island2.dry(3, 4);
+        assert (island2.getCell(2, 2).isNormal());
+        assert (island2.getCell(3, 4).isNormal());
+        assert (island2.getCurrentPlayer().getNbEvents() == 2);
     }
 
     @Test

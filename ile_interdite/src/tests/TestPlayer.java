@@ -307,5 +307,4 @@ public class TestPlayer {
         assert(players.get(1).getName().equals("tata"));
         assert(players.get(2).getName().equals("tutu"));
     }
-
 }

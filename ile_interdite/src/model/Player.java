@@ -109,12 +109,8 @@ public class Player implements InterfacePlayer {
     public void teleportPlayer(int x, int y) {
         Cell cell = this.model.getCell(x, y);
         if (!cell.isSubmerged()){
-            if ((x != this.abs) && (y != this.ord)) {
-                this.abs = x;
-                this.ord = y;
-            } else {
-                ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur votre propre case");
-            }
+            this.abs = x;
+            this.ord = y;
         } else {
             ViewGame.updateDisplay("Cette case n'est pas safe");
         }

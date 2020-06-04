@@ -37,8 +37,12 @@ public class ControllerAction extends MouseAdapter {
             this.action = "";
         } else if (this.model.getCurrentPlayer().getRole() == Player.Role.PILOTE) {
             try {
-                this.model.getCurrentPlayer().addEvents();
-                this.model.getCurrentPlayer().teleportPlayer(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
+                if((label.getX() / ViewIsland.SIZE != this.model.getCurrentPlayer().getAbs()) && (label.getY() / ViewIsland.SIZE != this.model.getCurrentPlayer().getOrd())) {
+                    this.model.getCurrentPlayer().addEvents();
+                    this.model.getCurrentPlayer().teleportPlayer(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
+                } else {
+                    ViewGame.updateDisplay("Vous ne pouvez pas vous déplacer sur votre propre case");
+                }
             } catch (ExceptionNbEvents exceptionNbEvents) {
                 ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour vous déplacer");
             }

@@ -31,7 +31,7 @@ public class ViewAddPlayer extends JPanel {
         name.setBorder(null);
         this.addPlayer.add(name);
 
-        JComboBox liste = new JComboBox(new Player.Role[]{Player.Role.NONE, Player.Role.DRIVER, Player.Role.ENGINEER, Player.Role.DIVER, Player.Role.MESSENGER});
+        JComboBox liste = new JComboBox(new Player.Role[]{Player.Role.AUCUN, Player.Role.PILOTE, Player.Role.INGENIEUR, Player.Role.PLONGEUR, Player.Role.MESSAGER});
         liste.setBounds(350,185,100,30);
         liste.setOpaque(false);
         liste.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 12));

@@ -46,7 +46,7 @@ public class ControllerSwapKey extends MouseAdapter {
 
         for (Player p : this.model.getPlayers()) {
             if (p.getName().equals(text)) {
-                if (this.model.getCurrentPlayer().isOnSameCell(p) || this.model.getCurrentPlayer().getRole() == Player.Role.MESSENGER) {
+                if (this.model.getCurrentPlayer().isOnSameCell(p) || this.model.getCurrentPlayer().getRole() == Player.Role.MESSAGER) {
                     if (this.model.giveKey(p, this.el)) {
                         this.el = Cell.Element.NONE;
                     } else {

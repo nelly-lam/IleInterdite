@@ -20,12 +20,13 @@ public class Island extends Observable implements InterfaceIsland {
     private final Cell.Element[] elements = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
     private final Player.SpecialAction[] actions = {Player.SpecialAction.SAND, Player.SpecialAction.TELEPORTATION};
     private ArrayList<Cell> cellsSafe;
-    private boolean ingineerEvent = true;
+    private boolean ingineerEvent;
     public static final Random RANDOM = new Random();
 
     public Island(int width, int height) {
         this.width = width;
         this.height = height;
+        this.ingineerEvent = false;
         this.board = new Cell[this.width][this.height];
         this.players = new ArrayList<>();
         this.artifacts = new ArrayList<>();
@@ -125,7 +126,7 @@ public class Island extends Observable implements InterfaceIsland {
         this.currentPlayer.restoreSpecialEvent();
         this.stateGame();
         this.currentPlayer = this.currentPlayer.getNext();
-        this.ingineerEvent = true;
+        this.ingineerEvent = false;
         this.notifyObservers();
     }
 
@@ -195,11 +196,11 @@ public class Island extends Observable implements InterfaceIsland {
         try {
             Cell cell = this.getCell(x, y);
             if (cell.dryCell()) {
-                if (this.currentPlayer.getRole() != Player.Role.ENGINEER || this.ingineerEvent) {
+                if (this.currentPlayer.getRole() != Player.Role.INGENIEUR || !this.ingineerEvent) {
                     this.currentPlayer.addEvents();
-                    this.ingineerEvent = false;
-                } else if (this.currentPlayer.getRole() == Player.Role.ENGINEER && !this.ingineerEvent) {
                     this.ingineerEvent = true;
+                } else if (this.currentPlayer.getRole() == Player.Role.INGENIEUR && this.ingineerEvent) {
+                    this.ingineerEvent = false;
                 }
             }
             notifyObservers();

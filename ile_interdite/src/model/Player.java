@@ -25,7 +25,7 @@ public class Player implements InterfacePlayer {
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
     public enum SpecialAction {SAND, TELEPORTATION}
-    public enum Role {DRIVER, ENGINEER, DIVER, MESSENGER, NONE}
+    public enum Role {AUCUN, PILOTE, INGENIEUR, PLONGEUR, MESSAGER}
 
     public Player(Island model, String name, Role role, int abs, int ord){
         this.model = model;
@@ -69,7 +69,7 @@ public class Player implements InterfacePlayer {
         try {
             switch(key) {
                 case UP:
-                    if ((this.ord != 0) && (!(this.model.getCell(this.abs, this.ord-1).isSubmerged()) || this.role == Role.DIVER)) {
+                    if ((this.ord != 0) && (!(this.model.getCell(this.abs, this.ord-1).isSubmerged()) || this.role == Role.PILOTE)) {
                         this.addEvents();
                         this.ord--;
                     } else {
@@ -77,7 +77,7 @@ public class Player implements InterfacePlayer {
                     }
                     break;
                 case DOWN:
-                    if ((this.ord != this.model.getHeight()-1) && (!(this.model.getCell(this.abs, this.ord+1).isSubmerged()) || this.role == Role.DIVER)) {
+                    if ((this.ord != this.model.getHeight()-1) && (!(this.model.getCell(this.abs, this.ord+1).isSubmerged()) || this.role == Role.PILOTE)) {
                         this.addEvents();
                         this.ord++;
                     } else {
@@ -85,7 +85,7 @@ public class Player implements InterfacePlayer {
                     }
                     break;
                 case RIGHT:
-                    if ((this.abs != this.model.getWidth()-1) && (!(this.model.getCell(this.abs+1, this.ord).isSubmerged()) || this.role == Role.DIVER)) {
+                    if ((this.abs != this.model.getWidth()-1) && (!(this.model.getCell(this.abs+1, this.ord).isSubmerged()) || this.role == Role.PILOTE)) {
                         this.addEvents();
                         this.abs++;
                     } else {
@@ -93,7 +93,7 @@ public class Player implements InterfacePlayer {
                     }
                     break;
                 case LEFT:
-                    if ((this.abs != 0) && (!(this.model.getCell(this.abs-1, this.ord).isSubmerged()) || this.role == Role.DIVER)) {
+                    if ((this.abs != 0) && (!(this.model.getCell(this.abs-1, this.ord).isSubmerged()) || this.role == Role.PILOTE)) {
                         this.addEvents();
                         this.abs--;
                     } else {

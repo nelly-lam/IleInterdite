@@ -41,6 +41,7 @@ public class ViewItem extends JPanel implements Observer{
             role.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN,10));
             role.setBounds(110, coordy, 60, 30);
             role.setHorizontalAlignment(SwingConstants.RIGHT);
+            role.setForeground(new Color(89, 97, 125));
             this.add(role);
 
             JLabel color = new JLabel();

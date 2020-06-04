@@ -15,10 +15,10 @@ public class TestIsland {
     void addPlayer() {
         Island i = new Island(10, 10);
         assert (i.getPlayers().isEmpty());
-        i.addPlayer("test", Player.Role.NONE);
+        i.addPlayer("test", Player.Role.AUCUN);
         assert (i.getCurrentPlayer().getName().equals("test"));
         assert (i.getPlayers().size() == 1);
-        i.addPlayer("test2", Player.Role.NONE);
+        i.addPlayer("test2", Player.Role.AUCUN);
         assert (i.getPlayers().get(1).getName().equals("test2"));
         assert (i.getPlayers().size() == 2);
     }
@@ -26,7 +26,7 @@ public class TestIsland {
     @Test
     void risingWater() {
         Island island = new Island(5, 5);
-        island.addPlayer("test", Player.Role.NONE);
+        island.addPlayer("test", Player.Role.AUCUN);
         island.risingWater();
         int compteur = 0;
         for (int i = 0; i < island.getWidth(); i++) {
@@ -42,7 +42,7 @@ public class TestIsland {
     @Test
     void movePlayer() {
         Island island = new Island(5, 5);
-        island.addPlayer("tutu", Player.Role.NONE);
+        island.addPlayer("tutu", Player.Role.AUCUN);
         island.movePlayer(Player.Direction.UP);
         assert (island.getCurrentPlayer().getAbs() == island.getHeliport().getAbs());
         assert (island.getCurrentPlayer().getOrd() == island.getHeliport().getOrd() - 1);
@@ -58,7 +58,7 @@ public class TestIsland {
         assert (island.getCurrentPlayer().getOrd() == island.getHeliport().getOrd());
 
         Island island2 = new Island(5, 5);
-        island2.addPlayer("Plongeur", Player.Role.DIVER);
+        island2.addPlayer("Plongeur", Player.Role.PLONGEUR);
         island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).flood();
         island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).flood();
         assert (island2.getCell(island.getCurrentPlayer().getAbs()-1, island2.getCurrentPlayer().getOrd()).isSubmerged());
@@ -70,7 +70,7 @@ public class TestIsland {
     @Test
     void sandBag() {
         Island island = new Island(5, 5);
-        island.addPlayer("toto", Player.Role.NONE);
+        island.addPlayer("toto", Player.Role.AUCUN);
         island.getCurrentPlayer().addActions(Player.SpecialAction.SAND);
         island.risingWater();
         ArrayList<Cell> cellsFlooded = new ArrayList<>();
@@ -90,7 +90,7 @@ public class TestIsland {
     @Test
     void teleportation() {
         Island island = new Island(5, 5);
-        island.addPlayer("tata", Player.Role.NONE);
+        island.addPlayer("tata", Player.Role.AUCUN);
         island.getCurrentPlayer().addActions(Player.SpecialAction.TELEPORTATION);
         island.teleportation(2, 2, true);
         assert (island.getCurrentPlayer().getAbs() == 2);
@@ -98,8 +98,8 @@ public class TestIsland {
         assert (!island.getCurrentPlayer().getSpecialEvent());
 
         Island island2 = new Island(5, 5);
-        island2.addPlayer("toto", Player.Role.NONE);
-        island2.addPlayer("tutu", Player.Role.NONE);
+        island2.addPlayer("toto", Player.Role.AUCUN);
+        island2.addPlayer("tutu", Player.Role.AUCUN);
         assert(island2.getCurrentPlayer().isOnSameCell(island2.getPlayers().get(1)));
         island2.getCurrentPlayer().addActions(Player.SpecialAction.TELEPORTATION);
         island2.teleportation(1, 2, false);
@@ -112,7 +112,7 @@ public class TestIsland {
         assert (island2.getPlayers().get(1).getOrd() == island2.getHeliport().getOrd());
 
         Island island3 = new Island(5, 5);
-        island3.addPlayer("Pilote", Player.Role.DRIVER);
+        island3.addPlayer("Pilote", Player.Role.PILOTE);
         assert (!island.getCurrentPlayer().getSpecialEvent());
         island3.getCurrentPlayer().teleportPlayer(3, 2);
         assert (island3.getCurrentPlayer().getAbs() == 3);
@@ -123,9 +123,9 @@ public class TestIsland {
     @Test
     void giveKey() {
         Island i = new Island(10, 10);
-        i.addPlayer("test", Player.Role.NONE);
-        i.addPlayer("Messenger", Player.Role.MESSENGER);
-        i.addPlayer("test2", Player.Role.NONE);
+        i.addPlayer("test", Player.Role.AUCUN);
+        i.addPlayer("Messenger", Player.Role.MESSAGER);
+        i.addPlayer("test2", Player.Role.AUCUN);
         i.getPlayers().get(1).addKey(Cell.Element.FIRE);
         i.getPlayers().get(1).teleportPlayer(6, 8);
         i.getPlayers().get(0).addKey(Cell.Element.AIR);
@@ -154,14 +154,14 @@ public class TestIsland {
     @Test
     void dry() {
         Island island1 = new Island(10, 10);
-        island1.addPlayer("test", Player.Role.NONE);
+        island1.addPlayer("test", Player.Role.AUCUN);
         island1.getCell(0, 0).flood();
         assert (island1.getCell(0, 0).isFlooded());
         island1.dry(0, 0);
         assert (!island1.getCell(0, 0).isFlooded());
 
         Island island2 = new Island(5, 5);
-        island2.addPlayer("Ingénieur", Player.Role.ENGINEER);
+        island2.addPlayer("Ingénieur", Player.Role.INGENIEUR);
         island2.getCell(2, 2).flood();
         assert (island2.getCell(2, 2).isFlooded());
         island2.getCell(3, 4).flood();
@@ -176,7 +176,7 @@ public class TestIsland {
     @Test
     void searchKey() {
         Island island = new Island(5, 5);
-        island.addPlayer("tata", Player.Role.NONE);
+        island.addPlayer("tata", Player.Role.AUCUN);
         Player p = island.getPlayers().get(0);
 
         //teste le cas ou le joueur n'as plus de coups
@@ -202,7 +202,7 @@ public class TestIsland {
     @Test
     void recoverArtifact() {
         Island island = new Island(5, 5);
-        island.addPlayer("tata", Player.Role.NONE);
+        island.addPlayer("tata", Player.Role.AUCUN);
         assert(island.getArtifacts().size() == 4);
         island.getCurrentPlayer().teleportPlayer(island.getArtifacts().get(0).getAbs(),
                                                 island.getArtifacts().get(0).getOrd());
@@ -217,9 +217,9 @@ public class TestIsland {
     @Test
     void removePlayer(){
         Island island = new Island(5, 5);
-        island.addPlayer("taratata", Player.Role.NONE);
-        island.addPlayer("trotro", Player.Role.NONE);
-        island.addPlayer("trotinette", Player.Role.NONE);
+        island.addPlayer("taratata", Player.Role.AUCUN);
+        island.addPlayer("trotro", Player.Role.AUCUN);
+        island.addPlayer("trotinette", Player.Role.AUCUN);
         island.removePlayer(island.getPlayers().get(1));
         assert(island.getPlayers().size() == 2);
         assert(island.getPlayers().get(0).getNext().getName().equals("trotinette"));

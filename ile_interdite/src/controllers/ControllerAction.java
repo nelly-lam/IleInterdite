@@ -35,7 +35,7 @@ public class ControllerAction extends MouseAdapter {
         } else if (this.action.equals("Helicopter")) {
             this.model.teleportation(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE, SwingUtilities.isLeftMouseButton(e));
             this.action = "";
-        } else if (this.model.getCurrentPlayer().getRole() == Player.Role.DRIVER) {
+        } else if (this.model.getCurrentPlayer().getRole() == Player.Role.PILOTE) {
             try {
                 this.model.getCurrentPlayer().addEvents();
                 this.model.getCurrentPlayer().teleportPlayer(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);

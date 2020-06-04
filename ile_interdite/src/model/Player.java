@@ -117,16 +117,16 @@ public class Player implements InterfacePlayer {
     }
 
     public boolean recoverArtifactPlayer(Cell cell) throws ExceptionNbEvents {
-        if (this.nbKeyElement(cell.getArtifact()) >= 1) {
+        if (this.nbKeyElement(cell.getArtifact()) >= 3) {
             this.addEvents();
             this.addArtifact(cell.getArtifact());
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 3; i++) {
                 this.updateKey(cell.getArtifact());
             }
             cell.updateArtifact();
             return true;
         } else {
-            ViewGame.updateDisplay("Il vous manque " + (1 - this.nbKeyElement(cell.getArtifact())) + " clés pour récupérer cet artefact");
+            ViewGame.updateDisplay("Il vous manque " + (3 - this.nbKeyElement(cell.getArtifact())) + " clés pour récupérer cet artefact");
         }
         return false;
     }

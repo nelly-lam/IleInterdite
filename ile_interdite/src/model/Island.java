@@ -225,7 +225,7 @@ public class Island extends Observable implements InterfaceIsland {
                 }
             }
             double nb = Math.random();
-            if (nb < 0.8) {
+            if (nb < 0.3) {
                 int hint = RANDOM.nextInt(2);
                 this.currentPlayer.addActions(actions[hint]);
                 ViewGame.updateDisplay("Vous avez récupéré une action spéciale !");

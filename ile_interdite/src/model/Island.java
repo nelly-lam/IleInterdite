@@ -20,6 +20,7 @@ public class Island extends Observable implements InterfaceIsland {
     private final Cell.Element[] elements = {Cell.Element.FIRE, Cell.Element.WATER, Cell.Element.EARTH, Cell.Element.AIR};
     private final Player.SpecialAction[] actions = {Player.SpecialAction.SAND, Player.SpecialAction.TELEPORTATION};
     private ArrayList<Cell> cellsSafe;
+    private boolean ingineerEvent = true;
     public static final Random RANDOM = new Random();
 
     public Island(int width, int height) {
@@ -47,7 +48,7 @@ public class Island extends Observable implements InterfaceIsland {
             boolean isArtefactPlaced = false;
             while (!isArtefactPlaced) {
                 Cell cell = this.board[RANDOM.nextInt(this.width)][RANDOM.nextInt(this.height)];
-                if (cell.getAbs() < this.width / 4 || cell.getAbs() > (this.width / 4) * 3 && cell.getOrd() < this.height / 4 || cell.getOrd() > (this.height / 4) * 3 && !cell.isHeliport() && !cell.hasArtifact()) {
+                if (((cell.getAbs() < (this.width / 4)) || (cell.getAbs() > ((this.width / 4) * 3))) && ((cell.getOrd() < (this.height / 4)) || (cell.getOrd() > ((this.height / 4) * 3))) && !cell.isHeliport() && !cell.hasArtifact()) {
                     cell.setArtifact(elements[i]);
                     this.artifacts.add(cell);
                     isArtefactPlaced = true;
@@ -79,8 +80,8 @@ public class Island extends Observable implements InterfaceIsland {
 
     public Cell getHeliport() { return this.heliport; }
 
-    public void addPlayer(String name) {
-        Player p = new Player(this, name, this.heliport.getAbs(), this.heliport.getOrd());
+    public void addPlayer(String name, Player.Role role) {
+        Player p = new Player(this, name, role, this.heliport.getAbs(), this.heliport.getOrd());
         if (players.isEmpty()) {
             p.setNext(p);
             this.currentPlayer = p;
@@ -94,11 +95,13 @@ public class Island extends Observable implements InterfaceIsland {
     public void removePlayer(Player p) {
         if(this.currentPlayer == p) {
             this.players.get(this.players.size()-1).setNext(p.getNext());
-            this.currentPlayer = this.players.get(1);
         } else {
             this.players.get(this.players.indexOf(p)-1).setNext(p.getNext());
         }
         this.players.remove(p);
+        if(!this.players.isEmpty()) {
+            this.currentPlayer = this.players.get(0);
+        }
     }
 
     public void risingWater() {
@@ -128,6 +131,7 @@ public class Island extends Observable implements InterfaceIsland {
         this.currentPlayer.restoreSpecialEvent();
         this.stateGame();
         this.currentPlayer = this.currentPlayer.getNext();
+        this.ingineerEvent = true;
         this.notifyObservers();
     }
 
@@ -190,8 +194,6 @@ public class Island extends Observable implements InterfaceIsland {
             } catch (ExceptionNbEvents exceptionNbEvents) {
                 ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour échanger les clés'");
             }
-        } else {
-            ViewGame.updateDisplay("Vous n'avez pas de clés à donner");
         }
         return false;
     }
@@ -200,7 +202,12 @@ public class Island extends Observable implements InterfaceIsland {
         try {
             Cell cell = this.getCell(x, y);
             if(cell.dryCell()) {
-                this.currentPlayer.addEvents();
+                if(this.currentPlayer.getRole() != Player.Role.ENGINEER || this.ingineerEvent) {
+                    this.currentPlayer.addEvents();
+                    this.ingineerEvent = false;
+                } else if(this.currentPlayer.getRole() == Player.Role.ENGINEER && !this.ingineerEvent) {
+                    this.ingineerEvent = true;
+                }
             }
             notifyObservers();
         } catch(ExceptionNbEvents exceptionNbEvents) {

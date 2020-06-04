@@ -24,7 +24,7 @@ public class ControllerEndGame implements ActionListener {
             frameGame.dispose();
             Island newIsland = new Island(12, 12);
             for(Player p : this.model.getPlayers()) {
-                newIsland.addPlayer(p.getName());
+                newIsland.addPlayer(p.getName(), p.getRole());
             }
             ViewMenu.restorePlayers();
             new ViewMenu(newIsland);

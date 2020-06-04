@@ -12,6 +12,7 @@ public class Player implements InterfacePlayer {
 
     private final Island model;
     private final String name;
+    private final Role role;
     private final Color color;
     private Player next;
     private int abs;
@@ -24,10 +25,12 @@ public class Player implements InterfacePlayer {
 
     public enum Direction {UP, DOWN, RIGHT, LEFT}
     public enum SpecialAction {SAND, TELEPORTATION}
+    public enum Role {DRIVER, ENGINEER, DIVER, MESSENGER, NONE}
 
-    public Player(Island model, String name, int abs, int ord){
+    public Player(Island model, String name, Role role, int abs, int ord){
         this.model = model;
         this.name = name;
+        this.role = role;
         this.color = this.randomColor();
         this.abs = abs;
         this.ord = ord;
@@ -40,6 +43,8 @@ public class Player implements InterfacePlayer {
 
     public String getName() { return this.name; }
 
+    public Role getRole() { return this.role; }
+
     public Player getNext() { return this.next; }
 
     public Color getColor() { return this.color; }
@@ -49,6 +54,7 @@ public class Player implements InterfacePlayer {
     public int getOrd() { return this.ord; }
 
     public int getNbEvents() { return this.nbEvents; }
+
     public boolean getSpecialEvent() { return this.specialEvent; }
 
     public void setNext(Player p) { this.next = p; }
@@ -75,7 +81,7 @@ public class Player implements InterfacePlayer {
         try {
             switch(key) {
                 case UP:
-                    if((this.ord != 0) && !(this.model.getCell(this.abs, this.ord-1).isSubmerged())) {
+                    if((this.ord != 0) && (!(this.model.getCell(this.abs, this.ord-1).isSubmerged()) || this.role == Role.DIVER)) {
                         this.addEvents();
                         this.ord--;
                     } else {
@@ -83,15 +89,15 @@ public class Player implements InterfacePlayer {
                     }
                     break;
                 case DOWN:
-                    if((this.ord != this.model.getHeight()-1) && !(this.model.getCell(this.abs, this.ord+1).isSubmerged())) {
+                    if((this.ord != this.model.getHeight()-1) && (!(this.model.getCell(this.abs, this.ord+1).isSubmerged()) || this.role == Role.DIVER)) {
                         this.addEvents();
                         this.ord++;
                     } else {
-                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case inférieur");
+                        ViewGame.updateDisplay("Vous ne pouvez vous déplacer sur la case inférieure");
                     }
                     break;
                 case RIGHT:
-                    if((this.abs != this.model.getWidth()-1) && !(this.model.getCell(this.abs+1, this.ord).isSubmerged())) {
+                    if((this.abs != this.model.getWidth()-1) && (!(this.model.getCell(this.abs+1, this.ord).isSubmerged()) || this.role == Role.DIVER)) {
                         this.addEvents();
                         this.abs++;
                     } else {
@@ -99,7 +105,7 @@ public class Player implements InterfacePlayer {
                     }
                     break;
                 case LEFT:
-                    if((this.abs != 0) && !(this.model.getCell(this.abs-1, this.ord).isSubmerged())) {
+                    if((this.abs != 0) && (!(this.model.getCell(this.abs-1, this.ord).isSubmerged()) || this.role == Role.DIVER)) {
                         this.addEvents();
                         this.abs--;
                     } else {

@@ -1,6 +1,8 @@
 package controllers;
 
+import exceptions.ExceptionNbEvents;
 import model.Island;
+import model.Player;
 import views.ViewGame;
 import views.ViewIsland;
 
@@ -14,6 +16,7 @@ public class ControllerAction extends MouseAdapter {
 
     public ControllerAction(Island model) {
         this.model = model;
+        this.action = "";
     }
 
     @Override
@@ -32,6 +35,13 @@ public class ControllerAction extends MouseAdapter {
         } else if (this.action.equals("Helicopter")) {
             this.model.teleportation(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE, SwingUtilities.isLeftMouseButton(e));
             this.action = "";
+        } else if (this.model.getCurrentPlayer().getRole() == Player.Role.DRIVER) {
+            try {
+                this.model.getCurrentPlayer().addEvents();
+                this.model.getCurrentPlayer().teleportPlayer(label.getX() / ViewIsland.SIZE, label.getY() / ViewIsland.SIZE);
+            } catch (ExceptionNbEvents exceptionNbEvents) {
+                ViewGame.updateDisplay("Vous n'avez pas assez d'actions pour vous déplacer");
+            }
         } else {
             ViewGame.updateDisplay("Vous n'avez pas sélectionné d'actions");
         }

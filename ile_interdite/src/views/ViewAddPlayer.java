@@ -3,6 +3,7 @@ package views;
 import controllers.ControllerAddPlayer;
 import fonts.PantonFont;
 import model.Island;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +31,12 @@ public class ViewAddPlayer extends JPanel {
         name.setBorder(null);
         this.addPlayer.add(name);
 
+        JComboBox liste = new JComboBox(new Player.Role[]{Player.Role.NONE,    Player.Role.DRIVER, Player.Role.ENGINEER, Player.Role.DIVER, Player.Role.MESSENGER});
+        liste.setBounds(350,185,100,30);
+        liste.setOpaque(false);
+        liste.setFont(PantonFont.getPantonBold().deriveFont(Font.PLAIN, 12));
+        this.addPlayer.add(liste);
+
         JButton buttonAdd = new JButton("Ajouter");
         buttonAdd.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN, 18));
         buttonAdd.setBounds(200,185,110,30);
@@ -37,7 +44,7 @@ public class ViewAddPlayer extends JPanel {
         buttonAdd.setContentAreaFilled(false);
         buttonAdd.setBorderPainted(false);
         buttonAdd.setFocusPainted(false);
-        buttonAdd.addActionListener(new ControllerAddPlayer(this.model, name, this.addPlayer));
+        buttonAdd.addActionListener(new ControllerAddPlayer(this.model, name, this.addPlayer, liste));
         this.addPlayer.add(buttonAdd);
 
         ImageIcon img = new ImageIcon(new ImageIcon("./src/images/Ajouter_joueur.jpg").getImage().getScaledInstance(512, 268, Image.SCALE_DEFAULT));

@@ -44,10 +44,14 @@ public class ControllerSwapKey extends MouseAdapter {
                 break;
         }
 
-        for(Player p : this.model.getPlayers()) {
+        for (Player p : this.model.getPlayers()) {
             if (p.getName().equals(text)) {
-                if (this.model.getCurrentPlayer().isOnSameCell(p) && this.model.giveKey(p, this.el)) {
-                    this.el = Cell.Element.NONE;
+                if (this.model.getCurrentPlayer().isOnSameCell(p) || this.model.getCurrentPlayer().getRole() == Player.Role.MESSENGER) {
+                    if (this.model.giveKey(p, this.el)) {
+                        this.el = Cell.Element.NONE;
+                    } else {
+                        ViewGame.updateDisplay("Vous n'avez pas de clés à donner");
+                    }
                 } else {
                     ViewGame.updateDisplay("Vous n'êtes pas sur la même cellule");
                 }

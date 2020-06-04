@@ -8,9 +8,11 @@ public interface InterfaceIsland{
     /**
      * Ajoute un joueur a la liste des joueurs de Island et met a jour le joueur courant
      * @param name
-     *         le nom du Player a ajouter, sous forme de chaine de caractere
+     *         le nom du joueur a ajouter, sous forme de chaine de caractere
+     * @param role
+     *         le role du joueur a ajouter
      */
-    void addPlayer(String name);
+    void addPlayer(String name, Player.Role role);
 
     /**
      * Retire un joueur de la liste des joueurs de Island et met a jour le joueur courant

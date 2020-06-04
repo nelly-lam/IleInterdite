@@ -37,6 +37,12 @@ public class ViewItem extends JPanel implements Observer{
             this.tabName.add(name);
             this.add(name);
 
+            JLabel role = new JLabel(String.valueOf(p.getRole()));
+            role.setFont(PantonFont.getPanton().deriveFont(Font.PLAIN,10));
+            role.setBounds(110, coordy, 60, 30);
+            role.setHorizontalAlignment(SwingConstants.RIGHT);
+            this.add(role);
+
             JLabel color = new JLabel();
             this.add(color);
 

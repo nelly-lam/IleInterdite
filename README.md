@@ -13,7 +13,7 @@ l’eau suffisamment longtemps pour récupérer quatre artefacts et s’échappe
 l’inéluctable et imminente disparition des derniers vestiges de l’île.
 
 ### Déroulement du jeu
-![Alt text](https://github.com/nelly-lam/ile_interdite/src/images/ile_interdite_play2.jpg?raw=true)
+![Alt text](https://github.com/nelly-lam/IleInterdite/src/images/ile_interdite_play2.jpg?raw=true)
 L’île interdite est un jeu d’équipe visant à acquérir quatre artefacts disséminés sur l’île en récupérant les clés correspondantes 
 puis à regagner l’héliport avant qu’elle ne soit entièrement engloutie.\
 Les joueurs effectuent jusqu’à trois actions à chaque tour.\
